@@ -119,12 +119,18 @@ class CategoryController
     {
         $response = Http::get($this->baseUrl);
 
-        $html = HTMLDocument::createFromString(
-            source: $response->body(),
-            options: LIBXML_HTML_NOIMPLIED | LIBXML_NOERROR | HTML_NO_DEFAULT_NS,
-        );
-
-        $json = $html->querySelector('#__NEXT_DATA__')->innerHTML;
+        if (PHP_VERSION_ID >= 80400) {
+            $html = HTMLDocument::createFromString(
+                source: $response->body(),
+                options: LIBXML_HTML_NOIMPLIED | LIBXML_NOERROR | HTML_NO_DEFAULT_NS,
+            );
+            $json = $html->querySelector('#__NEXT_DATA__')->innerHTML;
+        } else {
+            // PHP8.3以下の場合は旧DOMDocumentを使用
+            $dom = new \DOMDocument();
+            @$dom->loadHTML($response->body());
+            $json = $dom->getElementById('__NEXT_DATA__')->nodeValue;
+        }
 
         $this->buildId = data_get(json_decode($json, true), 'buildId');
     }
