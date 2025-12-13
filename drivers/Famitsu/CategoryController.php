@@ -137,7 +137,7 @@ class CategoryController
             $json = $html->querySelector('#__NEXT_DATA__')->innerHTML;
         } else {
             // PHP8.3以下の場合は旧DOMDocumentを使用
-            $dom = new \DOMDocument();
+            $dom = new \DOMDocument;
             @$dom->loadHTML($response->body());
             $json = $dom->getElementById('__NEXT_DATA__')->nodeValue;
         }
