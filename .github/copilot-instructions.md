@@ -64,6 +64,12 @@ DB_URL=postgresql://postgres.*****:[YOUR-PASSWORD]@*****.pooler.supabase.com:654
 
 `vercel.json`の`env`からは削除。
 
+## カスタムドライバー
+
+普通のLaravelのルーティングなのでフォークしたプロジェクトでカスタムドライバーを作るには `routes/web.php` にルートを追加するだけ。
+
+composerパッケージとして作る場合はServiceProviderでルートを登録。
+
 <laravel-boost-guidelines>
 === foundation rules ===
 
