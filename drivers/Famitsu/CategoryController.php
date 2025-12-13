@@ -54,55 +54,8 @@ class CategoryController
 
         $items = $response->collect('pageProps.categoryArticleDataForPc')
             ->reject(fn ($item) => Arr::has($item, 'advertiserName'))
-            ->map(function ($item) {
-                // カテゴリーのjsonから記事リストに変換
-                $publicationDate = Str::of(data_get($item, 'publishedAt'))->take(7)->remove('-')->toString();
-
-                $categories = collect(data_get($item, 'subCategories', []))
-                    ->map(fn ($sub) => data_get($sub, 'nameJa'))
-                    ->prepend(data_get($item, 'mainCategory.nameJa'))
-                    ->toArray();
-
-                return [
-                    'title' => data_get($item, 'title'),
-                    'link' => Uri::of($this->baseUrl)->withPath('/article/'.$publicationDate.'/'.data_get($item, 'id')),
-                    'pubDate' => Carbon::parse(data_get($item, 'publishedAt'))->toRssString(),
-                    'publicationDate' => $publicationDate,
-                    'categories' => $categories,
-                    'articleId' => data_get($item, 'id'),
-                ];
-            })
-            ->map(function ($item) {
-                // 記事詳細のjsonを取得。一度取得すればいいので長くキャッシュ
-                return Cache::remember('famitsu_article_'.$this->buildId.'_'.data_get($item, 'articleId'),
-                    now()->addDays(7),
-                    function () use ($item) {
-                        $response = Http::baseUrl($this->baseUrl)
-                            ->get("/_next/data/$this->buildId/article/".data_get($item, 'publicationDate').'/'.data_get($item, 'articleId').'.json');
-
-                        if ($response->failed()) {
-                            return null;
-                        }
-
-                        if (app()->isLocal()) {
-                            Storage::put('famitsu/'.data_get($item, 'articleId').'.json', $response->body());
-                        }
-
-                        $article = $response->collect('pageProps.articleDetailData');
-
-                        $author = collect($article->get('authors'))->map(fn ($author) => data_get($author, 'name_ja'))->join(', ');
-                        if (empty($author)) {
-                            $author = data_get($article, 'user.name_ja');
-                        }
-                        $item['author'] = $author;
-
-                        $item['thumbnail'] = data_get($article, 'ogpImageUrl', data_get($article, 'thumbnailUrl'));
-
-                        $item['description'] = $this->renderJson(data_get($article, 'content'));
-
-                        return $item;
-                    });
-            })
+            ->map($this->articleList(...))
+            ->map($this->getArticle(...))
             ->values()
             ->toArray();
 
@@ -113,6 +66,63 @@ class CategoryController
             image: 'https://www.famitsu.com/res/images/headIcons/apple-touch-icon.png',
             items: $items,
         );
+    }
+
+    /**
+     * カテゴリーのjsonから記事リストに変換
+     */
+    protected function articleList(array $item): array
+    {
+        $publicationDate = Str::of(data_get($item, 'publishedAt'))->take(7)->remove('-')->toString();
+
+        $categories = collect(data_get($item, 'subCategories', []))
+            ->map(fn ($sub) => data_get($sub, 'nameJa'))
+            ->prepend(data_get($item, 'mainCategory.nameJa'))
+            ->toArray();
+
+        return [
+            'title' => data_get($item, 'title'),
+            'link' => Uri::of($this->baseUrl)->withPath('/article/'.$publicationDate.'/'.data_get($item, 'id')),
+            'pubDate' => Carbon::parse(data_get($item, 'publishedAt'))->toRssString(),
+            'publicationDate' => $publicationDate,
+            'categories' => $categories,
+            'articleId' => data_get($item, 'id'),
+        ];
+    }
+
+    /**
+     * 記事詳細のjsonを取得。一度取得すればいいので長くキャッシュ
+     */
+    protected function getArticle(array $item): ?array
+    {
+        return Cache::remember('famitsu_article_'.$this->buildId.'_'.data_get($item, 'articleId'),
+            now()->addDays(7),
+            function () use ($item) {
+                $response = Http::baseUrl($this->baseUrl)
+                    ->get("/_next/data/$this->buildId/article/".data_get($item, 'publicationDate').'/'.data_get($item, 'articleId').'.json');
+
+                if ($response->failed()) {
+                    return null;
+                }
+
+                if (app()->isLocal()) {
+                    Storage::put('famitsu/'.data_get($item, 'articleId').'.json', $response->body());
+                }
+
+                $article = $response->collect('pageProps.articleDetailData');
+
+                $author = collect($article->get('authors'))->map(fn ($author) => data_get($author, 'name_ja'))->join(', ');
+                if (empty($author)) {
+                    $author = data_get($article, 'user.name_ja');
+                }
+                $item['author'] = $author;
+
+                $item['thumbnail'] = data_get($article, 'ogpImageUrl', data_get($article, 'thumbnailUrl'));
+
+                $item['description'] = $this->renderJson(data_get($article, 'content'));
+
+                return $item;
+            });
     }
 
     protected function getBuildId(): void
@@ -135,6 +145,9 @@ class CategoryController
         $this->buildId = data_get(json_decode($json, true), 'buildId');
     }
 
+    /**
+     * contentはjson形式で格納されているのでHTMLに変換する
+     */
     protected function renderJson(array $content): string
     {
         return collect($content)
