@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Uri;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
+use Revolution\Feedable\Core\Support\AbsoluteUri;
 
 class CategoryController
 {
@@ -63,7 +65,7 @@ class CategoryController
 
                 return [
                     'title' => data_get($item, 'title'),
-                    'link' => $this->baseUrl.'/article/'.$publicationDate.'/'.data_get($item, 'id'),
+                    'link' => Uri::of($this->baseUrl)->withPath('/article/'.$publicationDate.'/'.data_get($item, 'id')),
                     'pubDate' => Carbon::parse(data_get($item, 'publishedAt'))->toRssString(),
                     'publicationDate' => $publicationDate,
                     'categories' => $categories,
@@ -151,12 +153,12 @@ class CategoryController
             'B', 'INTERVIEWEE', 'STRONG' => "<b>{$content}</b>",
             'HEAD' => "<h2>{$content}</h2>",
             'SHEAD' => "<h3>{$content}</h3>",
-            'LINK_B', 'LINK_B_TAB' => '<a href="'.data_get($c, 'url').'"><b>'.$content.'</b></a><br>',
+            'LINK_B', 'LINK_B_TAB' => '<a href="'.AbsoluteUri::resolve($this->baseUrl, data_get($c, 'url')).'"><b>'.$content.'</b></a><br>',
             'IMAGE' => '<img src="'.data_get($c, 'path').'">',
-            'NEWS' => '<a href="'.data_get($c, 'url').'">'.$content.'<br>'.data_get($c, 'description').'</a><br>',
+            'NEWS' => '<a href="'.AbsoluteUri::resolve($this->baseUrl, data_get($c, 'url')).'">'.$content.'<br>'.data_get($c, 'description').'</a><br>',
             'HTML' => $content,
             'ANNOTATION', 'CAPTION', 'ITEMIZATION', 'ITEMIZATION_NUM', 'NOLINK', 'STRING', 'TWITTER', 'YOUTUBE' => "<div><span>{$content}</span></div>",
-            'BUTTON', 'BUTTON_ANDROID', 'BUTTON_EC', 'BUTTON_IOS', 'BUTTON_TAB', 'LINK', 'LINK_TAB' => '<a href="'.data_get($c, 'url').'">'.$content.'</a><br>',
+            'BUTTON', 'BUTTON_ANDROID', 'BUTTON_EC', 'BUTTON_IOS', 'BUTTON_TAB', 'LINK', 'LINK_TAB' => '<a href="'.AbsoluteUri::resolve($this->baseUrl, data_get($c, 'url')).'">'.$content.'</a><br>',
             default => '',
         };
     }
