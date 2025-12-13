@@ -46,6 +46,22 @@ use Illuminate\Support\Uri;
 $url = Uri::of('https://example.com')->withPath('images/sample.jpg');
 ```
 
+## デプロイ
+VervelへのデプロイはDBなしなら簡単。
+
+### SupabaseのDBを使う場合
+Vercelの環境設定で
+
+- `DB_URL`: SupabaseのPostgres接続URL。VercelではDirect connectionは使えないのでTransaction poolerのURLを指定する。
+Supabaseの**Connect**画面で以下のようなURLが表示される箇所を探す。
+```
+DB_URL=postgresql://postgres.*****:[YOUR-PASSWORD]@*****.pooler.supabase.com:6543/postgres
+```
+
+- `DB_CONNECTION`: `pgsql`
+- `CACHE_STORE`: `failover`。`config/cache.php`でfailoverドライバーを`database`と`array`に設定。
+
+
 <laravel-boost-guidelines>
 === foundation rules ===
 
