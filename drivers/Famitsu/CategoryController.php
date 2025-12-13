@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Famitsu;
 
+use Revolution\Feedable\Core\Elements\FeedItem;
 use const Dom\HTML_NO_DEFAULT_NS;
 
 use Dom\HTMLDocument;
@@ -62,7 +63,7 @@ class CategoryController
         return new Rss2Response(
             title: $title,
             description: $title,
-            link: $this->baseUrl.'/category/'.$category.'/page/1',
+            link: Uri::of($this->baseUrl)->withPath('/category/'.$category.'/page/1')->value(),
             image: 'https://www.famitsu.com/res/images/headIcons/apple-touch-icon.png',
             items: $items,
         );
@@ -82,7 +83,7 @@ class CategoryController
 
         return [
             'title' => data_get($item, 'title'),
-            'link' => Uri::of($this->baseUrl)->withPath('/article/'.$publicationDate.'/'.data_get($item, 'id')),
+            'link' => Uri::of($this->baseUrl)->withPath('/article/'.$publicationDate.'/'.data_get($item, 'id'))->value(),
             'pubDate' => Carbon::parse(data_get($item, 'publishedAt'))->toRssString(),
             'publicationDate' => $publicationDate,
             'categories' => $categories,
@@ -93,7 +94,7 @@ class CategoryController
     /**
      * 記事詳細のjsonを取得。一度取得すればいいので長くキャッシュ
      */
-    protected function getArticle(array $item): ?array
+    protected function getArticle(array $item): FeedItem|array|null
     {
         return Cache::remember('famitsu_article_'.$this->buildId.'_'.data_get($item, 'articleId'),
             now()->addDays(7),
@@ -115,13 +116,21 @@ class CategoryController
                 if (empty($author)) {
                     $author = data_get($article, 'user.name_ja');
                 }
-                $item['author'] = $author;
 
-                $item['thumbnail'] = data_get($article, 'ogpImageUrl', data_get($article, 'thumbnailUrl'));
+                $thumbnail = data_get($article, 'ogpImageUrl', data_get($article, 'thumbnailUrl'));
 
-                $item['description'] = $this->renderJson(data_get($article, 'content'));
+                $description = $this->renderJson(data_get($article, 'content'));
 
-                return $item;
+                return (new FeedItem(
+                    title: data_get($item, 'title'),
+                    guid: data_get($item, 'link'),
+                    link: data_get($item, 'link'),
+                    pubDate: data_get($item, 'pubDate'),
+                    description: $description,
+                    categories: data_get($item, 'categories'),
+                ))->when(filled($author), fn (FeedItem $feedItem) => $feedItem->set('author', $author))
+                    ->when(filled($thumbnail), fn (FeedItem $feedItem) => $feedItem->tap(fn (FeedItem $item) => $item->thumbnail = $thumbnail))
+                    ->set('articleId', data_get($item, 'articleId'));
             });
     }
 

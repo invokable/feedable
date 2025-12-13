@@ -23,30 +23,30 @@
         <ttl>{{ $ttl }}</ttl>
         @foreach($items as $item)
             <item>
-                <title>{{ $item['title'] }}</title>
-                <link>{{ $item['link'] }}</link>
-                <guid isPermaLink="false">{{ $item['link'] }}</guid>
-                @if(isset($item['pubDate']) && filled($item['pubDate']))
+                <title>{{ data_get($item, 'title') }}</title>
+                <link>{{ data_get($item, 'link') }}</link>
+                <guid isPermaLink="false">{{ data_get($item, 'link') }}</guid>
+                @if(filled(data_get($item,'pubDate')))
                     <pubDate>{{ $item['pubDate'] }}</pubDate>
                 @endif
-                <description><![CDATA[{!! $item['description'] !!}]]></description>
-                @if(isset($item['content']) && filled($item['content']))
-                    <content:encoded><![CDATA[{!! $item['content'] !!}]]></content:encoded>
+                <description><![CDATA[{!! data_get($item, 'description') !!}]]></description>
+                @if(filled(data_get($item, 'content')))
+                    <content:encoded><![CDATA[{!! data_get($item, 'content') !!}]]></content:encoded>
                 @endif
-                @if(isset($item['author']) && filled($item['author']))
+                @if(filled(data_get($item, 'author')))
                     <author>{{ $item['author'] }}</author>
                 @endif
-                @if(isset($item['categories']) && is_array($item['categories']))
-                    @foreach($item['categories'] as $category)
+                @if(is_array(data_get($item, 'categories')))
+                    @foreach(data_get($item, 'categories') as $category)
                         <category>{{ $category }}</category>
                     @endforeach
                 @endif
-                @if(isset($item['thumbnail']) && filled($item['thumbnail']))
-                    <media:thumbnail>{{ $item['thumbnail'] }}</media:thumbnail>
+                @if(filled(data_get($item, 'thumbnail')))
+                    <media:thumbnail>{{ data_get($item, 'thumbnail') }}</media:thumbnail>
                 @endif
-                @if(isset($item['media']) && is_array($item['media']))
-                    @foreach($item['media'] as $media)
-                        <media:content url="{{ $media['url'] }}" type="{{ $media['type'] }}"/>
+                @if(is_array(data_get($item, 'media')))
+                    @foreach(data_get($item, 'media') as $media)
+                        <media:content url="{{ data_get($media, 'url') }}" type="{{ data_get($media, 'type') }}"/>
                     @endforeach
                 @endif
             </item>

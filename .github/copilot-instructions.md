@@ -31,7 +31,11 @@ return new Rss2Response(
 
 `ErrorResponse`はエラー時のレスポンス。htmlを返す。RSSHubでは詳細なエラー画面を表示しているので後で拡張。
 
-## AbsoluteUri
+### FeedItem
+RSS2やAtomで共通のフィードアイテムオブジェクト。ドライバーで生成したデータをこのクラスに詰めてレスポンスに渡す。
+使わなくてもいいのでbladeでは`data_get()`を使ってarrayでもオブジェクトでもいいようにしている。
+
+### AbsoluteUri
 `AbsoluteUri::resolve()`は相対URLを絶対URLに変換する。
 
 ```php
