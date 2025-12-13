@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Revolution\Feedable\Core\Elements;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Traits\Tappable;
 
@@ -73,7 +76,7 @@ class FeedItem implements Arrayable
 
     public function toArray(): array
     {
-        return collect(get_object_vars($this))
+        return Collection::make(get_object_vars($this))
             ->reject(fn ($value, $key) => $key === 'extra')
             ->merge($this->extra)
             ->toArray();

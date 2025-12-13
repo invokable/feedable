@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Famitsu;
 
-use Revolution\Feedable\Core\Elements\FeedItem;
 use const Dom\HTML_NO_DEFAULT_NS;
 
 use Dom\HTMLDocument;
@@ -17,6 +16,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Uri;
+use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
 use Revolution\Feedable\Core\Support\AbsoluteUri;
