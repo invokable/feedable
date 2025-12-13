@@ -5,7 +5,7 @@ Feedableは [RSSHub](https://github.com/DIYgod/RSSHub) を参考にしたRSSフ�
 ## 技術スタック
 - PHP 8.3+
 - Laravel 12
-- Vercelでデータベースなしでも動くようにする
+- Vercel でデータベースなしでも動くようにする。PHP8.3しか使えないので8.3に合わせる。
 
 ## ドライバー
 各サイトのフィード生成コードはドライバーとして分離。最終的には普通のLaravel用composerパッケージとしてインストールできるようにする予定。
