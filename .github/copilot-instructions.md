@@ -47,7 +47,8 @@ $url = Uri::of('https://example.com')->withPath('images/sample.jpg');
 ```
 
 ## デプロイ
-VervelへのデプロイはDBなしなら簡単。
+VervelへのデプロイはDBなしなら簡単だけどDBを使ってキャッシュが推奨。
+AWS RDSでDBを用意するかSupabaseなどの無料DBを使う。
 
 ### SupabaseのDBを使う場合
 Vercelの環境設定で
@@ -61,6 +62,7 @@ DB_URL=postgresql://postgres.*****:[YOUR-PASSWORD]@*****.pooler.supabase.com:654
 - `DB_CONNECTION`: `pgsql`
 - `CACHE_STORE`: `failover`。`config/cache.php`でfailoverドライバーを`database`と`array`に設定。
 
+`vercel.json`の`env`からは削除。
 
 <laravel-boost-guidelines>
 === foundation rules ===
