@@ -138,6 +138,7 @@ class FamitsuCategoryAction
     {
         $response = Http::get($this->baseUrl);
 
+        // TODO: VercelがPHP8.4対応したらDom\HTMLDocumentのみに変更
         if (PHP_VERSION_ID >= 80400) {
             $html = HTMLDocument::createFromString(
                 source: $response->body(),

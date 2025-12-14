@@ -30,7 +30,8 @@ class JumpPlusAction
             );
         }
 
-        $xml = new DOMDocument();
+        // TODO: VercelがPHP8.4対応したらDom\HTMLDocumentに変更
+        $xml = new DOMDocument;
         $xml->preserveWhiteSpace = false;
         $xml->formatOutput = true;
 
@@ -61,7 +62,7 @@ class JumpPlusAction
             Storage::put('jumpplus/daily.json', $response->body());
         }
 
-        $dom = new DOMDocument();
+        $dom = new DOMDocument;
         @$dom->loadHTML($response->body());
         $xpath = new DOMXPath($dom);
         $nodes = $xpath->query('//li[contains(@class, "daily-series-item")]/a');
