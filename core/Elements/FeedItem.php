@@ -20,7 +20,7 @@ class FeedItem implements Arrayable
     protected array $extra = [];
 
     public function __construct(
-        public ?string $id = null,
+        public string|int|null $id = null,
         public ?string $title = null,
         public ?string $guid = null,
         public ?string $link = null,
