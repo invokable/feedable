@@ -34,7 +34,7 @@
                     <content:encoded><![CDATA[{!! data_get($item, 'content') !!}]]></content:encoded>
                 @endif
                 @if(filled(data_get($item, 'author')))
-                    <author>{{ $item['author'] }}</author>
+                    <dc:creator>{{ $item['author'] }}</dc:creator>
                 @endif
                 @if(is_array(data_get($item, 'categories')))
                     @foreach(data_get($item, 'categories') as $category)
