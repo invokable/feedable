@@ -18,7 +18,7 @@ class FamitsuServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::prefix('famitsu')->group(function () {
-            Route::get('category/{category}', CategoryController::class)
+            Route::get('category/{category}', FamitsuCategoryAction::class)
                 ->whereIn('category', Category::cases());
         });
     }

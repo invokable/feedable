@@ -21,7 +21,7 @@ use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
 use Revolution\Feedable\Core\Support\AbsoluteUri;
 
-class CategoryController
+class FamitsuCategoryAction
 {
     protected string $baseUrl = 'https://www.famitsu.com';
 
