@@ -181,7 +181,7 @@ class CategoryController
             'B', 'INTERVIEWEE', 'STRONG' => "<b>{$content}</b>",
             'HEAD' => "<h2>{$content}</h2>",
             'SHEAD' => "<h3>{$content}</h3>",
-            'LINK_B', 'LINK_B_TAB' => '<a href="'.AbsoluteUri::resolve($this->baseUrl, data_get($c, 'url')).'"><b>'.$content.'</b></a><br>',
+            'LINK_B', 'LINK_B_TAB' => '<a href="'.AbsoluteUri::resolve($this->baseUrl, data_get($c, 'url')).'"><b>'.$content.'</b></a>',
             'IMAGE' => '<img src="'.data_get($c, 'path').'">',
             'NEWS' => '<a href="'.AbsoluteUri::resolve($this->baseUrl, data_get($c, 'url')).'">'.$content.'<br>'.data_get($c, 'description').'</a><br>',
             'HTML' => $content,
