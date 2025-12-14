@@ -20,6 +20,6 @@ class AbsoluteUri
      */
     public static function resolve(string $base, string $relative): string
     {
-        return Uri::new($base)->resolve($relative)->toString();
+        return Uri::new(trim($base))->resolve(trim($relative))->toString();
     }
 }
