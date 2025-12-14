@@ -17,7 +17,7 @@
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.9.0",
         "livewire/volt": "^1.7.0",
-        "revolution/salvager": "^2.0"
+        "revolution/salvager": "^2.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
