@@ -8,4 +8,5 @@ return [
     App\Providers\VoltServiceProvider::class,
 
     Revolution\Feedable\Famitsu\FamitsuServiceProvider::class,
+    Revolution\Feedable\JumpPlus\JumpPlusServiceProvider::class,
 ];
