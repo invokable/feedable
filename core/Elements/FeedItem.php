@@ -77,7 +77,7 @@ class FeedItem implements Arrayable
     public function toArray(): array
     {
         return Collection::make(get_object_vars($this))
-            ->reject(fn ($value, $key) => $key === 'extra')
+            ->except('extra')
             ->merge($this->extra)
             ->toArray();
     }
