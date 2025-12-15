@@ -1,4 +1,5 @@
 {
+    "$schema": "https://openapi.vercel.sh/vercel.json",
     "regions": [
         "hnd1"
     ],
@@ -38,9 +39,9 @@
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
         "APP_ROUTES_CACHE": "/tmp/routes.php",
         "APP_SERVICES_CACHE": "/tmp/services.php",
-        "CACHE_STORE": "array",
+        "CACHE_STORE": "failover",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie",
+        "SESSION_DRIVER": "database",
         "VIEW_COMPILED_PATH": "/tmp"
     }
 }
