@@ -1,4 +1,4 @@
-<x-layouts.auth.card :title="config('app.name')">
+<x-layouts.auth.simple :title="config('app.name')">
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl prose dark:prose-invert">
         <flux:heading size="xl" level="2">対応サイト</flux:heading>
 
@@ -13,4 +13,4 @@
             @endforeach
         </div>
     </div>
-</x-layouts.auth.card>
+</x-layouts.auth.simple>
