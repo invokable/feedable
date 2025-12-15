@@ -5,9 +5,13 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
+use Revolution\Feedable\Core\Driver;
 
+// 仮でサイトリストを表示
 Route::get('/', function () {
-    return view('welcome');
+    return view('drivers')->with([
+        'drivers' => Driver::collect(),
+    ]);
 })->name('home');
 
 Route::view('dashboard', 'dashboard')
@@ -25,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
         ->middleware(
             when(
                 Features::canManageTwoFactorAuthentication()
-                    && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
+                && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
                 ['password.confirm'],
                 [],
             ),
