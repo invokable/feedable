@@ -35,7 +35,7 @@
 - [ ] mixi2
 - [ ] miyuki
 - [ ] myfans
-- [ ] nhk
+- [ ] ~~nhk~~ リニューアルしてもう取得できないはず
 - [ ] nicovideo
 - [ ] nikkei
 - [ ] ntrblog
