@@ -19,7 +19,7 @@ class Driver
      * @param  string  $name  User-facing Driver Name
      * @param  string|null  $url  Target site URL
      * @param  array|null  $categories  Categories or Tags associated with the Driver
-     * @param  string|null  $description  Brief description of the Driver's functionality
+     * @param  string|null  $description  Brief description of the Driver's functionality. Markdown supported.
      * @param  string|null  $example  Example URL demonstrating Driver usage
      * @param  string|null  $lang  Language code (e.g. 'en', 'ja')
      */
