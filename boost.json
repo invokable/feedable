@@ -1,12 +1,11 @@
 {
     "agents": [
-        "copilot"
+        "copilot-cli"
     ],
     "editors": [
         "copilot-cli"
     ],
     "guidelines": [
-        "revolution/laravel-boost-copilot-cli",
-        "laravel/fortify"
+        "revolution/laravel-boost-copilot-cli"
     ]
 }

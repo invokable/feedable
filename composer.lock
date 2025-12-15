@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b3bcbd901b16d2207a42a1946a403a4",
+    "content-hash": "bfd801a7d74bfface7d4d28a1ccf8238",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -9062,16 +9062,16 @@
         },
         {
             "name": "revolution/laravel-boost-copilot-cli",
-            "version": "1.0.17",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/invokable/laravel-boost-copilot-cli.git",
-                "reference": "e8ae47ff8c2dfc495dc61cc0663c575cbd00f57e"
+                "reference": "347c394e1cd23aef1c95cd8e926a43f92fb44561"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/invokable/laravel-boost-copilot-cli/zipball/e8ae47ff8c2dfc495dc61cc0663c575cbd00f57e",
-                "reference": "e8ae47ff8c2dfc495dc61cc0663c575cbd00f57e",
+                "url": "https://api.github.com/repos/invokable/laravel-boost-copilot-cli/zipball/347c394e1cd23aef1c95cd8e926a43f92fb44561",
+                "reference": "347c394e1cd23aef1c95cd8e926a43f92fb44561",
                 "shasum": ""
             },
             "require": {
@@ -9120,7 +9120,7 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/invokable/laravel-boost-copilot-cli/tree/1.0.17"
+                "source": "https://github.com/invokable/laravel-boost-copilot-cli/tree/1.1.0"
             },
             "funding": [
                 {
@@ -9128,7 +9128,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-09T04:54:09+00:00"
+            "time": "2025-12-14T22:46:52+00:00"
         },
         {
             "name": "revolution/laravel-vercel-installer",
