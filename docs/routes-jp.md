@@ -1,5 +1,7 @@
 # RSSHub 日本語ルート一覧
 
+移植候補を探すためにリストアップ。
+
 - [ ] alicesoft
 - [ ] bangumi.online
 - [ ] bluearchive
@@ -8,7 +10,7 @@
 - [ ] dlsite
 - [ ] dorohedoro
 - [ ] eventernote
-- [ ] famitsu
+- [x] famitsu
 - [ ] fantia
 - [ ] fantube
 - [ ] furstar
