@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Revolution\Feedable\Core\Elements\FeedItem;
 
-test('FeedItem', function () {
+test('feed item', function () {
     $feed = new FeedItem(
         title: 'Sample Title',
         link: 'http://example.com/sample-link',
