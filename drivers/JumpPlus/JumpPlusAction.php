@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Revolution\Feedable\Core\Response\ErrorResponse;
+use Revolution\Feedable\Core\Support\RSS;
 
 class JumpPlusAction
 {
@@ -30,23 +31,9 @@ class JumpPlusAction
             );
         }
 
-        // TODO: VercelがPHP8.4対応したらDom\HTMLDocumentに変更
-        $xml = new DOMDocument;
-        $xml->preserveWhiteSpace = false;
-        $xml->formatOutput = true;
+        $xml = RSS::filterLinks($response->body(), $links);
 
-        $xml->loadXML($response->body());
-        $xpath = new DOMXPath($xml);
-        $items = $xpath->query('//item');
-
-        foreach ($items as $item) {
-            $linkNode = $item->getElementsByTagName('link')->item(0);
-            if ($linkNode && ! in_array($linkNode->nodeValue, $links, true)) {
-                $item->parentNode->removeChild($item);
-            }
-        }
-
-        return response($xml->saveXML())
+        return response($xml)
             ->header('Content-Type', 'application/xml; charset=UTF-8');
     }
 
