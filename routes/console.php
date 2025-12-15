@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Revolution\Feedable\JumpPlus\JumpPlusAction;
 
 Artisan::command('inspire', function () {
@@ -16,3 +18,15 @@ Artisan::command('jump', function () {
     dump($jump()->getContent());
     $this->comment('Done.');
 })->purpose('Fetch Shonen Jump Plus feed');
+
+Artisan::command('rsshub-jp', function () {
+    // RSSHubから日本語ルートを取得してmarkdownファイルを生成
+
+    $list = collect(File::glob('RSSHub/lib/routes/*/namespace.ts'))
+        ->filter(fn ($file) => str_contains(File::get($file), "lang: 'ja'"))
+        ->map(fn ($file) => Str::between($file, 'routes/', '/namespace.ts'))
+        ->map(fn ($name) => "- [ ] {$name}")
+        ->implode(PHP_EOL);
+
+    File::put('docs/routes-jp.md', "# RSSHub 日本語ルート一覧\n\n{$list}\n");
+});
