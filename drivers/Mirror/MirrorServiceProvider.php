@@ -20,7 +20,7 @@ class MirrorServiceProvider extends ServiceProvider
             id: 'mirror',
             name: 'Mirror',
             description: '入力されたRSSをそのまま返します。',
-            example: url('/mirror?rss=https://'),
+            example: '/mirror?rss=https://',
         );
     }
 

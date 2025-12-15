@@ -19,7 +19,7 @@ class FamitsuServiceProvider extends ServiceProvider
             url: 'https://famitsu.com/',
             categories: ['game'],
             description: $this->description(),
-            example: url('/famitsu/category/new-article'),
+            example: '/famitsu/category/new-article',
             lang: 'ja',
         );
     }

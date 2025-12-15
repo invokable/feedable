@@ -18,7 +18,7 @@ class JumpPlusServiceProvider extends ServiceProvider
             url: 'https://shonenjumpplus.com/',
             categories: ['manga'],
             description: '少年ジャンプ＋の最新マンガ記事を取得します。公式RSSから旧作を除いた新作のみのRSSです。',
-            example: url('/shonenjumpplus/daily'),
+            example: '/shonenjumpplus/daily',
             lang: 'ja',
         );
     }
