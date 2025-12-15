@@ -17,3 +17,19 @@ RSSHubにあるサイトでもないサイトでも構いません。
 
 サイトによっては対応が難しいので個別に判断して決めます。
 
+## Request Submissions Welcome
+
+This project is just getting started and we haven't decided which sites to support yet.
+If you have a site you'd like us to support, please send the URL via our [request form](https://forms.gle/ipEVgmS8XZutKoXH7).
+
+For reference:
+- [RSSHub Japanese sites list](./docs/routes-jp.md)
+- [RSSHub English sites list](./docs/routes-en.md)
+
+Sites can be from RSSHub or completely new ones.
+
+Some sites may be difficult to support, so we'll evaluate each request individually.
+
+## License
+
+MIT
