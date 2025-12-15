@@ -1,4 +1,4 @@
-# RSSHub 英語ルート一覧
+# RSSHub English routes
 
 - [ ] 0x80
 - [ ] 0xxx
