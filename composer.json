@@ -81,6 +81,9 @@
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ],
+        "vercel": [
+            "@php artisan migrate --force"
+        ],
         "lint": "pint",
         "boost": "php artisan boost:install --no-interaction --ansi"
     },
