@@ -34,6 +34,7 @@
     "env": {
         "APP_NAME": "Feedable",
         "APP_DEBUG": "false",
+        "APP_LOCALE": "ja",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
@@ -41,7 +42,7 @@
         "APP_SERVICES_CACHE": "/tmp/services.php",
         "CACHE_STORE": "failover",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "database",
+        "SESSION_DRIVER": "cookie",
         "VIEW_COMPILED_PATH": "/tmp"
     }
 }
