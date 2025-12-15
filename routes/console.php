@@ -30,3 +30,13 @@ Artisan::command('rsshub-jp', function () {
 
     File::put('docs/routes-jp.md', "# RSSHub 日本語ルート一覧\n\n{$list}\n");
 });
+
+Artisan::command('rsshub-en', function () {
+    $list = collect(File::glob('RSSHub/lib/routes/*/namespace.ts'))
+        ->filter(fn ($file) => str_contains(File::get($file), "lang: 'en'"))
+        ->map(fn ($file) => Str::between($file, 'routes/', '/namespace.ts'))
+        ->map(fn ($name) => "- [ ] {$name}")
+        ->implode(PHP_EOL);
+
+    File::put('docs/routes-en.md', "# RSSHub 英語ルート一覧\n\n{$list}\n");
+});
