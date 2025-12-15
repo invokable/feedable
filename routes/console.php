@@ -38,5 +38,5 @@ Artisan::command('rsshub-en', function () {
         ->map(fn ($name) => "- [ ] {$name}")
         ->implode(PHP_EOL);
 
-    File::put('docs/routes-en.md', "# RSSHub 英語ルート一覧\n\n{$list}\n");
+    File::put('docs/routes-en.md', "# RSSHub English routes\n\n{$list}\n");
 });
