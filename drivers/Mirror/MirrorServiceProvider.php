@@ -8,12 +8,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Revolution\Feedable\Core\Driver;
 
 class MirrorServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        // 本来のServiceProvider::register()はサービスコンテナの登録のみに使う。
+        // DriverはLaravelの機能を使ってないのでここでも使える。
+        Driver::register(
+            id: 'mirror',
+            name: 'Mirror',
+            description: '入力されたRSSをそのまま返します。',
+            example: url('/mirror?rss=https://'),
+        );
     }
 
     public function boot(): void
@@ -23,6 +31,8 @@ class MirrorServiceProvider extends ServiceProvider
          */
         Route::prefix('mirror')->group(function () {
             Route::get('/', function (Request $request) {
+                // info('mirror', Driver::get('mirror'));
+
                 $request->validate([
                     'rss' => 'required|url',
                 ]);
