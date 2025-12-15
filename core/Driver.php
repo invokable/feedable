@@ -12,10 +12,18 @@ class Driver
 
     /**
      * Register driver information.
-     * RSSHubのNamespaceとRouteを合わせたドライバー情報。
-     * 各ドライバーのServiceProviderで登録。
+     *
+     * Registered with each driver's Service Provider.
+     *
+     * @param  string  $id  Unique Driver ID (e.g. 'mirror', 'famitsu')
+     * @param  string  $name  User-facing Driver Name
+     * @param  string|null  $url  Target site URL
+     * @param  array|null  $categories  Categories or Tags associated with the Driver
+     * @param  string|null  $description  Brief description of the Driver's functionality
+     * @param  string|null  $example  Example URL demonstrating Driver usage
+     * @param  string|null  $lang  Language code (e.g. 'en', 'ja')
      */
-    public static function register(
+    public static function about(
         string $id,
         string $name,
         ?string $url = null,

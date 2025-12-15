@@ -16,7 +16,7 @@ class MirrorServiceProvider extends ServiceProvider
     {
         // 本来のServiceProvider::register()はサービスコンテナの登録のみに使う。
         // DriverはLaravelの機能を使ってないのでここでも使える。
-        Driver::register(
+        Driver::about(
             id: 'mirror',
             name: 'Mirror',
             description: '入力されたRSSをそのまま返します。',
