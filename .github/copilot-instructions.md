@@ -15,6 +15,16 @@ Feedableは [RSSHub](https://github.com/DIYgod/RSSHub) を参考にしたRSSフ�
 
 現在はRSSHubにある日本語のサイトを移植中。
 
+## スクレイピング
+- LaravelのHTTPクライアント: これで取得できるなら一番簡単。
+- Playwright(`revolution/salvager`): JavaScriptで動的に生成されるページを取得する場合に使う。Vercelでは動かせない。
+
+## HTML解析
+- DOMDocument: PHP8.3以下用。
+- Dom\HTMLDocument: PHP8.4以上用。
+- Symfony DomCrawler: 7.xはPHP8.1以上。8.0はPHP8.4以上。
+- PlaywrightのLocator: `playwright-php/playwright`の`$page->locator()`はquerySelectorAllに似た使い方ができる。
+
 ## Feedable Core
 `./core`はドライバーから使うヘルパー。
 
@@ -101,3 +111,5 @@ DB_URL=postgresql://postgres.*****:[YOUR-PASSWORD]@*****.pooler.supabase.com:654
 普通のLaravelのルーティングなのでフォークしたプロジェクトでカスタムドライバーを作るには `routes/web.php` にルートを追加するだけ。
 
 composerパッケージとして作る場合はServiceProviderでルートを登録。
+
+`Driver::about()`でドライバー情報を登録。対応サイトリストに表示するための情報なので登録しなくても使える。
