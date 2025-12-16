@@ -21,7 +21,7 @@ class RSS
      * @param  callable  $callback  A callback function that takes a DOMElement representing an <item>.
      * @return string The modified RSS feed XML as a string.
      */
-    public static function eachItems(string $xml, callable $callback): string
+    public static function each(string $xml, callable $callback): string
     {
         // TODO: VercelがPHP8.4対応したらDom\XMLDocumentに変更
 
@@ -49,7 +49,7 @@ class RSS
      */
     public static function filterLinks(string $xml, array $links): string
     {
-        return static::eachItems($xml, function (DOMElement $item) use ($links) {
+        return static::each($xml, function (DOMElement $item) use ($links) {
             $linkNode = $item->getElementsByTagName('link')->item(0);
             if ($linkNode && ! in_array($linkNode->nodeValue, $links, true)) {
                 $item->parentNode->removeChild($item);
@@ -66,7 +66,7 @@ class RSS
      */
     public static function rejectLinks(string $xml, array $links): string
     {
-        return static::eachItems($xml, function (DOMElement $item) use ($links) {
+        return static::each($xml, function (DOMElement $item) use ($links) {
             $linkNode = $item->getElementsByTagName('link')->item(0);
             if ($linkNode && in_array($linkNode->nodeValue, $links, true)) {
                 $item->parentNode->removeChild($item);

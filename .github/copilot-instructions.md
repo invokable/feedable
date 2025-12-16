@@ -80,7 +80,7 @@ use Revolution\Feedable\Core\Support\RSS;
 use DOMElement;
 
 // NGワードで除外したり
-$xml = RSS::eachItems($rss, function (DOMElement $item) {
+$xml = RSS::each($rss, function (DOMElement $item) {
     $title = $item->getElementsByTagName('title')->item(0);
     if ($title && str_contains($title->textContent, 'NGワード')) {
         $item->parentNode->removeChild($item);

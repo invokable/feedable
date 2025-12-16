@@ -25,8 +25,8 @@ $xml = <<<'XML'
 </rss>
 XML;
 
-test('RSS eachItems', function () use ($xml) {
-    $result = RSS::eachItems($xml, function (DOMElement $item) {
+test('RSS each items', function () use ($xml) {
+    $result = RSS::each($xml, function (DOMElement $item) {
         $titleNode = $item->getElementsByTagName('title')->item(0);
         if ($titleNode) {
             $titleNode->nodeValue = 'Modified '.$titleNode->nodeValue;
