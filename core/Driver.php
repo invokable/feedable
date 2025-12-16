@@ -22,6 +22,7 @@ class Driver
      * @param  string|null  $description  Brief description of the Driver's functionality. Markdown supported.
      * @param  string|null  $example  Example URL demonstrating Driver usage
      * @param  string|null  $lang  Language code (e.g. 'en', 'ja')
+     * @param  bool  $browser  Indicates whether the driver requires a browser environment such as Playwright.
      */
     public static function about(
         string $id,
@@ -31,6 +32,7 @@ class Driver
         ?string $description = null,
         ?string $example = null,
         ?string $lang = null,
+        bool $browser = false,
     ): void {
         static::$drivers[$id] = compact(
             'name',
@@ -39,6 +41,7 @@ class Driver
             'description',
             'example',
             'lang',
+            'browser',
         );
     }
 
