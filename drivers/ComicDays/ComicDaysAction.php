@@ -1,0 +1,87 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Revolution\Feedable\ComicDays;
+
+use DOMDocument;
+use DOMXPath;
+use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use Revolution\Feedable\Core\Elements\FeedItem;
+use Revolution\Feedable\Core\Response\ErrorResponse;
+use Revolution\Feedable\Core\Response\Rss2Response;
+
+class ComicDaysAction
+{
+    protected string $baseUrl = 'https://comic-days.com/';
+
+    public function __invoke(): Responsable|Response
+    {
+        // 公式RSSには連載作の最新話しか含まれていない。
+        // 新しく無料で読めるようになった話数は取得できない。
+        // 公式RSSから減らす方法は使えないのでトップページから取得する。
+
+        // <section id="days-original">がオリジナルを含む無料連載のエリア
+        // その中に曜日毎のスライドがある。htmlは今日の曜日が先頭に来る。
+        // <div id="days-original-sunday">
+        // <div id="days-original-monday">
+        // 今日の更新分だけのRSSにするので「days-original-」を含む最初の要素を取得。
+        // 曜日毎の中の<a class="gtm-top-days-original-item">が作品の情報
+        // a.hrefからlink、img.srcからthumbnail, h3のtitle、pのdescriptionを取得。
+        // pubDateは更新時間が昼12時固定なので今日の日付＋12時にする
+
+        $response = Http::get($this->baseUrl);
+
+        if ($response->failed()) {
+            return new ErrorResponse(
+                error: 'Unable to fetch html',
+            );
+        }
+
+        if (app()->isLocal()) {
+            Storage::put('comic-days/home.html', $response->body());
+        }
+
+        $dom = new DOMDocument;
+        @$dom->loadHTML($response->body());
+        $xpath = new DOMXPath($dom);
+        $sectionNodes = $xpath->query('//section[@id="days-original"]//div[starts-with(@id, "days-original-")]');
+
+        if ($sectionNodes->length === 0) {
+            return new ErrorResponse(
+                error: 'Unable to find original section',
+            );
+        }
+
+        $firstSection = $sectionNodes->item(0);
+        $linkNodes = $xpath->query('.//a[@class="gtm-top-days-original-item"]', $firstSection);
+        $items = [];
+        $today = now()->setTime(12, 0, 0)->toRssString();
+
+        foreach ($linkNodes as $linkNode) {
+            $link = $linkNode->getAttribute('href');
+            $titleNode = $xpath->query('.//h3', $linkNode)->item(0);
+            $descriptionNode = $xpath->query('.//p', $linkNode)->item(0);
+            $imgNode = $xpath->query('.//img', $linkNode)->item(0);
+            $thumbnail = $imgNode?->getAttribute('src');
+
+            $items[] = new FeedItem(
+                title: $titleNode ? trim($titleNode->textContent) : 'No Title',
+                link: $link,
+                pubDate: $today,
+                description: $descriptionNode ? trim($descriptionNode->textContent) : '',
+                thumbnail: $thumbnail,
+            );
+        }
+
+        return new Rss2Response(
+            title: 'コミックDAYS - 今日の無料連載',
+            description: 'コミックDAYSの今日更新された無料連載の最新話一覧',
+            link: $this->baseUrl,
+            items: $items,
+        );
+    }
+}

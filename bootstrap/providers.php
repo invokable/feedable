@@ -10,4 +10,5 @@ return [
     Revolution\Feedable\Famitsu\FamitsuServiceProvider::class,
     Revolution\Feedable\JumpPlus\JumpPlusServiceProvider::class,
     Revolution\Feedable\Mirror\MirrorServiceProvider::class,
+    Revolution\Feedable\ComicDays\ComicDaysServiceProvider::class,
 ];
