@@ -6,7 +6,7 @@
             @foreach($drivers as $driver)
                 <div class="mb-3">
                     <flux:heading size="lg">{{ data_get($driver, 'name') }}</flux:heading>
-                    <flux:text>{!! Str::markdown(data_get($driver, 'description'), ['html_input' => 'strip', 'allow_unsafe_links' => false]) !!}</flux:text>
+                    <flux:text>{!! Str::markdown(data_get($driver, 'description', ''), ['html_input' => 'strip', 'allow_unsafe_links' => false]) !!}</flux:text>
 
                     <flux:input value="{{ url(data_get($driver, 'example')) }}" readonly copyable/>
                 </div>
