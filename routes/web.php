@@ -10,7 +10,7 @@ use Revolution\Feedable\Core\Driver;
 // 仮でサイトリストを表示
 Route::get('/', function () {
     return view('drivers')->with([
-        'drivers' => Driver::collect()->sortByDesc('name'),
+        'drivers' => Driver::collect()->sortKeys(),
     ]);
 })->name('home');
 
