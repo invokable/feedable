@@ -46,7 +46,7 @@ class JumpPlusAction
         }
 
         if (app()->isLocal()) {
-            Storage::put('jumpplus/daily.json', $response->body());
+            Storage::put('jumpplus/daily.html', $response->body());
         }
 
         $dom = new DOMDocument;
