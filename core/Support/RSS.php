@@ -10,10 +10,11 @@ use DOMXPath;
 
 /**
  * Manipulate helpers for RSS feeds.
- * Use other helper for Atom.
  */
 class RSS
 {
+    protected const string ITEM_XPATH = '//item';
+
     /**
      * Iterate over each <item> in the RSS feed XML and apply a callback function.
      *
@@ -31,7 +32,7 @@ class RSS
 
         $dom->loadXML($xml);
         $xpath = new DOMXPath($dom);
-        $items = $xpath->query('//item');
+        $items = $xpath->query(self::ITEM_XPATH);
 
         foreach ($items as $item) {
             $callback($item);

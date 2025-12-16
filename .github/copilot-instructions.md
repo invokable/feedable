@@ -90,6 +90,8 @@ $xml = RSS::each($rss, function (DOMElement $item) {
 });
 ```
 
+ほとんど同じ`Atom`クラスもある。
+
 ## デプロイ
 VervelへのデプロイはDBなしなら簡単だけどDBを使ってキャッシュが推奨。
 AWS RDSでDBを用意するかSupabaseなどの無料DBを使う。
