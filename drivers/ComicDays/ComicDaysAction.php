@@ -19,19 +19,19 @@ class ComicDaysAction
 
     public function __invoke(): Responsable
     {
-        // 公式RSSには連載作の最新話しか含まれていない。
-        // 新しく無料で読めるようになった話数は取得できない。
-        // 公式RSSから減らす方法は使えないのでトップページから取得する。
-
-        // <section id="days-original">がオリジナルを含む無料連載のエリア
-        // その中に曜日毎のスライドがある。htmlは今日の曜日が先頭に来る。
-        // <div id="days-original-sunday">
-        // <div id="days-original-monday">
-        // 今日の更新分だけのRSSにするので「days-original-」を含む最初の要素を取得。
-        // 曜日毎の中の<a class="gtm-top-days-original-item">が作品の情報
-        // a.hrefからlink、img.srcからthumbnail, h3のtitle、pのdescriptionを取得。
-        // pubDateは更新時間が昼12時固定なので今日の日付＋12時にする
-
+        /** 公式RSSには連載作の最新話しか含まれていない。
+         * 新しく無料で読めるようになった話数は取得できない。
+         * 公式RSSから減らす方法は使えないのでトップページから取得する。
+         *
+         * <section id="days-original">がオリジナルを含む無料連載のエリア
+         * その中に曜日毎のスライドがある。htmlは今日の曜日が先頭に来る。
+         * <div id="days-original-sunday">
+         * <div id="days-original-monday">
+         * 今日の更新分だけのRSSにするので「days-original-」を含む最初の要素を取得。
+         * 曜日毎の中の<a class="gtm-top-days-original-item">が作品の情報
+         * a.hrefからlink、img.srcからthumbnail, h3のtitle、pのdescriptionを取得。
+         * pubDateは更新時間が昼12時固定なので今日の日付＋12時にする
+         */
         $response = Http::get($this->baseUrl);
 
         if ($response->failed()) {
