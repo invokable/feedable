@@ -7,7 +7,7 @@ RSSフィードを提供してないサイトからRSSを作りフィードリ�
 ## リクエスト募集中
 
 このプロジェクトは始まったばかりでどのサイトに対応するかも決まってない段階です。
-対応して欲しいサイトがあれば [リクエストフォーム](https://forms.gle/ipEVgmS8XZutKoXH7) からURLを送ってください。
+対応して欲しいサイトがあれば [リクエストフォーム](https://forms.gle/ipEVgmS8XZutKoXH7) か [Discussion](https://github.com/orgs/invokable/discussions/25) からURLを送ってください。
 
 参考として
 - [RSSHubの日本語サイトリスト](./docs/routes-jp.md)
@@ -20,7 +20,7 @@ RSSHubにあるサイトでもないサイトでも構いません。
 ## Request Submissions Welcome
 
 This project is just getting started and we haven't decided which sites to support yet.
-If you have a site you'd like us to support, please send the URL via our [request form](https://forms.gle/ipEVgmS8XZutKoXH7).
+If you have a site you'd like us to support, please send the URL via our [request form](https://forms.gle/ipEVgmS8XZutKoXH7) or [discussion](https://github.com/orgs/invokable/discussions/25).
 
 For reference:
 - [RSSHub Japanese sites list](./docs/routes-jp.md)
