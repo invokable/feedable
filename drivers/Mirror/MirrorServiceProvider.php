@@ -18,7 +18,7 @@ class MirrorServiceProvider extends ServiceProvider
         // DriverはLaravelの機能を使ってないのでここでも使える。
         Driver::about(
             id: 'mirror',
-            name: 'Mirror',
+            name: 'ミラー',
             description: '入力されたRSSをそのまま返します。',
             example: '/mirror?rss=https://',
         );
