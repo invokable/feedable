@@ -30,6 +30,24 @@ Sites can be from RSSHub or completely new ones.
 
 Some sites may be difficult to support, so we'll evaluate each request individually.
 
+## 使い方
+
+### サンプルサイトを使う
+
+現状は対応サイトが少ないのでサンプルサイトを使って試すだけで十分です。
+
+https://feedable-rss.vercel.app/
+
+### フォークしてVercelにデプロイする
+
+無料プラン・データベースなしでも動かせます。無料データベースでキャッシュ対応にもできます。  
+これが推奨する普通の使い方。
+
+### ドライバーを追加してLaravel Forgeや他のサーバーにデプロイする
+
+Playwrightが必要になるような特殊なドライバーを使いたい場合はLaravel Forgeなどで普通のサーバーにデプロイしてください。  
+ドライバーは単なるLaravelのルーティングなのフォークしたプロジェクトに自由に追加できます。
+
 ## License
 
 MIT
