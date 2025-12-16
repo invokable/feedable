@@ -19,7 +19,7 @@ class RSS
      * Iterate over each <item> in the RSS feed XML and apply a callback function.
      *
      * @param  string  $xml  The RSS feed XML as a string.
-     * @param  callable  $callback  A callback function that takes a DOMElement representing an <item>.
+     * @param  callable(DOMElement $item): void  $callback  A callback function that takes a DOMElement representing an <item>.
      * @return string The modified RSS feed XML as a string.
      */
     public static function each(string $xml, callable $callback): string
