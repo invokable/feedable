@@ -11,4 +11,5 @@ return [
     Revolution\Feedable\JumpPlus\JumpPlusServiceProvider::class,
     Revolution\Feedable\Mirror\MirrorServiceProvider::class,
     Revolution\Feedable\ComicDays\ComicDaysServiceProvider::class,
+    Revolution\Feedable\Nintendo\NintendoServiceProvider::class,
 ];
