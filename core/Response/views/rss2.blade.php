@@ -27,14 +27,14 @@
                 <link>{{ data_get($item, 'link') }}</link>
                 <guid isPermaLink="false">{{ data_get($item, 'link') }}</guid>
                 @if(filled(data_get($item,'pubDate')))
-                    <pubDate>{{ $item['pubDate'] }}</pubDate>
+                    <pubDate>{{ data_get($item,'pubDate') }}</pubDate>
                 @endif
                 <description><![CDATA[{!! data_get($item, 'description') !!}]]></description>
                 @if(filled(data_get($item, 'content')))
                     <content:encoded><![CDATA[{!! data_get($item, 'content') !!}]]></content:encoded>
                 @endif
                 @if(filled(data_get($item, 'author')))
-                    <dc:creator>{{ $item['author'] }}</dc:creator>
+                    <dc:creator>{{ data_get($item, 'author') }}</dc:creator>
                 @endif
                 @if(is_array(data_get($item, 'categories')))
                     @foreach(data_get($item, 'categories') as $category)
