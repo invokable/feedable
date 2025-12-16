@@ -18,7 +18,7 @@ class AbsoluteUri
      * // Result: 'http://example.com/other-path/resource'
      * ```
      */
-    public static function resolve(string $base, ?string $relative = null): string
+    public static function resolve(string $base, ?string $relative): string
     {
         return Uri::new(trim($base))->resolve(trim($relative ?? ''))->toString();
     }
