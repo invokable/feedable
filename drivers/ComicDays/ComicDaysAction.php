@@ -7,7 +7,6 @@ namespace Revolution\Feedable\ComicDays;
 use DOMDocument;
 use DOMXPath;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Revolution\Feedable\Core\Elements\FeedItem;
@@ -18,7 +17,7 @@ class ComicDaysAction
 {
     protected string $baseUrl = 'https://comic-days.com/';
 
-    public function __invoke(): Responsable|Response
+    public function __invoke(): Responsable
     {
         // 公式RSSには連載作の最新話しか含まれていない。
         // 新しく無料で読めるようになった話数は取得できない。
