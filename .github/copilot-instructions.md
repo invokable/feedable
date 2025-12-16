@@ -37,7 +37,10 @@ return new Rss2Response(
 RSS2やAtomで共通のフィードアイテムオブジェクト。ドライバーで生成したデータをこのクラスに詰めてレスポンスに渡す。
 使わなくてもいいのでbladeでは`data_get()`を使ってarrayでもオブジェクトでもいいようにしている。
 
-### AbsoluteUri
+### Support
+Supportはstaticメソッドのみで構成されたヘルパー。
+
+#### AbsoluteUri
 `AbsoluteUri::resolve()`は相対URLを絶対URLに変換する。
 
 ```php
@@ -50,6 +53,29 @@ URLの組み立てにはなるべくLaravelの`Illuminate\Support\Uri`を使う�
 ```php
 use Illuminate\Support\Uri;
 $url = Uri::of('https://example.com')->withPath('images/sample.jpg');
+```
+
+#### RSS
+RSS操作ヘルパー。RSSは提供されているけど余計なitemが多い場合にフィルタリングしたり、タイトルや説明を修正したりするのに使う。
+
+```php
+use Revolution\Feedable\Core\Support\RSS;
+
+// itemが多い場合に別のページから解析した$linksのみに絞る
+$xml = RSS::filterLinks($rss, $links);
+```
+
+```php
+use Revolution\Feedable\Core\Support\RSS;
+use DOMElement;
+
+// NGワードで除外したり
+$xml = RSS::eachItems($rss, function (DOMElement $item) {
+    $title = $item->getElementsByTagName('title')->item(0);
+    if ($title && str_contains($title->textContent, 'NGワード')) {
+        $item->parentNode->removeChild($item);
+    }
+});
 ```
 
 ## デプロイ
