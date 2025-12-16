@@ -41,6 +41,8 @@ return new Rss2Response(
 );
 ```
 
+RSSかAtomかに拘る必要もなくなってるので基本的には`Rss2Response`を使う。
+
 `ErrorResponse`はエラー時のレスポンス。htmlを返す。RSSHubでは詳細なエラー画面を表示しているので後で拡張。
 
 ### FeedItem
