@@ -19,7 +19,8 @@ class ComicDaysAction
 
     public function __invoke(): Responsable
     {
-        /** 公式RSSには連載作の最新話しか含まれていない。
+        /**
+         * 公式RSSには連載作の最新話しか含まれていない。
          * 新しく無料で読めるようになった話数は取得できない。
          * 公式RSSから減らす方法は使えないのでトップページから取得する。
          *

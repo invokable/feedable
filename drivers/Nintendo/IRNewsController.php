@@ -22,7 +22,8 @@ class IRNewsController extends Controller
 
     public function __invoke(): Responsable
     {
-        /** xmlを元にJavaScriptで動的に生成されているのでxmlを直接取得してRSSに変換。
+        /**
+         * xmlを元にJavaScriptで動的に生成されているのでxmlを直接取得してRSSに変換。
          *
          * RSSとは違う独自形式。<item>が並ぶ形式。
          * <?xml version="1.0" encoding="UTF-8" standalone="yes"?>

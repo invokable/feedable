@@ -26,6 +26,7 @@ class NintendoServiceProvider extends ServiceProvider
             id: 'nintendo-ir-news',
             name: '任天堂 IRニュース',
             url: 'https://www.nintendo.co.jp/ir/news/index.html',
+            categories: ['game'],
             description: '任天堂のIRニュース',
             example: '/nintendo/ir/news',
             lang: 'ja',

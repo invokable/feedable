@@ -31,7 +31,9 @@ class FamitsuServiceProvider extends ServiceProvider
             ->implode(PHP_EOL);
 
         return <<<MARKDOWN
-以下のカテゴリーから記事を取得できます。
+RSSHubから移植。
+
+以下のカテゴリーを指定できます。
 {$cat}
 MARKDOWN;
     }
