@@ -18,6 +18,7 @@ Feedableは [RSSHub](https://github.com/DIYgod/RSSHub) を参考にしたRSSフ�
 ## スクレイピング
 - LaravelのHTTPクライアント: これで取得できるなら一番簡単。
 - Playwright(`revolution/salvager`): JavaScriptで動的に生成されるページを取得する場合に使う。Vercelでは動かせない。
+- Cloudflare Browser Rendering: Vercelでも使えるはず。個別にAPIトークンの設定が必要。無料プランでは1日10分まで。
 
 ## HTML解析
 - DOMDocument: PHP8.3以下用。
