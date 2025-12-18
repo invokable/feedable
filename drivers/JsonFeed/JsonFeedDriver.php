@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 
@@ -85,6 +86,8 @@ class JsonFeedDriver implements FeedableDriver
 
     protected function rdf(string $body): string
     {
+        $body = $this->convertEncoding($body);
+
         $doc = new DOMDocument;
         $doc->loadXML($body);
 
@@ -132,6 +135,8 @@ class JsonFeedDriver implements FeedableDriver
 
     protected function rss2(string $body): string
     {
+        $body = $this->convertEncoding($body);
+
         $doc = new DOMDocument;
         $doc->loadXML($body);
 
@@ -299,5 +304,33 @@ class JsonFeedDriver implements FeedableDriver
         }
 
         return date('c', $timestamp);
+    }
+
+    /**
+     * Convert EUC-JP or Shift-JIS encoding to UTF-8.
+     */
+    protected function convertEncoding(string $body): string
+    {
+        // atom以降はUTF-8が前提なのでRSSのみに使用
+
+        // PHP8.4以降ならxml内のencodingを見て自動的に変換されるけど
+        // 8.3でlibxml2のiconvサポートが正しく設定されてない環境=vercel-phpなどではEUC-JPな場合にエラーが出て動かない。
+        // 8.4でのDom\XMLDocument導入と同時に従来のDOMDocumentも改善が入っている。
+        // どの場合でも確実な解決方法は事前に文字コードを変換。
+
+        // encoding="EUC-JP"な場合
+        // まだ使われているサイトがあるので対応
+        if (Str::startsWith(trim($body), '<?xml version="1.0" encoding="EUC-JP"?>')) {
+            $body = mb_convert_encoding($body, 'UTF-8', 'EUC-JP');
+            $body = Str::replaceFirst('encoding="EUC-JP"?>', 'encoding="UTF-8"?>', $body);
+        }
+
+        // encoding="Shift-JIS"な場合
+        if (Str::startsWith(trim($body), '<?xml version="1.0" encoding="Shift-JIS"?>')) {
+            $body = mb_convert_encoding($body, 'UTF-8', 'Shift-JIS');
+            $body = Str::replaceFirst('encoding="Shift-JIS"?>', 'encoding="UTF-8"?>', $body);
+        }
+
+        return $body;
     }
 }
