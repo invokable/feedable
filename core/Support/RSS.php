@@ -9,7 +9,7 @@ use DOMElement;
 use DOMXPath;
 
 /**
- * Manipulate helpers for RSS feeds.
+ * RSS manipulation helpers.
  */
 class RSS
 {
