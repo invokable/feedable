@@ -47,7 +47,7 @@ readonly class JsonFeedResponse implements Responsable
             'items' => $this->items(),
         ];
 
-        return response(json_encode($json, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT))
+        return response(json_encode($json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT))
             ->header('Content-Type', 'application/feed+json; charset=UTF-8');
     }
 
