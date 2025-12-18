@@ -112,9 +112,6 @@ DB_URL=postgresql://postgres.*****:[YOUR-PASSWORD]@*****.pooler.supabase.com:654
 ```
 
 - `DB_CONNECTION`: `pgsql`
-- `CACHE_STORE`: `failover`。`config/cache.php`でfailoverドライバーを`database`と`array`に設定。
-
-`vercel.json`の`env`からは削除。
 
 ## カスタムドライバー
 
