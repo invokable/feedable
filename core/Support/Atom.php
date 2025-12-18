@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Revolution\Feedable\Core\Support;
 
 /**
- * Manipulate helpers for Atom feeds.
+ * Atom manipulation helpers.
  */
 class Atom extends RSS
 {
