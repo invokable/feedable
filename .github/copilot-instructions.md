@@ -129,3 +129,22 @@ DB_URL=postgresql://postgres.*****:[YOUR-PASSWORD]@*****.pooler.supabase.com:654
 composerパッケージとして作る場合はServiceProviderでルートを登録。
 
 `Driver::about()`でドライバー情報を登録。対応サイトリストに表示するための情報なので登録しなくても使える。
+
+### Playwright を使いたい場合の実装テクニック
+- Playwrightを使う部分をartisanコマンドとして作成。コマンドをGitHub Actionsで定期実行。コマンドからVercel側にデータをポスト。
+- Vercel側では受け取ったデータをCache::forever()で永遠にキャッシュ。表示時はキャッシュを表示するだけ。
+- これならPlaywrightを動かすのはGitHub Actions側だけでVercel側にはPlaywrightをインストールする必要がない。
+
+GitHub Actionsワークフローの例。
+```yaml
+      - uses: playwright-php/setup-playwright@main
+        with:
+          browsers: chrome
+
+      - name: Install Playwright Dependencies
+        run: vendor/bin/playwright-install --with-deps
+
+      - name: Run Command
+        run: php artisan your:playwright-command
+```
+https://github.com/playwright-php/setup-playwright
