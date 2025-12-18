@@ -49,13 +49,12 @@ class JumpPlusDriver implements FeedableDriver
         return RSS::filterLinks($response->body(), $links);
     }
 
+    /**
+     * @throws Exception
+     */
     protected function getDailySeries(): ?array
     {
-        $response = Http::get($this->baseUrl);
-
-        if ($response->failed()) {
-            return null;
-        }
+        $response = Http::get($this->baseUrl)->throw();
 
         if (app()->isLocal()) {
             Storage::put('jumpplus/daily.html', $response->body());
