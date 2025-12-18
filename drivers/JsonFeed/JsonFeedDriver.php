@@ -17,6 +17,10 @@ class JsonFeedDriver implements FeedableDriver
 {
     protected string $url;
 
+    protected const string XML_CONTENT_NS = 'http://purl.org/rss/1.0/modules/content/';
+
+    protected const string XML_DC_NS = 'http://purl.org/dc/elements/1.1/';
+
     public function __invoke(Request $request): Response|ErrorResponse
     {
         $this->url = $request->input('url');
@@ -77,7 +81,52 @@ class JsonFeedDriver implements FeedableDriver
         return 'unknown';
     }
 
-    protected function rdf(string $body): string {}
+    protected function rdf(string $body): string
+    {
+        $doc = new DOMDocument;
+        $doc->loadXML($body);
+
+        $channel = $doc->getElementsByTagName('channel')->item(0);
+
+        $feed = [
+            'version' => 'https://jsonfeed.org/version/1.1',
+            'title' => $this->getNodeValue($channel, 'title'),
+            'home_page_url' => $this->getNodeValue($channel, 'link'),
+            'feed_url' => $this->url,
+            'description' => $this->getNodeValue($channel, 'description'),
+            'items' => [],
+        ];
+
+        $items = $doc->getElementsByTagName('item');
+
+        foreach ($items as $item) {
+            /** @var DOMElement $item */
+            $contentHtml = $this->getNodeValueNS($item, 'encoded', self::XML_CONTENT_NS)
+                ?? $this->getNodeValue($item, 'description');
+
+            $feedItem = [
+                'id' => $item->getAttribute('rdf:about') ?: $this->getNodeValue($item, 'link'),
+                'url' => $this->getNodeValue($item, 'link'),
+                'title' => $this->getNodeValue($item, 'title'),
+                'content_html' => $contentHtml,
+                'date_published' => $this->formatDate($this->getNodeValueNS($item, 'date', self::XML_DC_NS)),
+            ];
+
+            $author = $this->getNodeValueNS($item, 'creator', self::XML_DC_NS);
+            if ($author) {
+                $feedItem['authors'] = [['name' => $author]];
+            }
+
+            $subject = $this->getNodeValueNS($item, 'subject', self::XML_DC_NS);
+            if ($subject) {
+                $feedItem['tags'] = [$subject];
+            }
+
+            $feed['items'][] = array_filter($feedItem);
+        }
+
+        return json_encode($feed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    }
 
     protected function rss2(string $body): string
     {
@@ -90,6 +139,7 @@ class JsonFeedDriver implements FeedableDriver
             'version' => 'https://jsonfeed.org/version/1.1',
             'title' => $this->getNodeValue($channel, 'title'),
             'home_page_url' => $this->getNodeValue($channel, 'link'),
+            'feed_url' => $this->url,
             'description' => $this->getNodeValue($channel, 'description'),
             'items' => [],
         ];
@@ -105,7 +155,7 @@ class JsonFeedDriver implements FeedableDriver
                 'date_published' => $this->formatDate($this->getNodeValue($item, 'pubDate')),
             ];
 
-            $author = $this->getNodeValue($item, 'author') ?: $this->getNodeValueNS($item, 'creator', 'http://purl.org/dc/elements/1.1/');
+            $author = $this->getNodeValue($item, 'author') ?: $this->getNodeValueNS($item, 'creator', self::XML_DC_NS);
             if ($author) {
                 $feedItem['authors'] = [['name' => $author]];
             }
@@ -188,7 +238,7 @@ class JsonFeedDriver implements FeedableDriver
         return null;
     }
 
-    protected function formatDate(?string $date): ?string
+    protected function formatDate(?string $date = null): ?string
     {
         if (! $date) {
             return null;
