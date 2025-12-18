@@ -9,6 +9,7 @@
 </head>
 <body>
 <h1>Error {{ $status }}</h1>
-<p>{{ $error }}</p>
+<h2>{{ $error }}</h2>
+<p>{{ $message }}</p>
 </body>
 </html>

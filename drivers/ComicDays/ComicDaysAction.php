@@ -6,18 +6,42 @@ namespace Revolution\Feedable\ComicDays;
 
 use DOMDocument;
 use DOMXPath;
+use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
 
-class ComicDaysAction
+class ComicDaysAction implements FeedableDriver
 {
     protected string $baseUrl = 'https://comic-days.com/';
 
     public function __invoke(): Responsable
+    {
+        try {
+            $items = $this->handle();
+        } catch (Exception $e) {
+            return new ErrorResponse(
+                error: 'Whoops! Something went wrong.',
+                message: $e->getMessage(),
+            );
+        }
+
+        return new Rss2Response(
+            title: 'コミックDAYS - 今日の無料連載',
+            description: 'コミックDAYSの今日更新された無料連載の最新話一覧',
+            link: $this->baseUrl,
+            items: $items,
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function handle(): array
     {
         /**
          * 公式RSSには連載作の最新話しか含まれていない。
@@ -36,9 +60,7 @@ class ComicDaysAction
         $response = Http::get($this->baseUrl);
 
         if ($response->failed()) {
-            return new ErrorResponse(
-                error: 'Unable to fetch html',
-            );
+            throw new Exception;
         }
 
         if (app()->isLocal()) {
@@ -51,9 +73,7 @@ class ComicDaysAction
         $sectionNodes = $xpath->query('//section[@id="days-original"]//div[starts-with(@id, "days-original-")]');
 
         if ($sectionNodes->length === 0) {
-            return new ErrorResponse(
-                error: 'Unable to find original section',
-            );
+            throw new Exception;
         }
 
         $firstSection = $sectionNodes->item(0);
@@ -77,11 +97,6 @@ class ComicDaysAction
             );
         }
 
-        return new Rss2Response(
-            title: 'コミックDAYS - 今日の無料連載',
-            description: 'コミックDAYSの今日更新された無料連載の最新話一覧',
-            link: $this->baseUrl,
-            items: $items,
-        );
+        return $items;
     }
 }

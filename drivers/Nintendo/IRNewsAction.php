@@ -4,23 +4,46 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Nintendo;
 
-use App\Http\Controllers\Controller;
 use DOMDocument;
+use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Uri;
+use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
 
-class IRNewsController extends Controller
+class IRNewsAction implements FeedableDriver
 {
     protected string $baseUrl = 'https://www.nintendo.co.jp/ir/news/index.html';
 
     protected string $xmlUrl = 'https://www.nintendo.co.jp/corporate/common/data/news_jp.xml';
 
     public function __invoke(): Responsable
+    {
+        try {
+            $items = $this->handle();
+        } catch (Exception $e) {
+            return new ErrorResponse(
+                error: 'Whoops! Something went wrong.',
+                message: $e->getMessage(),
+            );
+        }
+
+        return new Rss2Response(
+            title: '任天堂 IRニュース',
+            description: '任天堂のIRニュース',
+            link: $this->baseUrl,
+            items: $items,
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function handle(): array
     {
         /**
          * xmlを元にJavaScriptで動的に生成されているのでxmlを直接取得してRSSに変換。
@@ -31,12 +54,7 @@ class IRNewsController extends Controller
          *
          * 時間情報がないので00:00として扱う。
          */
-        $response = Http::get($this->xmlUrl);
-        if ($response->failed()) {
-            return new ErrorResponse(
-                error: 'Unable to fetch XML',
-            );
-        }
+        $response = Http::get($this->xmlUrl)->throw();
 
         $dom = new DOMDocument;
         @$dom->loadXML($response->body());
@@ -72,11 +90,6 @@ class IRNewsController extends Controller
             }
         }
 
-        return new Rss2Response(
-            title: '任天堂 IRニュース',
-            description: '任天堂のIRニュース',
-            link: $this->baseUrl,
-            items: $items,
-        );
+        return $items;
     }
 }

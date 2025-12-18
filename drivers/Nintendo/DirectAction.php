@@ -4,28 +4,51 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Nintendo;
 
-use App\Http\Controllers\Controller;
 use DOMDocument;
 use DOMXPath;
+use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Uri;
+use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
 
-class DirectController extends Controller
+class DirectAction implements FeedableDriver
 {
     protected string $baseUrl = 'https://www.nintendo.com/jp/nintendo-direct/';
 
     public function __invoke(): Responsable
     {
+        try {
+            $items = $this->handle();
+        } catch (Exception $e) {
+            return new ErrorResponse(
+                error: 'Whoops! Something went wrong.',
+                message: $e->getMessage(),
+            );
+        }
+
+        return new Rss2Response(
+            title: '任天堂 IRニュース',
+            description: '任天堂のIRニュース',
+            link: $this->baseUrl,
+            items: $items,
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function handle(): array
+    {
         /**
          * baseUrlのリダイレクト先が最新のニンテンドーダイレクトページになるのでtitleとlinkを取得して返す。
          */
-        $response = Http::get($this->baseUrl);
+        $response = Http::get($this->baseUrl)->throw();
 
         $redirect = new DOMDocument;
         @$redirect->loadHTML($response->body());
@@ -35,9 +58,7 @@ class DirectController extends Controller
         $content = $refresh->item(0)?->getAttribute('content') ?? '';
         preg_match('/URL=(.+)$/', $content, $matches);
         if (! isset($matches[1])) {
-            return new ErrorResponse(
-                error: 'Unable to fetch link',
-            );
+            throw new Exception;
         }
         $link = $matches[1];
 
@@ -54,7 +75,7 @@ class DirectController extends Controller
             $pubDate = now()->toRssString();
         }
 
-        $response = Http::get($link);
+        $response = Http::get($link)->throw();
 
         $direct = new DOMDocument;
         @$direct->loadHTML($response->body());
@@ -65,7 +86,7 @@ class DirectController extends Controller
 
         $title = $direct->getElementsByTagName('title')->item(0)?->textContent;
 
-        $items = [
+        return [
             new FeedItem(
                 title: $title,
                 link: $link,
@@ -73,12 +94,5 @@ class DirectController extends Controller
                 description: $description,
             ),
         ];
-
-        return new Rss2Response(
-            title: 'ニンテンドーダイレクト',
-            description: '最新のニンテンドーダイレクト',
-            link: $this->baseUrl,
-            items: $items,
-        );
     }
 }

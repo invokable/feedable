@@ -7,8 +7,8 @@ namespace Revolution\Feedable\Famitsu;
 use const Dom\HTML_NO_DEFAULT_NS;
 
 use Dom\HTMLDocument;
+use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -16,57 +16,75 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Uri;
+use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
 use Revolution\Feedable\Core\Support\AbsoluteUri;
 
-class FamitsuCategoryAction
+class FamitsuCategoryAction implements FeedableDriver
 {
     protected string $baseUrl = 'https://www.famitsu.com';
 
+    protected string $category = '';
+
+    protected string $title = '';
+
     protected ?string $buildId = null;
 
-    public function __invoke(Request $request, string $category): Responsable
+    public function __invoke(string $category): Responsable
+    {
+        $this->category = $category;
+
+        try {
+            $items = $this->handle();
+        } catch (Exception $e) {
+            return new ErrorResponse(
+                error: 'Whoops! Something went wrong.',
+                message: $e->getMessage(),
+            );
+        }
+
+        return new Rss2Response(
+            title: $this->title,
+            description: $this->title,
+            link: Uri::of($this->baseUrl)->withPath('/category/'.$this->category.'/page/1')->value(),
+            image: 'https://www.famitsu.com/res/images/headIcons/apple-touch-icon.png',
+            items: $items,
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function handle(): array
     {
         $this->getBuildId();
 
         if (empty($this->buildId)) {
-            return new ErrorResponse(
-                error: 'Unable to fetch buildId',
-            );
+            throw new Exception;
         }
 
         $response = Http::baseUrl($this->baseUrl)
-            ->get("/_next/data/$this->buildId/category/$category/page/1.json");
+            ->get("/_next/data/$this->buildId/category/$this->category/page/1.json");
 
         if ($response->failed()) {
             // タイミングによってはここでjsonが取得できないことがあるので後で詳細なエラーメッセージに更新。
-            return new ErrorResponse(
-                error: 'Unable to fetch category data',
-            );
+            throw new Exception;
         }
 
         if (app()->isLocal()) {
-            Storage::put('famitsu/'.$category.'.json', $response->body());
+            Storage::put('famitsu/'.$this->category.'.json', $response->body());
         }
 
-        $title = $response->json('pageProps.targetCategory.nameJa', '').'の最新記事 | ゲーム・エンタメ最新情報のファミ通.com';
+        $this->title = $response->json('pageProps.targetCategory.nameJa', '').'の最新記事 | ゲーム・エンタメ最新情報のファミ通.com';
 
-        $items = $response->collect('pageProps.categoryArticleDataForPc')
+        return $response->collect('pageProps.categoryArticleDataForPc')
             ->reject(fn ($item) => Arr::has($item, 'advertiserName'))
             ->map($this->articleList(...))
             ->map($this->getArticle(...))
             ->values()
             ->toArray();
-
-        return new Rss2Response(
-            title: $title,
-            description: $title,
-            link: Uri::of($this->baseUrl)->withPath('/category/'.$category.'/page/1')->value(),
-            image: 'https://www.famitsu.com/res/images/headIcons/apple-touch-icon.png',
-            items: $items,
-        );
     }
 
     /**

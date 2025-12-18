@@ -15,7 +15,7 @@ Artisan::command('inspire', function () {
 Artisan::command('jump', function () {
     $this->comment('Fetching Shonen Jump Plus feed...');
     $jump = new JumpPlusAction;
-    dump($jump()->getContent());
+    dump($jump->handle());
     $this->comment('Done.');
 })->purpose('Fetch Shonen Jump Plus feed');
 

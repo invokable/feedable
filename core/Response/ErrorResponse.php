@@ -11,8 +11,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 readonly class ErrorResponse implements Responsable
 {
+    /**
+     * Create a new error response instance.
+     *
+     * @param  string|null  $error  Short error title
+     * @param  string|null  $message  Detailed error message
+     * @param  int  $status  HTTP status code
+     */
     public function __construct(
         protected ?string $error = null,
+        protected ?string $message = null,
         protected int $status = 500,
     ) {
         //
@@ -27,6 +35,7 @@ readonly class ErrorResponse implements Responsable
     {
         $html = Blade::render(File::get(__DIR__.'/views/error.blade.php'), [
             'error' => $this->error,
+            'message' => $this->message,
             'status' => $this->status,
         ]);
 
