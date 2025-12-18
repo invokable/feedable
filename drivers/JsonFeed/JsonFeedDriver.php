@@ -21,6 +21,8 @@ class JsonFeedDriver implements FeedableDriver
 
     protected const string XML_DC_NS = 'http://purl.org/dc/elements/1.1/';
 
+    protected const string XML_MEDIA_NS = 'http://search.yahoo.com/mrss/';
+
     public function __invoke(Request $request): Response|ErrorResponse
     {
         $this->url = $request->input('url');
@@ -153,6 +155,7 @@ class JsonFeedDriver implements FeedableDriver
                 'title' => $this->getNodeValue($item, 'title'),
                 'content_html' => $this->getNodeValue($item, 'description'),
                 'date_published' => $this->formatDate($this->getNodeValue($item, 'pubDate')),
+                'image' => $this->getRss2Image($item),
             ];
 
             $author = $this->getNodeValue($item, 'author') ?: $this->getNodeValueNS($item, 'creator', self::XML_DC_NS);
@@ -193,6 +196,7 @@ class JsonFeedDriver implements FeedableDriver
                 'summary' => $this->getNodeValue($entry, 'summary'),
                 'date_published' => $this->formatDate($this->getNodeValue($entry, 'published')),
                 'date_modified' => $this->formatDate($this->getNodeValue($entry, 'updated')),
+                'image' => $this->getAtomImage($entry),
             ];
 
             $authorNode = $entry->getElementsByTagName('author')->item(0);
@@ -231,6 +235,51 @@ class JsonFeedDriver implements FeedableDriver
         $links = $parent->getElementsByTagName('link');
         foreach ($links as $link) {
             if ($link->getAttribute('rel') === $rel || ($rel === 'alternate' && ! $link->hasAttribute('rel'))) {
+                return $link->getAttribute('href') ?: null;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get image from RSS2 item.
+     * <enclosure url="https://" length="0" type="image/jpeg"/>
+     * <media:content url="https://" type="image/jpeg" medium="image">
+     * <media:thumbnail>https://</media:thumbnail>
+     */
+    protected function getRss2Image(DOMElement $item): ?string
+    {
+        // enclosure
+        $enclosure = $item->getElementsByTagName('enclosure')->item(0);
+        if ($enclosure && str_starts_with($enclosure->getAttribute('type'), 'image/')) {
+            return $enclosure->getAttribute('url') ?: null;
+        }
+
+        // media:content
+        $mediaContent = $item->getElementsByTagNameNS(self::XML_MEDIA_NS, 'content')->item(0);
+        if ($mediaContent && $mediaContent->getAttribute('medium') === 'image') {
+            return $mediaContent->getAttribute('url') ?: null;
+        }
+
+        // media:thumbnail
+        $mediaThumbnail = $item->getElementsByTagNameNS(self::XML_MEDIA_NS, 'thumbnail')->item(0);
+        if ($mediaThumbnail) {
+            return $mediaThumbnail->getAttribute('url') ?: trim($mediaThumbnail->textContent) ?: null;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get image from Atom entry.
+     * <link rel="enclosure" href="https://" length="0" type="image/jpeg" />
+     */
+    protected function getAtomImage(DOMElement $entry): ?string
+    {
+        $links = $entry->getElementsByTagName('link');
+        foreach ($links as $link) {
+            if ($link->getAttribute('rel') === 'enclosure' && str_starts_with($link->getAttribute('type'), 'image/')) {
                 return $link->getAttribute('href') ?: null;
             }
         }
