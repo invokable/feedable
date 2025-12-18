@@ -158,7 +158,7 @@ class JsonFeedDriver implements FeedableDriver
                 'id' => $this->getNodeValue($item, 'guid') ?: $this->getNodeValue($item, 'link'),
                 'url' => $this->getNodeValue($item, 'link'),
                 'title' => $this->getNodeValue($item, 'title'),
-                'content_html' => $this->getNodeValue($item, 'description'),
+                'content_html' => $this->getNodeValueNS($item, 'encoded', self::XML_CONTENT_NS) ?: $this->getNodeValue($item, 'description'),
                 'date_published' => $this->formatDate($this->getNodeValue($item, 'pubDate')),
                 'image' => $this->getRss2Image($item),
             ];
