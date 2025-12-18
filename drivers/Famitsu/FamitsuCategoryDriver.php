@@ -33,7 +33,7 @@ class FamitsuCategoryDriver implements FeedableDriver
 
     protected ?string $buildId = null;
 
-    public function __invoke(string $category): Responsable
+    public function __invoke(string $category, string $ext = 'rss'): Responsable
     {
         $this->category = $category;
 
@@ -46,7 +46,7 @@ class FamitsuCategoryDriver implements FeedableDriver
             );
         }
 
-        return ResponseFactory::format(request('format', 'rss'))->make(
+        return ResponseFactory::format(request('format', $ext))->make(
             title: $this->title,
             home_page_url: Uri::of($this->baseUrl)->withPath('/category/'.$this->category.'/page/1')->value(),
             description: $this->title,

@@ -35,13 +35,15 @@ RSSHubから移植。
 
 以下のカテゴリーを指定できます。
 {$cat}
+
+`/famitsu/category/new-article.rss`や`/famitsu/category/new-article.json`でフォーマットを指定できます。
 MARKDOWN;
     }
 
     public function boot(): void
     {
         Route::prefix('famitsu')->group(function () {
-            Route::get('category/{category}', FamitsuCategoryDriver::class)
+            Route::get('category/{category}.{ext?}', FamitsuCategoryDriver::class)
                 ->whereIn('category', Category::cases());
         });
     }
