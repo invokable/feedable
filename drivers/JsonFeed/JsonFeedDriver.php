@@ -44,7 +44,8 @@ class JsonFeedDriver implements FeedableDriver
         $body = Http::get($this->url)->throw()->body();
 
         return match ($this->detect($body)) {
-            'rss' => $this->rss($body),
+            'rdf' => $this->rdf($body),
+            'rss2' => $this->rss2($body),
             'atom' => $this->atom($body),
             'json' => $body,
             default => throw new Exception('Unsupported feed format.'),
@@ -53,12 +54,16 @@ class JsonFeedDriver implements FeedableDriver
 
     /**
      * Detect feed format.
-     * RSS, Atom, JSON Feed.
+     * RDF(RSS0.x), RSS2, Atom, JSON Feed.
      */
     protected function detect(string $body): string
     {
+        if (str_contains($body, '<rdf:RDF')) {
+            return 'rdf';
+        }
+
         if (str_contains($body, '<rss')) {
-            return 'rss';
+            return 'rss2';
         }
 
         if (str_contains($body, '<feed')) {
@@ -72,7 +77,9 @@ class JsonFeedDriver implements FeedableDriver
         return 'unknown';
     }
 
-    protected function rss(string $body): string
+    protected function rdf(string $body): string {}
+
+    protected function rss2(string $body): string
     {
         $doc = new DOMDocument;
         $doc->loadXML($body);
