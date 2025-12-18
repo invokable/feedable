@@ -24,25 +24,33 @@
         @foreach($items as $item)
             <item>
                 <title>{{ data_get($item, 'title') }}</title>
-                <link>{{ data_get($item, 'link') }}</link>
-                <guid isPermaLink="false">{{ data_get($item, 'link') }}</guid>
-                @if(filled(data_get($item,'pubDate')))
-                    <pubDate>{{ data_get($item,'pubDate') }}</pubDate>
+                <link>{{ data_get($item, 'url') }}</link>
+                <guid isPermaLink="false">{{ data_get($item, 'id') }}</guid>
+                @if(filled(data_get($item,'date_published')))
+                    <pubDate>{{ data_get($item,'date_published') }}</pubDate>
                 @endif
-                <description><![CDATA[{!! data_get($item, 'description') !!}]]></description>
+                @if(filled(data_get($item, 'content_html')))
+                    <description><![CDATA[{!! data_get($item, 'content_html') !!}]]></description>
+                @endif
+                @if(filled(data_get($item, 'content_text')))
+                    <description>{{ data_get($item, 'content_text') }}</description>
+                @endif
+                @if(filled(data_get($item, 'summary')))
+                    <description>{{ data_get($item, 'summary') }}</description>
+                @endif
                 @if(filled(data_get($item, 'content')))
                     <content:encoded><![CDATA[{!! data_get($item, 'content') !!}]]></content:encoded>
                 @endif
-                @if(filled(data_get($item, 'author')))
-                    <dc:creator>{{ data_get($item, 'author') }}</dc:creator>
+                @if(filled(data_get($item, 'authors')))
+                    <dc:creator>{{ implode(', ', data_get($item, 'authors.*.name')) }}</dc:creator>
                 @endif
-                @if(is_array(data_get($item, 'categories')))
-                    @foreach(data_get($item, 'categories') as $category)
+                @if(is_array(data_get($item, 'tags')))
+                    @foreach(data_get($item, 'tags') as $category)
                         <category>{{ $category }}</category>
                     @endforeach
                 @endif
-                @if(filled(data_get($item, 'thumbnail')))
-                    <media:thumbnail>{{ data_get($item, 'thumbnail') }}</media:thumbnail>
+                @if(filled(data_get($item, 'image')))
+                    <media:thumbnail>{{ data_get($item, 'image') }}</media:thumbnail>
                 @endif
                 @if(is_array(data_get($item, 'media')))
                     @foreach(data_get($item, 'media') as $media)

@@ -6,11 +6,12 @@ use Revolution\Feedable\Core\Elements\FeedItem;
 
 test('feed item', function () {
     $feed = new FeedItem(
+        id: 'id',
+        url: 'http://example.com/sample-link',
         title: 'Sample Title',
-        link: 'http://example.com/sample-link',
-        description: 'This is a sample description for the feed item.',
+        content_text: 'This is a sample description for the feed item.',
     );
-    $feed->set('author', 'Author')
+    $feed->set('authors', ['Author'])
         ->set('nonexistent', 'Some Value');
 
     $feed->when(true, function (FeedItem $item) {
@@ -22,13 +23,12 @@ test('feed item', function () {
         ->toMatchArray([
             'id' => null,
             'title' => 'Sample Title',
-            'guid' => null,
-            'link' => 'http://example.com/sample-link',
-            'author' => 'Author',
-            'pubDate' => null,
-            'description' => 'This is a sample description for the feed item.',
-            'thumbnail' => null,
-            'categories' => null,
+            'url' => 'http://example.com/sample-link',
+            'authors' => ['Author'],
+            'date_published' => null,
+            'content_text' => 'This is a sample description for the feed item.',
+            'image' => null,
+            'tags' => null,
             'nonexistent' => 'Some Value',
             'test' => 'Extra Property',
         ])

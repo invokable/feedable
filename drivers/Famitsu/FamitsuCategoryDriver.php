@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Uri;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
+use Revolution\Feedable\Core\Elements\Author;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
@@ -130,24 +131,21 @@ class FamitsuCategoryDriver implements FeedableDriver
 
                 $article = $response->collect('pageProps.articleDetailData');
 
-                $author = collect($article->get('authors'))->map(fn ($author) => data_get($author, 'name_ja'))->join(', ');
-                if (empty($author)) {
-                    $author = data_get($article, 'user.name_ja');
-                }
+                $authors = collect($article->get('authors'))->map(fn ($author) => Author::make(name: data_get($author, 'name_ja')));
 
                 $thumbnail = data_get($article, 'ogpImageUrl', data_get($article, 'thumbnailUrl'));
 
                 $description = $this->renderJson(data_get($article, 'content'));
 
                 return (new FeedItem(
+                    id: data_get($item, 'link'),
+                    url: data_get($item, 'link'),
                     title: data_get($item, 'title'),
-                    guid: data_get($item, 'link'),
-                    link: data_get($item, 'link'),
-                    pubDate: data_get($item, 'pubDate'),
-                    description: $description,
-                    categories: data_get($item, 'categories'),
-                ))->when(filled($author), fn (FeedItem $feedItem) => $feedItem->set('author', $author))
-                    ->when(filled($thumbnail), fn (FeedItem $feedItem) => $feedItem->tap(fn (FeedItem $item) => $item->thumbnail = $thumbnail))
+                    content_html: $description,
+                    date_published: data_get($item, 'pubDate'),
+                    tags: data_get($item, 'categories'),
+                ))->when($authors->isNotEmpty(), fn (FeedItem $feedItem) => $feedItem->set('authors', $authors->toArray()))
+                    ->when(filled($thumbnail), fn (FeedItem $feedItem) => $feedItem->tap(fn (FeedItem $item) => $item->image = $thumbnail))
                     ->set('articleId', data_get($item, 'articleId'));
             });
     }

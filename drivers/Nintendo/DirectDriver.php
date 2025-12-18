@@ -88,10 +88,11 @@ class DirectDriver implements FeedableDriver
 
         return [
             new FeedItem(
+                id: $link,
+                url: $link,
                 title: $title,
-                link: $link,
-                pubDate: $pubDate,
-                description: $description,
+                summary: $description,
+                date_published: $pubDate,
             ),
         ];
     }

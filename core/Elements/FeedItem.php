@@ -10,7 +10,7 @@ use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Traits\Tappable;
 
 /**
- * Item object common to RSS2 and Atom.
+ * Item object common to JsonFeed, RSS2 and Atom.
  */
 class FeedItem implements Arrayable
 {
@@ -20,15 +20,21 @@ class FeedItem implements Arrayable
     protected array $extra = [];
 
     public function __construct(
-        public string|int|null $id = null,
+        public string|int $id,
+        public ?string $url = null,
+        public ?string $external_url = null,
         public ?string $title = null,
-        public ?string $guid = null,
-        public ?string $link = null,
-        public ?string $author = null,
-        public ?string $pubDate = null,
-        public ?string $description = null,
-        public ?string $thumbnail = null,
-        public ?array $categories = null,
+        public ?string $content_html = null,
+        public ?string $content_text = null,
+        public ?string $summary = null,
+        public ?string $image = null,
+        public ?string $banner_image = null,
+        public ?string $date_published = null,
+        public ?string $date_modified = null,
+        public ?array $authors = null,
+        public ?array $tags = null,
+        public ?string $language = null,
+        public ?array $attachments = null,
     ) {
         //
     }

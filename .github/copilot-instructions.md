@@ -31,7 +31,7 @@ Feedableは [RSSHub](https://github.com/DIYgod/RSSHub) を参考にしたRSSフ�
 `./core`はドライバーから使うヘルパー。
 
 ### Response
-`AtomResponse`や`Rss2Response`で最終的な出力フォーマットを固定化する。フィードのフォーマットは統一されてないのでこれを使わなくてもいい。
+`JsonFeedResponse`や`AtomResponse`や`Rss2Response`で最終的な出力フォーマットを固定化する。フィードのフォーマットは統一されてないのでこれを使わなくてもいい。
 
 PHP 8.4の時期なら名前付き引数を使うのがいいので以下のような使い方。
 ```php
@@ -43,12 +43,21 @@ return new Rss2Response(
 );
 ```
 
-RSSかAtomかに拘る必要もなくなってるので基本的には`Rss2Response`を使う。
+ユーザーがフォーマットを選べるようにするなら`ResponseFactory`を使う。`$request->input('format')`で`rss`や`atom`や`json`を指定できるようにする。
+```php
+return ResponseFactory::format($request->input('format', 'rss'))
+->make(
+    title: $title,
+    items: $items,
+);
+```
+
+現代ではjsonが使いやすいので全体的にJsonFeedに寄せた方がいいかもしれないけどリーダー側が対応できてない。Feedable内部でのフィールド名などはJsonFeedに寄せる。出力フォーマットはRSSが標準。
 
 `ErrorResponse`はエラー時のレスポンス。htmlを返す。RSSHubでは詳細なエラー画面を表示しているので後で拡張。
 
 ### FeedItem
-RSS2やAtomで共通のフィードアイテムオブジェクト。ドライバーで生成したデータをこのクラスに詰めてレスポンスに渡す。
+JsonFeedやRSS2やAtomで共通のフィードアイテムオブジェクト。ドライバーで生成したデータをこのクラスに詰めてレスポンスに渡す。
 使わなくてもいいのでbladeでは`data_get()`を使ってarrayでもオブジェクトでもいいようにしている。
 
 ### FeedableDriver

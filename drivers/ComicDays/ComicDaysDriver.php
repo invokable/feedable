@@ -89,11 +89,12 @@ class ComicDaysDriver implements FeedableDriver
             $thumbnail = $imgNode?->getAttribute('src');
 
             $items[] = new FeedItem(
+                id: $link,
+                url: $link,
                 title: $titleNode ? trim($titleNode->textContent) : 'No Title',
-                link: $link,
-                pubDate: $today,
-                description: $descriptionNode ? trim($descriptionNode->textContent) : '',
-                thumbnail: $thumbnail,
+                summary: $descriptionNode ? trim($descriptionNode->textContent) : '',
+                image: $thumbnail,
+                date_published: $today,
             );
         }
 
