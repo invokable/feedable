@@ -53,7 +53,8 @@ readonly class JsonFeedResponse implements Responsable
 
     protected function items(): array
     {
-        // itemsは純粋な配列な場合もFeedItemの配列な場合もある
+        // itemsは純粋な配列な場合もFeedItemの配列な場合もある。
+        // FeedItemに余計なフィールドがあってもそのまま変換。JsonFeedの拡張フィールド。
         return array_map(fn ($item) => is_array($item) ? $item : $item->toArray(), $this->items);
     }
 }

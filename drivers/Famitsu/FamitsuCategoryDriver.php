@@ -20,7 +20,7 @@ use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\Author;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Response\ErrorResponse;
-use Revolution\Feedable\Core\Response\Rss2Response;
+use Revolution\Feedable\Core\Response\ResponseFactory;
 use Revolution\Feedable\Core\Support\AbsoluteUri;
 
 class FamitsuCategoryDriver implements FeedableDriver
@@ -46,11 +46,12 @@ class FamitsuCategoryDriver implements FeedableDriver
             );
         }
 
-        return new Rss2Response(
+        return ResponseFactory::format(request('format', 'rss'))->make(
             title: $this->title,
+            home_page_url: Uri::of($this->baseUrl)->withPath('/category/'.$this->category.'/page/1')->value(),
             description: $this->title,
-            link: Uri::of($this->baseUrl)->withPath('/category/'.$this->category.'/page/1')->value(),
-            image: 'https://www.famitsu.com/res/images/headIcons/apple-touch-icon.png',
+            icon: 'https://www.famitsu.com/res/images/headIcons/apple-touch-icon.png',
+            favicon: 'https://www.famitsu.com/res/images/headIcons/apple-touch-icon.png',
             items: $items,
         );
     }
@@ -146,7 +147,7 @@ class FamitsuCategoryDriver implements FeedableDriver
                     tags: data_get($item, 'categories'),
                 ))->when($authors->isNotEmpty(), fn (FeedItem $feedItem) => $feedItem->set('authors', $authors->toArray()))
                     ->when(filled($thumbnail), fn (FeedItem $feedItem) => $feedItem->tap(fn (FeedItem $item) => $item->image = $thumbnail))
-                    ->set('articleId', data_get($item, 'articleId'));
+                    ->set('_articleId', data_get($item, 'articleId'));
             });
     }
 

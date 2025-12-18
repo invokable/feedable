@@ -18,27 +18,43 @@ class ResponseFactory
     /**
      * TODO: 共通で使える引数を設定しつつ各フォーマットのレスポンスを生成
      */
-    public function make(): Responsable
-    {
+    public function make(
+        ?string $title = null,
+        ?string $home_page_url = null,
+        ?string $feed_url = null,
+        ?string $description = null,
+        ?string $next_url = null,
+        ?string $icon = null,
+        ?string $favicon = null,
+        ?array $authors = null,
+        string $language = 'ja',
+        ?array $hubs = null,
+        array $items = [],
+    ): Responsable {
         return match ($this->format) {
-            'json' => $this->json(),
-            'atom' => $this->atom(),
-            default => $this->rss(),
+            'json' => new JsonFeedResponse(
+                title: $title,
+                home_page_url: $home_page_url,
+                feed_url: $feed_url,
+                description: $description,
+                next_url: $next_url,
+                icon: $icon,
+                favicon: $favicon,
+                authors: $authors,
+                language: $language,
+                hubs: $hubs,
+                items: $items,
+            ),
+            'atom' => new AtomResponse,
+            default => new Rss2Response(
+                title: $title,
+                description: $description,
+                link: $home_page_url,
+                pubDate: now()->toRssString(),
+                image: $icon,
+                items: $items,
+                language: $language,
+            ),
         };
-    }
-
-    protected function json(): Responsable
-    {
-        return new JsonFeedResponse;
-    }
-
-    protected function rss(): Responsable
-    {
-        return new Rss2Response;
-    }
-
-    protected function atom(): Responsable
-    {
-        return new AtomResponse;
     }
 }
