@@ -3,15 +3,10 @@
     "regions": [
         "hnd1"
     ],
-    "buildCommand": "npm install && npm run build",
     "builds": [
         {
             "src": "/api/index.php",
             "use": "vercel-php@0.7.4"
-        },
-        {
-            "src": "/public/**",
-            "use": "@vercel/static"
         }
     ],
     "routes": [
