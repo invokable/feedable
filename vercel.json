@@ -3,6 +3,7 @@
     "regions": [
         "hnd1"
     ],
+    "buildCommand": "npm install && npm run build",
     "builds": [
         {
             "src": "/api/index.php",
