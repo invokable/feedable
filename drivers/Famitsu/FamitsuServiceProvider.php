@@ -17,10 +17,11 @@ class FamitsuServiceProvider extends ServiceProvider
             id: 'famitsu',
             name: 'ファミ通.com',
             url: 'https://famitsu.com/',
-            categories: ['game'],
+            tags: ['game'],
             description: $this->description(),
             example: '/famitsu/category/new-article',
-            lang: 'ja',
+            format: ['rss', 'json'],
+            language: 'ja',
         );
     }
 

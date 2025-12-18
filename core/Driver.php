@@ -18,29 +18,35 @@ class Driver
      * @param  string  $id  Unique Driver ID (e.g. 'mirror', 'famitsu')
      * @param  string  $name  User-facing Driver Name
      * @param  string|null  $url  Target site URL
-     * @param  array|null  $categories  Categories or Tags associated with the Driver
+     * @param  null|array  $authors  List of authors/maintainers of the Driver
+     * @param  null|array  $tags  List of tags categorizing the Driver
      * @param  string|null  $description  Brief description of the Driver's functionality. Markdown supported.
      * @param  string|null  $example  Example URL demonstrating Driver usage
-     * @param  string|null  $lang  Language code (e.g. 'en', 'ja')
+     * @param  null|array  $format  Supported output formats (e.g. ['rss', 'json', 'atom'])
+     * @param  null|string  $language  Language code (e.g. 'ja', 'en')
      * @param  bool  $browser  Indicates whether the driver requires a browser environment such as Playwright.
      */
     public static function about(
         string $id,
         string $name,
         ?string $url = null,
-        ?array $categories = null,
+        ?array $authors = null,
+        ?array $tags = null,
         ?string $description = null,
         ?string $example = null,
-        ?string $lang = null,
+        ?array $format = null,
+        ?string $language = null,
         bool $browser = false,
     ): void {
         static::$drivers[$id] = compact(
             'name',
             'url',
-            'categories',
+            'authors',
+            'tags',
             'description',
             'example',
-            'lang',
+            'format',
+            'language',
             'browser',
         );
     }

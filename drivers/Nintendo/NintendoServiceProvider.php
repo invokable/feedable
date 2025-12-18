@@ -17,19 +17,20 @@ class NintendoServiceProvider extends ServiceProvider
             id: 'nintendo-direct',
             name: '任天堂 ニンテンドーダイレクト',
             url: 'https://www.nintendo.com/jp/nintendo-direct/',
+            tags: ['game'],
             description: '最新のニンテンドーダイレクト。通常のダイレクトのみで小規模なダイレクトは含まれません。',
             example: '/nintendo/direct',
-            lang: 'ja',
+            language: 'ja',
         );
 
         Driver::about(
             id: 'nintendo-ir-news',
             name: '任天堂 IRニュース',
             url: 'https://www.nintendo.co.jp/ir/news/index.html',
-            categories: ['game'],
+            tags: ['game'],
             description: '任天堂のIRニュース',
             example: '/nintendo/ir/news',
-            lang: 'ja',
+            language: 'ja',
         );
 
         // トピックスは公式RSSがある

@@ -16,10 +16,10 @@ class ComicDaysServiceProvider extends ServiceProvider
             id: 'comic-days',
             name: 'コミックDAYS オリジナル',
             url: 'https://comic-days.com/',
-            categories: ['manga'],
+            tags: ['manga'],
             description: 'コミックDAYSの今日更新された無料連載の最新話一覧。復刻作品も含まれます。',
             example: '/comic-days/original',
-            lang: 'ja',
+            language: 'ja',
         );
     }
 
