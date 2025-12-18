@@ -32,13 +32,28 @@ readonly class JsonFeedResponse implements Responsable
      */
     public function toResponse($request): Response
     {
-        // TODO: jsonなら簡単。
-
         $json = [
             'version' => 'https://jsonfeed.org/version/1.1',
+            'title' => $this->title,
+            'home_page_url' => $this->home_page_url,
+            'feed_url' => $this->feed_url,
+            'description' => $this->description,
+            'next_url' => $this->next_url,
+            'icon' => $this->icon,
+            'favicon' => $this->favicon,
+            'authors' => $this->authors,
+            'language' => $this->language,
+            'hubs' => $this->hubs,
+            'items' => $this->items(),
         ];
 
         return response(json_encode($json, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT))
             ->header('Content-Type', 'application/feed+json; charset=UTF-8');
+    }
+
+    protected function items(): array
+    {
+        // itemsは純粋な配列な場合もFeedItemの配列な場合もある
+        return array_map(fn ($item) => is_array($item) ? $item : $item->toArray(), $this->items);
     }
 }

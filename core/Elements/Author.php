@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Core\Elements;
 
-class Author
+use Illuminate\Contracts\Support\Arrayable;
+
+class Author implements Arrayable
 {
     public function __construct(
         public ?string $name = null,
@@ -20,5 +22,17 @@ class Author
         ?string $avatar = null,
     ): static {
         return new static($name, $url, $avatar);
+    }
+
+    /**
+     * Convert the object to an array.
+     */
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'url' => $this->url,
+            'avatar' => $this->avatar,
+        ];
     }
 }
