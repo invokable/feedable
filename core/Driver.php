@@ -55,8 +55,11 @@ class Driver
         return new Collection(static::$drivers);
     }
 
-    public static function toJson($options = 0)
+    /**
+     * Get all registered drivers as pretty JSON.
+     */
+    public static function toPrettyJson(int $options = JSON_UNESCAPED_UNICODE): string
     {
-        return json_encode(array_values(static::$drivers), $options);
+        return static::collect()->values()->toPrettyJson($options);
     }
 }
