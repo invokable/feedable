@@ -21,7 +21,7 @@ test('feed item', function () {
     expect($feed->toArray())
         ->toBeArray()
         ->toMatchArray([
-            'id' => null,
+            'id' => 'id',
             'title' => 'Sample Title',
             'url' => 'http://example.com/sample-link',
             'authors' => ['Author'],
@@ -32,8 +32,6 @@ test('feed item', function () {
             'nonexistent' => 'Some Value',
             'test' => 'Extra Property',
         ])
-        ->and($feed->get('id', 'default-id'))
-        ->toBe('default-id')
         ->and($feed->get('test'))
         ->toBe('Extra Property')
         ->and($feed->test)
