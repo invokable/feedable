@@ -26,7 +26,7 @@ class JumpPlusServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::prefix('shonenjumpplus')->group(function () {
-            Route::get('daily', JumpPlusAction::class);
+            Route::get('daily', JumpPlusDriver::class);
         });
     }
 }

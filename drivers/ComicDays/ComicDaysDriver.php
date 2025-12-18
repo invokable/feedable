@@ -15,7 +15,7 @@ use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
 
-class ComicDaysAction implements FeedableDriver
+class ComicDaysDriver implements FeedableDriver
 {
     protected string $baseUrl = 'https://comic-days.com/';
 

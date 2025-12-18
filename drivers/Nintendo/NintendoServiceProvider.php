@@ -39,8 +39,8 @@ class NintendoServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::prefix('nintendo')->group(function () {
-            Route::get('ir/news', IRNewsAction::class);
-            Route::get('direct', DirectAction::class);
+            Route::get('ir/news', IRNewsDriver::class);
+            Route::get('direct', DirectDriver::class);
         });
     }
 }

@@ -26,7 +26,7 @@ class ComicDaysServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::prefix('comic-days')->group(function () {
-            Route::get('original', ComicDaysAction::class);
+            Route::get('original', ComicDaysDriver::class);
         });
     }
 }

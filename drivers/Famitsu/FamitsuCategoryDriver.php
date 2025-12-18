@@ -22,7 +22,7 @@ use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
 use Revolution\Feedable\Core\Support\AbsoluteUri;
 
-class FamitsuCategoryAction implements FeedableDriver
+class FamitsuCategoryDriver implements FeedableDriver
 {
     protected string $baseUrl = 'https://www.famitsu.com';
 

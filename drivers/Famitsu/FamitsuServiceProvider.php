@@ -41,7 +41,7 @@ MARKDOWN;
     public function boot(): void
     {
         Route::prefix('famitsu')->group(function () {
-            Route::get('category/{category}', FamitsuCategoryAction::class)
+            Route::get('category/{category}', FamitsuCategoryDriver::class)
                 ->whereIn('category', Category::cases());
         });
     }

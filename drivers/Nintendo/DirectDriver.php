@@ -17,7 +17,7 @@ use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
 
-class DirectAction implements FeedableDriver
+class DirectDriver implements FeedableDriver
 {
     protected string $baseUrl = 'https://www.nintendo.com/jp/nintendo-direct/';
 

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Revolution\Feedable\JumpPlus\JumpPlusAction;
+use Revolution\Feedable\JumpPlus\JumpPlusDriver;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -14,7 +14,7 @@ Artisan::command('inspire', function () {
 
 Artisan::command('jump', function () {
     $this->comment('Fetching Shonen Jump Plus feed...');
-    $jump = new JumpPlusAction;
+    $jump = new JumpPlusDriver;
     dump($jump->handle());
     $this->comment('Done.');
 })->purpose('Fetch Shonen Jump Plus feed');

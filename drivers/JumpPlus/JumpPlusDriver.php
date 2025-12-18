@@ -15,7 +15,7 @@ use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Support\RSS;
 
-class JumpPlusAction implements FeedableDriver
+class JumpPlusDriver implements FeedableDriver
 {
     protected string $baseUrl = 'https://shonenjumpplus.com/';
 

@@ -15,7 +15,7 @@ use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\Rss2Response;
 
-class IRNewsAction implements FeedableDriver
+class IRNewsDriver implements FeedableDriver
 {
     protected string $baseUrl = 'https://www.nintendo.co.jp/ir/news/index.html';
 
