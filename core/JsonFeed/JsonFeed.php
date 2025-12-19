@@ -84,14 +84,12 @@ class JsonFeed
 
         foreach ($items as $item) {
             /** @var DOMElement $item */
-            $contentHtml = $this->getNodeValueNS($item, 'encoded', self::XML_CONTENT_NS)
-                ?? $this->getNodeValue($item, 'description');
-
             $feedItem = [
                 'id' => $item->getAttribute('rdf:about') ?: $this->getNodeValue($item, 'link'),
                 'url' => $this->getNodeValue($item, 'link'),
                 'title' => $this->getNodeValue($item, 'title'),
-                'content_html' => $contentHtml,
+                'content_html' => $this->getNodeValueNS($item, 'encoded', self::XML_CONTENT_NS),
+                'summary' => $this->getNodeValue($item, 'description'),
                 'date_published' => $this->formatDate($this->getNodeValueNS($item, 'date', self::XML_DC_NS)),
             ];
 
@@ -136,7 +134,8 @@ class JsonFeed
                 'id' => $this->getNodeValue($item, 'guid') ?: $this->getNodeValue($item, 'link'),
                 'url' => $this->getNodeValue($item, 'link'),
                 'title' => $this->getNodeValue($item, 'title'),
-                'content_html' => $this->getNodeValueNS($item, 'encoded', self::XML_CONTENT_NS) ?: $this->getNodeValue($item, 'description'),
+                'content_html' => $this->getNodeValueNS($item, 'encoded', self::XML_CONTENT_NS),
+                'summary' => $this->getNodeValue($item, 'description'),
                 'date_published' => $this->formatDate($this->getNodeValue($item, 'pubDate')),
                 'image' => $this->getRss2Image($item),
             ];
@@ -175,7 +174,7 @@ class JsonFeed
                 'id' => $this->getNodeValue($entry, 'id'),
                 'url' => $this->getAtomLink($entry, 'alternate'),
                 'title' => $this->getNodeValue($entry, 'title'),
-                'content_html' => $this->getNodeValue($entry, 'content') ?: $this->getNodeValue($entry, 'summary'),
+                'content_html' => $this->getNodeValue($entry, 'content'),
                 'summary' => $this->getNodeValue($entry, 'summary'),
                 'date_published' => $this->formatDate($this->getNodeValue($entry, 'published')),
                 'date_modified' => $this->formatDate($this->getNodeValue($entry, 'updated')),
