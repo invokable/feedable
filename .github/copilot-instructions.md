@@ -148,7 +148,7 @@ $absoluteUrl = AbsoluteUri::resolve('https://example.com/', '/images/sample.jpg'
 URLの組み立てにはなるべくLaravelの`Illuminate\Support\Uri`を使う。`/`の有無によるミスを防ぐため。
 ```php
 use Illuminate\Support\Uri;
-$url = Uri::of('https://example.com')->withPath('images/sample.jpg');
+$url = Uri::of('https://example.com')->withPath('images/sample.jpg')->value();
 ```
 
 #### RSS
