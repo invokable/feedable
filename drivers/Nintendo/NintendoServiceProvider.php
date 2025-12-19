@@ -17,7 +17,11 @@ class NintendoServiceProvider extends ServiceProvider
             name: '任天堂 ニンテンドーダイレクト',
             url: 'https://www.nintendo.com/jp/nintendo-direct/',
             tags: ['game'],
-            description: '最新のニンテンドーダイレクト。通常のダイレクトのみで小規模なダイレクトは含まれません。',
+            description: <<<'MARKDOWN'
+最新のニンテンドーダイレクト。通常のダイレクトのみで小規模なダイレクトは含まれません。
+
+`/nintendo/direct.rss`や`/nintendo/direct.json`でフォーマットを指定できます。
+MARKDOWN,
             example: '/nintendo/direct',
             language: 'ja',
         );
@@ -27,7 +31,11 @@ class NintendoServiceProvider extends ServiceProvider
             name: '任天堂 IRニュース',
             url: 'https://www.nintendo.co.jp/ir/news/index.html',
             tags: ['game'],
-            description: '任天堂のIRニュース',
+            description: <<<'MARKDOWN'
+任天堂のIRニュース
+
+`/nintendo/ir/news.rss`や`/nintendo/ir/news.json`でフォーマットを指定できます。
+MARKDOWN,
             example: '/nintendo/ir/news',
             language: 'ja',
         );
@@ -38,9 +46,9 @@ class NintendoServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Route::prefix('nintendo')->group(function () {
-            Route::get('ir/news', IRNewsDriver::class);
-            Route::get('direct', DirectDriver::class);
+        Route::middleware('web')->prefix('nintendo')->group(function () {
+            Route::get('ir/news.{format?}', IRNewsDriver::class);
+            Route::get('direct.{format?}', DirectDriver::class);
         });
     }
 }

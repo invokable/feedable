@@ -14,14 +14,15 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Uri;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\FeedItem;
+use Revolution\Feedable\Core\Enums\Format;
 use Revolution\Feedable\Core\Response\ErrorResponse;
-use Revolution\Feedable\Core\Response\Rss2Response;
+use Revolution\Feedable\Core\Response\ResponseFactory;
 
 class DirectDriver implements FeedableDriver
 {
     protected string $baseUrl = 'https://www.nintendo.com/jp/nintendo-direct/';
 
-    public function __invoke(): Responsable
+    public function __invoke(Format $format = Format::RSS): Responsable
     {
         try {
             $items = $this->handle();
@@ -32,10 +33,11 @@ class DirectDriver implements FeedableDriver
             );
         }
 
-        return new Rss2Response(
+        return ResponseFactory::format($format->value)->make(
             title: '任天堂 IRニュース',
+            home_page_url: $this->baseUrl,
+            feed_url: url()->current(),
             description: '任天堂のIRニュース',
-            link: $this->baseUrl,
             items: $items,
         );
     }
