@@ -205,7 +205,7 @@ class FamitsuCategoryDriver implements FeedableDriver
             'IMAGE' => '<img src="'.data_get($c, 'path').'">',
             'NEWS' => '<a href="'.AbsoluteUri::resolve($this->baseUrl, data_get($c, 'url')).'">'.$content.'<br>'.data_get($c, 'description').'</a><br>',
             'HTML' => $content,
-            'ANNOTATION', 'CAPTION', 'ITEMIZATION', 'ITEMIZATION_NUM', 'NOLINK', 'STRING', 'TWITTER', 'YOUTUBE' => "<div><span>{$content}</span></div>",
+            'ANNOTATION', 'CAPTION', 'ITEMIZATION', 'ITEMIZATION_NUM', 'NOLINK', 'STRING', 'TWITTER', 'YOUTUBE' => "<span>{$content}</span>",
             'BUTTON', 'BUTTON_ANDROID', 'BUTTON_EC', 'BUTTON_IOS', 'BUTTON_TAB', 'LINK', 'LINK_TAB' => '<a href="'.AbsoluteUri::resolve($this->baseUrl, data_get($c, 'url')).'">'.$content.'</a><br>',
             default => '',
         };
