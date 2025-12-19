@@ -99,21 +99,14 @@ return new Rss2Response(
 );
 ```
 
-ユーザーがフォーマットを選べるようにするなら`ResponseFactory`を使う。`$request->input('format')`で`rss`や`atom`や`json`を指定できるようにする。
-```php
-return ResponseFactory::format($request->input('format', 'rss'))
-->make(
-    title: $title,
-    items: $items,
-);
-```
-
+ユーザーがフォーマットを選べるようにするなら`ResponseFactory`を使う。
 拡張子でフォーマットを指定できるようにするなら以下のようにする。`feed.rss`や`feed.atom`や`feed.json`のようにアクセスできる。
 ```php
+use Revolution\Feedable\Core\Response\ResponseFactory;
 use Revolution\Feedable\Core\Enums\Format;
 
-Route::get('feed.{ext?}', function (Format $ext = Format::RSS) {
-return ResponseFactory::format(request()->input('format', $ext->value))
+Route::get('feed.{format?}', function (Format $format = Format::RSS) {
+return ResponseFactory::format($format)
 ->make(
     title: $title,
     items: $items,
