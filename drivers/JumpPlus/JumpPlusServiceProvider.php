@@ -7,6 +7,7 @@ namespace Revolution\Feedable\JumpPlus;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Revolution\Feedable\Core\Driver;
+use Revolution\Feedable\Core\Enums\Format;
 
 class JumpPlusServiceProvider extends ServiceProvider
 {
@@ -17,16 +18,21 @@ class JumpPlusServiceProvider extends ServiceProvider
             name: '少年ジャンプ＋',
             url: 'https://shonenjumpplus.com/',
             tags: ['manga'],
-            description: '少年ジャンプ＋の最新マンガ記事を取得します。公式RSSから旧作を除いた新作のみのRSSです。',
+            description: <<<'MARKDOWN'
+少年ジャンプ＋の最新マンガ記事を取得します。公式RSSから旧作を除いた新作のみのRSSです。
+
+`/shonenjumpplus/daily.rss`や`/shonenjumpplus/daily.json`でフォーマットを指定できます。
+MARKDOWN,
             example: '/shonenjumpplus/daily',
+            format: [Format::RSS->value, Format::JSON->value],
             language: 'ja',
         );
     }
 
     public function boot(): void
     {
-        Route::prefix('shonenjumpplus')->group(function () {
-            Route::get('daily', JumpPlusDriver::class);
+        Route::middleware('web')->prefix('shonenjumpplus')->group(function () {
+            Route::get('daily.{format?}', JumpPlusDriver::class);
         });
     }
 }

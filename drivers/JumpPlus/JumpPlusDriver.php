@@ -12,6 +12,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
+use Revolution\Feedable\Core\Enums\Format;
+use Revolution\Feedable\Core\JsonFeed\JsonFeed;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Support\RSS;
 
@@ -21,7 +23,10 @@ class JumpPlusDriver implements FeedableDriver
 
     protected string $rssUrl = 'https://shonenjumpplus.com/rss';
 
-    public function __invoke(): Responsable|Response
+    /**
+     * @throws Exception
+     */
+    public function __invoke(Format $format = Format::RSS): Responsable|Response
     {
         try {
             $xml = $this->handle();
@@ -30,6 +35,13 @@ class JumpPlusDriver implements FeedableDriver
                 error: 'Whoops! Something went wrong.',
                 message: $e->getMessage(),
             );
+        }
+
+        if (Format::JSON === $format) {
+            $json = app(JsonFeed::class)->convert($xml, $this->rssUrl);
+
+            return response($json)
+                ->header('Content-Type', 'application/json; charset=UTF-8');
         }
 
         return response($xml)
