@@ -47,6 +47,8 @@ readonly class JsonFeedResponse implements Responsable
             'items' => $this->items(),
         ];
 
+        $json = array_filter($json);
+
         return response(json_encode($json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT))
             ->header('Content-Type', 'application/feed+json; charset=UTF-8');
     }
@@ -55,6 +57,9 @@ readonly class JsonFeedResponse implements Responsable
     {
         // itemsは純粋な配列な場合もFeedItemの配列な場合もある。
         // FeedItemに余計なフィールドがあってもそのまま変換。JsonFeedの拡張フィールド。
-        return array_map(fn ($item) => is_array($item) ? $item : $item->toArray(), $this->items);
+        return collect($this->items)
+            ->map(fn ($item) => is_array($item) ? $item : $item->toArray())
+            ->map(fn ($item) => array_filter($item))
+            ->all();
     }
 }
