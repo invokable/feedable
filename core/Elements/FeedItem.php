@@ -11,7 +11,7 @@ use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Traits\Tappable;
 
 /**
- * Item object common to JsonFeed, RSS2 and Atom.
+ * Item object common to JsonFeed and RSS.
  */
 class FeedItem implements Arrayable
 {
