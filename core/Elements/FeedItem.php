@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Core\Elements;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Traits\Conditionable;
@@ -29,8 +30,8 @@ class FeedItem implements Arrayable
         public ?string $summary = null,
         public ?string $image = null,
         public ?string $banner_image = null,
-        public ?string $date_published = null,
-        public ?string $date_modified = null,
+        public string|Carbon|null $date_published = null,
+        public string|Carbon|null $date_modified = null,
         public ?array $authors = null,
         public ?array $tags = null,
         public ?string $language = null,
@@ -85,6 +86,7 @@ class FeedItem implements Arrayable
         return Collection::make(get_object_vars($this))
             ->except('extra')
             ->merge($this->extra)
+            ->filter()
             ->toArray();
     }
 }

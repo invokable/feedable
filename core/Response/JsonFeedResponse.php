@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Core\Response;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
 
 readonly class JsonFeedResponse implements Responsable
@@ -60,6 +62,25 @@ readonly class JsonFeedResponse implements Responsable
         return collect($this->items)
             ->map(fn ($item) => is_array($item) ? $item : $item->toArray())
             ->map(fn ($item) => array_filter($item))
+            ->map(function ($item) {
+                // JSON FeedではRFC3339
+                if (Arr::exists($item, 'date_published')) {
+                    $date_published = $item['date_published'];
+                    if (! $date_published instanceof Carbon) {
+                        $date_published = Carbon::parse($date_published);
+                    }
+                    $item['date_published'] = $date_published->toRfc3339String();
+                }
+                if (Arr::exists($item, 'date_modified')) {
+                    $date_modified = $item['date_modified'];
+                    if (! $date_modified instanceof Carbon) {
+                        $date_modified = Carbon::parse($date_modified);
+                    }
+                    $item['date_modified'] = $date_modified->toRfc3339String();
+                }
+
+                return $item;
+            })
             ->all();
     }
 }

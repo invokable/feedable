@@ -106,7 +106,7 @@ class FamitsuCategoryDriver implements FeedableDriver
         return [
             'title' => data_get($item, 'title'),
             'link' => Uri::of($this->baseUrl)->withPath('/article/'.$publicationDate.'/'.data_get($item, 'id'))->value(),
-            'pubDate' => Carbon::parse(data_get($item, 'publishedAt'))->toRssString(),
+            'pubDate' => Carbon::parse(data_get($item, 'publishedAt')),
             'publicationDate' => $publicationDate,
             'categories' => $categories,
             'articleId' => data_get($item, 'id'),
@@ -148,8 +148,7 @@ class FamitsuCategoryDriver implements FeedableDriver
                     date_published: data_get($item, 'pubDate'),
                     tags: data_get($item, 'categories'),
                 ))->when($authors->isNotEmpty(), fn (FeedItem $feedItem) => $feedItem->set('authors', $authors->toArray()))
-                    ->when(filled($thumbnail), fn (FeedItem $feedItem) => $feedItem->tap(fn (FeedItem $item) => $item->image = $thumbnail))
-                    ->set('_article_id', data_get($item, 'articleId'));
+                    ->when(filled($thumbnail), fn (FeedItem $feedItem) => $feedItem->tap(fn (FeedItem $item) => $item->image = $thumbnail));
             });
     }
 

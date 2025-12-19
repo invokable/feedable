@@ -29,10 +29,10 @@ class Author implements Arrayable
      */
     public function toArray(): array
     {
-        return [
+        return array_filter([
             'name' => $this->name,
             'url' => $this->url,
             'avatar' => $this->avatar,
-        ];
+        ]);
     }
 }

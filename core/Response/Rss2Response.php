@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Core\Response;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,10 +41,36 @@ readonly class Rss2Response implements Responsable
             'image' => $this->image,
             'language' => $this->language,
             'ttl' => $this->ttl,
-            'items' => $this->items,
+            'items' => $this->items(),
         ]);
 
         return response($rss)
             ->header('Content-Type', 'application/xml; charset=UTF-8');
+    }
+
+    protected function items(): array
+    {
+        return collect($this->items)
+            ->map(fn ($item) => is_array($item) ? $item : $item->toArray())
+            ->map(fn ($item) => array_filter($item))
+            ->map(function ($item) {
+                if (Arr::exists($item, 'date_published')) {
+                    $date_published = $item['date_published'];
+                    if (! $date_published instanceof Carbon) {
+                        $date_published = Carbon::parse($date_published);
+                    }
+                    $item['date_published'] = $date_published->toRssString();
+                }
+                if (Arr::exists($item, 'date_modified')) {
+                    $date_modified = $item['date_modified'];
+                    if (! $date_modified instanceof Carbon) {
+                        $date_modified = Carbon::parse($date_modified);
+                    }
+                    $item['date_modified'] = $date_modified->toRssString();
+                }
+
+                return $item;
+            })
+            ->all();
     }
 }
