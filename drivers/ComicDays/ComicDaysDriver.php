@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\FeedItem;
+use Revolution\Feedable\Core\Enums\Format;
 use Revolution\Feedable\Core\Response\ErrorResponse;
-use Revolution\Feedable\Core\Response\Rss2Response;
+use Revolution\Feedable\Core\Response\ResponseFactory;
 
 class ComicDaysDriver implements FeedableDriver
 {
     protected string $baseUrl = 'https://comic-days.com/';
 
-    public function __invoke(): Responsable
+    public function __invoke(Format $format = Format::RSS): Responsable
     {
         try {
             $items = $this->handle();
@@ -30,10 +31,11 @@ class ComicDaysDriver implements FeedableDriver
             );
         }
 
-        return new Rss2Response(
+        return ResponseFactory::format($format->value)->make(
             title: 'コミックDAYS - 今日の無料連載',
+            home_page_url: $this->baseUrl,
+            feed_url: url()->current(),
             description: 'コミックDAYSの今日更新された無料連載の最新話一覧',
-            link: $this->baseUrl,
             items: $items,
         );
     }

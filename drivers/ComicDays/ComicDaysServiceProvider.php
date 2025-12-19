@@ -7,6 +7,7 @@ namespace Revolution\Feedable\ComicDays;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Revolution\Feedable\Core\Driver;
+use Revolution\Feedable\Core\Enums\Format;
 
 class ComicDaysServiceProvider extends ServiceProvider
 {
@@ -17,16 +18,21 @@ class ComicDaysServiceProvider extends ServiceProvider
             name: 'コミックDAYS オリジナル',
             url: 'https://comic-days.com/',
             tags: ['manga'],
-            description: 'コミックDAYSの今日更新された無料連載の最新話一覧。復刻作品も含まれます。',
+            description: <<<'MARKDOWN'
+コミックDAYSの今日更新された無料連載の最新話一覧。復刻作品も含まれます。
+
+`/comic-days/original.rss`や`/comic-days/original.json`でフォーマットを指定できます。
+MARKDOWN,
             example: '/comic-days/original',
+            format: [Format::RSS->value, Format::JSON->value],
             language: 'ja',
         );
     }
 
     public function boot(): void
     {
-        Route::prefix('comic-days')->group(function () {
-            Route::get('original', ComicDaysDriver::class);
+        Route::middleware('web')->prefix('comic-days')->group(function () {
+            Route::get('original.{format?}', ComicDaysDriver::class);
         });
     }
 }
