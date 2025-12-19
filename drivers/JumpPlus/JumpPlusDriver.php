@@ -37,7 +37,7 @@ class JumpPlusDriver implements FeedableDriver
             );
         }
 
-        if (Format::JSON === $format) {
+        if ($format === Format::JSON) {
             $json = app(JsonFeed::class)->convert($xml, $this->rssUrl);
 
             return response($json)
