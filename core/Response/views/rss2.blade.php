@@ -52,9 +52,9 @@
                 @if(filled(data_get($item, 'image')))
                     <media:thumbnail>{{ data_get($item, 'image') }}</media:thumbnail>
                 @endif
-                @if(is_array(data_get($item, 'media')))
-                    @foreach(data_get($item, 'media') as $media)
-                        <media:content url="{{ data_get($media, 'url') }}" type="{{ data_get($media, 'type') }}"/>
+                @if(is_array(data_get($item, 'attachments')))
+                    @foreach(data_get($item, 'attachments') as $attachment)
+                        <enclosure url="{{ data_get($attachment, 'url') }}" type="{{ data_get($attachment, 'mime_type') }}" length="{{ data_get($attachment, 'size_in_bytes', 0) }}"/>
                     @endforeach
                 @endif
             </item>
