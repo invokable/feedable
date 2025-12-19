@@ -55,7 +55,7 @@ class JsonFeed
             return 'atom';
         }
 
-        if (str_contains(data_get(json_decode($body, true), 'version') ?? '', 'https://jsonfeed.org/version/1')) {
+        if (Str::isJson($body) && str_contains(data_get(json_decode($body, true), 'version') ?? '', 'https://jsonfeed.org/version/1')) {
             return 'json';
         }
 
