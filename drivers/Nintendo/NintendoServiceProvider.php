@@ -12,7 +12,6 @@ class NintendoServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // idさえ違っていれば複数のドライバー情報を登録できる。
         Driver::about(
             id: 'nintendo-direct',
             name: '任天堂 ニンテンドーダイレクト',

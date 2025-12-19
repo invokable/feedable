@@ -14,7 +14,63 @@ Feedableは [RSSHub](https://github.com/DIYgod/RSSHub) を参考にしたRSSフ�
 入口のルーティングから出口のレスポンスまで全てドライバーで制御可能。
 サイト毎に細かい調整が必要になることは分かっているので厳密なパターンは適用せず最大限の柔軟性を持たせる。
 
-現在はRSSHubにある日本語のサイトを移植中。
+~~現在はRSSHubにある日本語のサイトを移植中。~~ 結局移植より新規に作っている。既存の実装パターンがいくつかあれば量産はAIが得意なので将来的にはAI任せでいい。
+
+### Service Provider
+
+ただのLaravelのService Provider。ルートを定義したりドライバー情報を登録する。
+
+```php
+
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
+use Revolution\Feedable\Core\Driver;
+
+class SampleServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        // 本来のServiceProvider::register()はサービスコンテナの登録のみに使う。
+        // DriverはLaravelの機能を使ってないのでここでも使える。
+        Driver::about(
+            id: 'sample-1',
+            name: 'サンプル1',
+            url: 'https://example.com/',
+            tags: ['example'],
+            description: 'サンプルドライバー',
+            example: '/sample',
+            language: 'ja',
+        );
+
+        // idさえ違っていれば複数のドライバー情報を登録可能
+        Driver::about(
+            id: 'sample-2',
+            name: 'サンプル2',
+            url: 'https://example.com/',
+            tags: ['example'],
+            description: 'サンプルドライバー',
+            example: '/sample/two',
+            language: 'ja',
+        );
+    }
+
+    public function boot(): void
+    {
+        // ルート定義
+        // 通常のroutes/web.phpのつもりで使うとwebミドルウェアが適用されてないので少し動作が違う場合がある。
+        Route::prefix('sample')->group(function () {
+            Route::get('/', SampleDriver::class);
+            Route::get('two', SampleTwoDriver::class);
+        });
+
+        // 同じ動作にするにはmiddleware('web')を追加する。
+        // CSRFなども適用されて外部からのポストが難しくなるのでドライバーの用途によっては注意が必要なので各ドライバーで工夫する。
+        Route::middleware('web')->prefix('sample')->group(function () {
+            Route::get('/', SampleDriver::class);
+        });
+    }
+}
+```
 
 ## スクレイピング
 - LaravelのHTTPクライアント: これで取得できるなら一番簡単。
@@ -50,6 +106,19 @@ return ResponseFactory::format($request->input('format', 'rss'))
     title: $title,
     items: $items,
 );
+```
+
+拡張子でフォーマットを指定できるようにするなら以下のようにする。`feed.rss`や`feed.atom`や`feed.json`のようにアクセスできる。
+```php
+use Revolution\Feedable\Core\Enums\Format;
+
+Route::get('feed.{ext?}', function (Format $ext = Format::RSS) {
+return ResponseFactory::format(request()->input('format', $ext->value))
+->make(
+    title: $title,
+    items: $items,
+);
+});
 ```
 
 現代ではjsonが使いやすいので全体的にJsonFeedに寄せた方がいいかもしれないけどリーダー側が対応できてない。Feedable内部でのフィールド名などはJsonFeedに寄せる。出力フォーマットはRSSが標準。

@@ -19,9 +19,11 @@ use Illuminate\Support\Uri;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\Author;
 use Revolution\Feedable\Core\Elements\FeedItem;
+use Revolution\Feedable\Core\Enums\Format;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\ResponseFactory;
 use Revolution\Feedable\Core\Support\AbsoluteUri;
+use Revolution\Feedable\Famitsu\Enums\Category;
 
 class FamitsuCategoryDriver implements FeedableDriver
 {
@@ -33,9 +35,9 @@ class FamitsuCategoryDriver implements FeedableDriver
 
     protected ?string $buildId = null;
 
-    public function __invoke(string $category, string $ext = 'rss'): Responsable
+    public function __invoke(Category $category, Format $ext = Format::RSS): Responsable
     {
-        $this->category = $category;
+        $this->category = $category->value;
 
         try {
             $items = $this->handle();
@@ -46,7 +48,7 @@ class FamitsuCategoryDriver implements FeedableDriver
             );
         }
 
-        return ResponseFactory::format(request('format', $ext))->make(
+        return ResponseFactory::format(request('format', $ext->value))->make(
             title: $this->title,
             home_page_url: Uri::of($this->baseUrl)->withPath('/category/'.$this->category.'/page/1')->value(),
             description: $this->title,
@@ -147,7 +149,7 @@ class FamitsuCategoryDriver implements FeedableDriver
                     tags: data_get($item, 'categories'),
                 ))->when($authors->isNotEmpty(), fn (FeedItem $feedItem) => $feedItem->set('authors', $authors->toArray()))
                     ->when(filled($thumbnail), fn (FeedItem $feedItem) => $feedItem->tap(fn (FeedItem $item) => $item->image = $thumbnail))
-                    ->set('_articleId', data_get($item, 'articleId'));
+                    ->set('_article_id', data_get($item, 'articleId'));
             });
     }
 
