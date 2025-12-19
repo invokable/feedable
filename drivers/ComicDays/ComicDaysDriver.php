@@ -31,7 +31,7 @@ class ComicDaysDriver implements FeedableDriver
             );
         }
 
-        return ResponseFactory::format($format->value)->make(
+        return ResponseFactory::format($format)->make(
             title: 'コミックDAYS - 今日の無料連載',
             home_page_url: $this->baseUrl,
             feed_url: url()->current(),

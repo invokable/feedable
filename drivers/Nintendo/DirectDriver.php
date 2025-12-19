@@ -33,7 +33,7 @@ class DirectDriver implements FeedableDriver
             );
         }
 
-        return ResponseFactory::format($format->value)->make(
+        return ResponseFactory::format($format)->make(
             title: '任天堂 IRニュース',
             home_page_url: $this->baseUrl,
             feed_url: url()->current(),

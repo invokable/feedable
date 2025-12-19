@@ -35,7 +35,7 @@ class FamitsuCategoryDriver implements FeedableDriver
 
     protected ?string $buildId = null;
 
-    public function __invoke(Category $category, Format $ext = Format::RSS): Responsable
+    public function __invoke(Category $category, Format $format = Format::RSS): Responsable
     {
         $this->category = $category->value;
 
@@ -48,9 +48,10 @@ class FamitsuCategoryDriver implements FeedableDriver
             );
         }
 
-        return ResponseFactory::format(request('format', $ext->value))->make(
+        return ResponseFactory::format($format)->make(
             title: $this->title,
             home_page_url: Uri::of($this->baseUrl)->withPath('/category/'.$this->category.'/page/1')->value(),
+            feed_url: url()->current(),
             description: $this->title,
             icon: 'https://www.famitsu.com/res/images/headIcons/apple-touch-icon.png',
             favicon: 'https://www.famitsu.com/res/images/headIcons/apple-touch-icon.png',

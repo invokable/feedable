@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Revolution\Feedable\Core\Response;
 
 use Illuminate\Contracts\Support\Responsable;
+use Revolution\Feedable\Core\Enums\Format;
 
 class ResponseFactory
 {
-    public function __construct(protected string $format = 'rss') {}
+    public function __construct(protected Format $format = Format::RSS) {}
 
-    public static function format(string $format = 'rss'): static
+    public static function format(Format $format = Format::RSS): static
     {
         return new static($format);
     }
@@ -32,7 +33,7 @@ class ResponseFactory
         array $items = [],
     ): Responsable {
         return match ($this->format) {
-            'json' => new JsonFeedResponse(
+            Format::JSON => new JsonFeedResponse(
                 title: $title,
                 home_page_url: $home_page_url,
                 feed_url: $feed_url,
@@ -45,7 +46,7 @@ class ResponseFactory
                 hubs: $hubs,
                 items: $items,
             ),
-            'atom' => new AtomResponse,
+            Format::ATOM => new AtomResponse,
             default => new Rss2Response(
                 title: $title,
                 description: $description,
