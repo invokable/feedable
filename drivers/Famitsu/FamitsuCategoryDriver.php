@@ -139,7 +139,7 @@ class FamitsuCategoryDriver implements FeedableDriver
 
                 $thumbnail = data_get($article, 'ogpImageUrl', data_get($article, 'thumbnailUrl'));
 
-                $description = $this->renderJson(data_get($article, 'content'));
+                $description = $this->renderJson(data_get($article, 'content', []));
 
                 return (new FeedItem(
                     id: data_get($item, 'link'),
