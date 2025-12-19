@@ -16,9 +16,6 @@ class ResponseFactory
         return new static($format);
     }
 
-    /**
-     * TODO: 共通で使える引数を設定しつつ各フォーマットのレスポンスを生成
-     */
     public function make(
         ?string $title = null,
         ?string $home_page_url = null,
@@ -46,7 +43,6 @@ class ResponseFactory
                 hubs: $hubs,
                 items: $items,
             ),
-            Format::ATOM => new AtomResponse,
             default => new Rss2Response(
                 title: $title,
                 description: $description,

@@ -87,7 +87,7 @@ class SampleServiceProvider extends ServiceProvider
 `./core`はドライバーから使うヘルパー。
 
 ### Response
-`JsonFeedResponse`や`AtomResponse`や`Rss2Response`で最終的な出力フォーマットを固定化する。フィードのフォーマットは統一されてないのでこれを使わなくてもいい。
+`JsonFeedResponse`や`Rss2Response`で最終的な出力フォーマットを固定化する。フィードのフォーマットは統一されてないのでこれを使わなくてもいい。
 
 PHP 8.4の時期なら名前付き引数を使うのがいいので以下のような使い方。
 ```php

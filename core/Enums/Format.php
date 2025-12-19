@@ -10,6 +10,5 @@ namespace Revolution\Feedable\Core\Enums;
 enum Format: string
 {
     case RSS = 'rss';
-    case ATOM = 'atom';
     case JSON = 'json';
 }
