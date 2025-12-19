@@ -7,6 +7,7 @@ namespace Revolution\Feedable\Famitsu;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Revolution\Feedable\Core\Driver;
+use Revolution\Feedable\Core\Enums\Format;
 use Revolution\Feedable\Famitsu\Enums\Category;
 
 class FamitsuServiceProvider extends ServiceProvider
@@ -20,7 +21,7 @@ class FamitsuServiceProvider extends ServiceProvider
             tags: ['game'],
             description: $this->description(),
             example: '/famitsu/category/new-article',
-            format: ['rss', 'json'],
+            format: [Format::RSS->value, Format::JSON->value],
             language: 'ja',
         );
     }

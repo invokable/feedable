@@ -7,6 +7,7 @@ namespace Revolution\Feedable\JsonFeed;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Revolution\Feedable\Core\Driver;
+use Revolution\Feedable\Core\Enums\Format;
 
 class JsonFeedServiceProvider extends ServiceProvider
 {
@@ -17,7 +18,7 @@ class JsonFeedServiceProvider extends ServiceProvider
             name: 'JSON Feed',
             description: 'RSSやAtomをJSON Feed形式に変換します。',
             example: '/jsonfeed?url=https://',
-            format: ['json'],
+            format: [Format::JSON->value],
         );
     }
 

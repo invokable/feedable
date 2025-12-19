@@ -7,6 +7,7 @@ namespace Revolution\Feedable\Nintendo;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Revolution\Feedable\Core\Driver;
+use Revolution\Feedable\Core\Enums\Format;
 
 class NintendoServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,7 @@ class NintendoServiceProvider extends ServiceProvider
 `/nintendo/direct.rss`や`/nintendo/direct.json`でフォーマットを指定できます。
 MARKDOWN,
             example: '/nintendo/direct',
+            format: [Format::RSS->value, Format::JSON->value],
             language: 'ja',
         );
 
@@ -37,6 +39,7 @@ MARKDOWN,
 `/nintendo/ir/news.rss`や`/nintendo/ir/news.json`でフォーマットを指定できます。
 MARKDOWN,
             example: '/nintendo/ir/news',
+            format: [Format::RSS->value, Format::JSON->value],
             language: 'ja',
         );
 
