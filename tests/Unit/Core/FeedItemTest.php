@@ -25,10 +25,7 @@ test('feed item', function () {
             'title' => 'Sample Title',
             'url' => 'http://example.com/sample-link',
             'authors' => ['Author'],
-            'date_published' => null,
             'content_text' => 'This is a sample description for the feed item.',
-            'image' => null,
-            'tags' => null,
             'nonexistent' => 'Some Value',
             'test' => 'Extra Property',
         ])
