@@ -34,10 +34,10 @@ class DirectDriver implements FeedableDriver
         }
 
         return ResponseFactory::format($format)->make(
-            title: '任天堂 IRニュース',
+            title: '任天堂 ニンテンドーダイレクト',
             home_page_url: $this->baseUrl,
             feed_url: url()->current(),
-            description: '任天堂のIRニュース',
+            description: '最新のニンテンドーダイレクト',
             items: $items,
         );
     }
