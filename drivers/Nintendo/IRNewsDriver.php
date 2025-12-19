@@ -84,6 +84,7 @@ class IRNewsDriver implements FeedableDriver
                 // 同じURLが多いので日付を付与してユニークにする
                 id: $url.'#'.$pubDate->format('Ymd'),
                 url: $url.'#'.$pubDate->format('Ymd'),
+                external_url: $url,
                 title: $title,
                 summary: $title,
                 date_published: $pubDate->toRssString(),
