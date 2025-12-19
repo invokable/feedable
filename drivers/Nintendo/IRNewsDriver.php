@@ -76,16 +76,17 @@ class IRNewsDriver implements FeedableDriver
             $category = $item->getElementsByTagName('category')->item(0)->textContent;
 
             $dateReleased = $item->getElementsByTagName('date_released')->item(0)->textContent;
-            $pubDate = Carbon::createFromFormat('Y.n.j', $dateReleased)->setTime(0, 0, 0)->toRssString();
+            $pubDate = Carbon::createFromFormat('Y.n.j', $dateReleased)->setTime(0, 0, 0);
 
             $url = Uri::of('https://www.nintendo.co.jp')->withPath($link)->value();
 
             $items[] = new FeedItem(
-                id: $url,
-                url: $url,
+                // 同じURLが多いので日付を付与してユニークにする
+                id: $url.'#'.$pubDate->format('Ymd'),
+                url: $url.'#'.$pubDate->format('Ymd'),
                 title: $title,
                 summary: $title,
-                date_published: $pubDate,
+                date_published: $pubDate->toRssString(),
                 tags: [$category],
             );
 
