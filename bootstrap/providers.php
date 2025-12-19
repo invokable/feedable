@@ -13,4 +13,5 @@ return [
     Revolution\Feedable\ComicDays\ComicDaysServiceProvider::class,
     Revolution\Feedable\Nintendo\NintendoServiceProvider::class,
     Revolution\Feedable\JsonFeed\JsonFeedServiceProvider::class,
+    Revolution\Feedable\MagazinePocket\MagazinePocketServiceProvider::class,
 ];
