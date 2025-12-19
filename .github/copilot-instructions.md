@@ -100,7 +100,7 @@ return new Rss2Response(
 ```
 
 ユーザーがフォーマットを選べるようにするなら`ResponseFactory`を使う。
-拡張子でフォーマットを指定できるようにするなら以下のようにする。`feed.rss`や`feed.atom`や`feed.json`のようにアクセスできる。
+拡張子でフォーマットを指定できるようにするなら以下のようにする。`feed.rss`や`feed.json`のようにアクセスできる。
 ```php
 use Revolution\Feedable\Core\Response\ResponseFactory;
 use Revolution\Feedable\Core\Enums\Format;
