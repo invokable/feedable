@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\ComicDays;
 
+use Carbon\Carbon;
 use DOMDocument;
 use DOMXPath;
 use Exception;
@@ -23,7 +24,12 @@ class ComicDaysDriver implements FeedableDriver
     public function __invoke(Format $format = Format::RSS): Responsable
     {
         try {
-            $items = $this->handle();
+            // 12時更新なので翌日までキャッシュ
+            $items = cache()->remember(
+                'comic-days-items',
+                Carbon::tomorrow('Asia/Tokyo')->addHours(12),
+                fn () => $this->handle(),
+            );
         } catch (Exception $e) {
             return new ErrorResponse(
                 error: 'Whoops! Something went wrong.',
