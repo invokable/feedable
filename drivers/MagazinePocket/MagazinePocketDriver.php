@@ -26,7 +26,12 @@ class MagazinePocketDriver implements FeedableDriver
     public function __invoke(Format $format = Format::RSS): Responsable
     {
         try {
-            $items = $this->handle();
+            // 0時更新なので翌日までキャッシュ
+            $items = cache()->remember(
+                'shonenmagazine-pocket-items',
+                Carbon::tomorrow('Asia/Tokyo'),
+                fn () => $this->handle(),
+            );
         } catch (Exception $e) {
             return new ErrorResponse(
                 error: 'Whoops! Something went wrong.',
