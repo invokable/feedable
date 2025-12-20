@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Core\JsonFeed;
 
+use Carbon\Carbon;
 use DOMDocument;
 use DOMElement;
 use Exception;
@@ -275,12 +276,7 @@ class JsonFeed
             return null;
         }
 
-        $timestamp = strtotime($date);
-        if ($timestamp === false) {
-            return null;
-        }
-
-        return date('c', $timestamp);
+        return Carbon::parse($date)->toRfc3339String();
     }
 
     /**
