@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\JumpPlus;
 
+use Carbon\Carbon;
 use DOMDocument;
 use DOMXPath;
 use Exception;
@@ -29,7 +30,12 @@ class JumpPlusDriver implements FeedableDriver
     public function __invoke(Format $format = Format::RSS): Responsable|Response
     {
         try {
-            $xml = $this->handle();
+            // 0時更新なので翌日までキャッシュ
+            $xml = cache()->remember(
+                'jump-plus-daily-rss',
+                Carbon::tomorrow('Asia/Tokyo'),
+                fn () => $this->handle(),
+            );
         } catch (Exception $e) {
             return new ErrorResponse(
                 error: 'Whoops! Something went wrong.',
