@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Revolution\Feedable\Core\Driver;
 use Revolution\Feedable\Core\Enums\Format;
+use Revolution\Feedable\Core\Enums\Timezone;
 
 class ComicDaysServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,7 @@ MARKDOWN,
             example: '/comic-days/original',
             format: [Format::RSS->value, Format::JSON->value],
             language: 'ja',
+            timezone: Timezone::AsiaTokyo->value,
         );
     }
 

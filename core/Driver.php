@@ -36,6 +36,7 @@ class Driver
         ?string $example = null,
         ?array $format = null,
         ?string $language = null,
+        ?string $timezone = null,
         bool $browser = false,
     ): void {
         static::$drivers[$id] = compact(
@@ -47,6 +48,7 @@ class Driver
             'example',
             'format',
             'language',
+            'timezone',
             'browser',
         );
     }
