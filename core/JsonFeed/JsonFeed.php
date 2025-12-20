@@ -192,7 +192,7 @@ class JsonFeed
                 'id' => $this->getNodeValue($entry, 'id'),
                 'url' => $this->getAtomLink($entry, 'alternate'),
                 'title' => $this->getNodeValue($entry, 'title'),
-                'content_html' => $this->getNodeValue($entry, 'content'),
+                ...$this->getAtomContent($entry),
                 'summary' => $this->getNodeValue($entry, 'summary'),
                 'date_published' => $this->formatDate($this->getNodeValue($entry, 'published')),
                 'date_modified' => $this->formatDate($this->getNodeValue($entry, 'updated')),
@@ -289,6 +289,37 @@ class JsonFeed
         }
 
         return null;
+    }
+
+    /**
+     * Get content from Atom entry.
+     * type="text" -> content_text, type="html" or type="xhtml" -> content_html
+     *
+     * @return array{content_text?: string, content_html?: string}
+     */
+    protected function getAtomContent(DOMElement $entry): array
+    {
+        $contentNode = $entry->getElementsByTagName('content')->item(0);
+        if (! $contentNode) {
+            return [];
+        }
+
+        $type = $contentNode->getAttribute('type') ?: 'text';
+
+        if ($type === 'text') {
+            $content = trim($contentNode->textContent) ?: null;
+
+            return $content ? ['content_text' => $content] : [];
+        }
+
+        // html or xhtml
+        $html = '';
+        foreach ($contentNode->childNodes as $child) {
+            $html .= $contentNode->ownerDocument->saveXML($child);
+        }
+        $html = trim($html) ?: null;
+
+        return $html ? ['content_html' => $html] : [];
     }
 
     protected function formatDate(?string $date = null): ?string
