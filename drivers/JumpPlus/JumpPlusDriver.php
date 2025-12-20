@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Enums\Format;
+use Revolution\Feedable\Core\Enums\Timezone;
 use Revolution\Feedable\Core\JsonFeed\JsonFeed;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Support\RSS;
@@ -33,7 +34,7 @@ class JumpPlusDriver implements FeedableDriver
             // 0時更新なので翌日までキャッシュ
             $xml = cache()->remember(
                 'jump-plus-daily-rss',
-                Carbon::tomorrow('Asia/Tokyo'),
+                Carbon::tomorrow(Timezone::AsiaTokyo->value),
                 fn () => $this->handle(),
             );
         } catch (Exception $e) {

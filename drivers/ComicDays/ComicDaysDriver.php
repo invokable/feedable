@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Enums\Format;
+use Revolution\Feedable\Core\Enums\Timezone;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\ResponseFactory;
 
@@ -27,7 +28,7 @@ class ComicDaysDriver implements FeedableDriver
             // 12時更新なので翌日までキャッシュ
             $items = cache()->remember(
                 'comic-days-items',
-                Carbon::tomorrow('Asia/Tokyo')->addHours(12),
+                Carbon::tomorrow(Timezone::AsiaTokyo->value)->addHours(12),
                 fn () => $this->handle(),
             );
         } catch (Exception $e) {

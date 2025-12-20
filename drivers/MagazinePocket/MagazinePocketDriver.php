@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Enums\Format;
+use Revolution\Feedable\Core\Enums\Timezone;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\ResponseFactory;
 use Revolution\Feedable\Core\Support\AbsoluteUri;
@@ -29,7 +30,7 @@ class MagazinePocketDriver implements FeedableDriver
             // 0時更新なので翌日までキャッシュ
             $items = cache()->remember(
                 'shonenmagazine-pocket-items',
-                Carbon::tomorrow('Asia/Tokyo'),
+                Carbon::tomorrow(Timezone::AsiaTokyo->value),
                 fn () => $this->handle(),
             );
         } catch (Exception $e) {
