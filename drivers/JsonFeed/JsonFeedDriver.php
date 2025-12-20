@@ -43,8 +43,20 @@ class JsonFeedDriver implements FeedableDriver
      */
     public function handle(): string
     {
-        $body = Http::get($this->url)->throw()->body();
+        $body = cache()->flexible('jsonfeed:'.md5($this->url.$this->limit), [now()->plus(minutes: 10), now()->plus(hours: 1)], function () {
+            return Http::get($this->url)->throw()->body();
+        });
 
         return app(JsonFeed::class)->convert($body, $this->url, $this->limit);
+    }
+
+    public function with(string $url, ?int $limit = null): static
+    {
+        // テスト時にセットする用
+
+        $this->url = $url;
+        $this->limit = $limit;
+
+        return $this;
     }
 }
