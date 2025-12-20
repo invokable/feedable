@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Famitsu;
 
-use Revolution\Feedable\Core\Enums\Timezone;
 use const Dom\HTML_NO_DEFAULT_NS;
 
 use Dom\HTMLDocument;
@@ -21,6 +20,7 @@ use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\Author;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Enums\Format;
+use Revolution\Feedable\Core\Enums\Timezone;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\ResponseFactory;
 use Revolution\Feedable\Core\Support\AbsoluteUri;
