@@ -13,6 +13,7 @@ use Illuminate\Support\Uri;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Enums\Format;
+use Revolution\Feedable\Core\Enums\Timezone;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\ResponseFactory;
 
@@ -76,7 +77,7 @@ class IRNewsDriver implements FeedableDriver
             $category = $item->getElementsByTagName('category')->item(0)->textContent;
 
             $dateReleased = $item->getElementsByTagName('date_released')->item(0)->textContent;
-            $pubDate = Carbon::createFromFormat('Y.n.j', $dateReleased)->setTime(0, 0, 0);
+            $pubDate = Carbon::createFromFormat('Y.n.j', $dateReleased, timezone: Timezone::AsiaTokyo->value)->setTime(0, 0, 0);
 
             $url = Uri::of('https://www.nintendo.co.jp')->withPath($link)->value();
 

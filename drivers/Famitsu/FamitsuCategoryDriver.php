@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Revolution\Feedable\Famitsu;
 
+use Revolution\Feedable\Core\Enums\Timezone;
 use const Dom\HTML_NO_DEFAULT_NS;
 
 use Dom\HTMLDocument;
@@ -107,7 +108,7 @@ class FamitsuCategoryDriver implements FeedableDriver
         return [
             'title' => data_get($item, 'title'),
             'link' => Uri::of($this->baseUrl)->withPath('/article/'.$publicationDate.'/'.data_get($item, 'id'))->value(),
-            'pubDate' => Carbon::parse(data_get($item, 'publishedAt')),
+            'pubDate' => Carbon::parse(data_get($item, 'publishedAt'), timezone: Timezone::AsiaTokyo->value),
             'publicationDate' => $publicationDate,
             'categories' => $categories,
             'articleId' => data_get($item, 'id'),

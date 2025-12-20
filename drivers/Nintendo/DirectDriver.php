@@ -15,6 +15,7 @@ use Illuminate\Support\Uri;
 use Revolution\Feedable\Core\Contracts\FeedableDriver;
 use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Enums\Format;
+use Revolution\Feedable\Core\Enums\Timezone;
 use Revolution\Feedable\Core\Response\ErrorResponse;
 use Revolution\Feedable\Core\Response\ResponseFactory;
 
@@ -69,12 +70,12 @@ class DirectDriver implements FeedableDriver
         $date = Str::of(Uri::of($link)->path())->dirname()->afterLast('/')->toString();
 
         if (Carbon::canBeCreatedFromFormat($date, 'Ymd')) {
-            $pubDate = Carbon::createFromFormat('Ymd', $date)
+            $pubDate = Carbon::createFromFormat('Ymd', $date, timezone: Timezone::AsiaTokyo->value)
                 ->setTime(0, 0, 0)
                 ->toRssString();
         } else {
             // linkから日付が取得できなかった場合は現在日時にする
-            $pubDate = now()->toRssString();
+            $pubDate = now(Timezone::AsiaTokyo->value)->toRssString();
         }
 
         $response = Http::get($link)->throw();
