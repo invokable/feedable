@@ -16,9 +16,12 @@ class JsonFeedDriver implements FeedableDriver
 {
     protected string $url;
 
+    protected ?int $limit = null;
+
     public function __invoke(Request $request): Response|ErrorResponse
     {
         $this->url = $request->input('url');
+        $this->limit = (int) $request->input('limit');
 
         try {
             $json = $this->handle();
@@ -42,6 +45,6 @@ class JsonFeedDriver implements FeedableDriver
     {
         $body = Http::get($this->url)->throw()->body();
 
-        return app(JsonFeed::class)->convert($body, $this->url);
+        return app(JsonFeed::class)->convert($body, $this->url, $this->limit);
     }
 }

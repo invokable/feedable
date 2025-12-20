@@ -12,7 +12,15 @@ use Illuminate\Support\Str;
 
 class JsonFeed
 {
+    /**
+     * Original feed URL
+     */
     protected ?string $feed_url = null;
+
+    /**
+     * Limit number of items
+     */
+    protected ?int $limit = null;
 
     protected const string XML_CONTENT_NS = 'http://purl.org/rss/1.0/modules/content/';
 
@@ -25,9 +33,10 @@ class JsonFeed
      *
      * @throws Exception
      */
-    public function convert(string $feed, ?string $feed_url = null): string
+    public function convert(string $feed, ?string $feed_url = null, ?int $limit = null): string
     {
         $this->feed_url = $feed_url;
+        $this->limit = $limit;
 
         return match ($this->detect($feed)) {
             'rdf' => $this->rdf($feed),
@@ -105,6 +114,10 @@ class JsonFeed
             }
 
             $feed['items'][] = array_filter($feedItem);
+
+            if ($this->limit > 0 && count($feed['items']) >= $this->limit) {
+                break;
+            }
         }
 
         return json_encode($feed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
@@ -147,6 +160,10 @@ class JsonFeed
             }
 
             $feed['items'][] = array_filter($feedItem);
+
+            if ($this->limit > 0 && count($feed['items']) >= $this->limit) {
+                break;
+            }
         }
 
         return json_encode($feed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
@@ -188,6 +205,10 @@ class JsonFeed
             }
 
             $feed['items'][] = array_filter($feedItem);
+
+            if ($this->limit > 0 && count($feed['items']) >= $this->limit) {
+                break;
+            }
         }
 
         return json_encode($feed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
