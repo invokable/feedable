@@ -72,6 +72,10 @@ class SampleServiceProvider extends ServiceProvider
 }
 ```
 
+### タイムゾーンの扱い
+
+対象サイトのタイムゾーンが決まっている場合はドライバー側でタイムゾーンを指定する。Laravelのアプリケーション全体のタイムゾーン設定に依存しないようにする。
+
 ## スクレイピング
 - LaravelのHTTPクライアント: これで取得できるなら一番簡単。
 - Playwright(`revolution/salvager`): JavaScriptで動的に生成されるページを取得する場合に使う。Vercelでは動かせない。
