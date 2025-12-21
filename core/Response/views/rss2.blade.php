@@ -7,7 +7,7 @@
     <channel>
         <title>{{ $title }}</title>
         <link>{{ $link }}</link>
-        <atom:link href="{{ $link }}" rel="self" type="application/rss+xml"/>
+        <atom:link href="{{ $feed_link ?? $link }}" rel="self" type="application/rss+xml"/>
         <description>{{ $description }}</description>
         <generator>Feedable</generator>
         @if(filled($language))

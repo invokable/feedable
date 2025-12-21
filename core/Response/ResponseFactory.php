@@ -47,6 +47,7 @@ class ResponseFactory
                 title: $title,
                 description: $description,
                 link: $home_page_url,
+                feed_url: $feed_url,
                 pubDate: now()->toRssString(),
                 image: $icon,
                 items: $items,
