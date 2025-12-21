@@ -28,9 +28,9 @@ class LaravelBlogDriver implements FeedableDriver
     {
         try {
             // 不定期更新なので1時間だけキャッシュ
-            $items = cache()->remember(
+            $items = cache()->flexible(
                 'laravel-blog-items',
-                now()->plus(hours: 1),
+                [now()->plus(hours: 1), now()->plus(hours: 2)],
                 fn () => $this->handle(),
             );
         } catch (Exception $e) {
