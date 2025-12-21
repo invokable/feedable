@@ -58,6 +58,8 @@ class LaravelBlogDriver implements FeedableDriver
         /**
          * Timezoneはアメリカだろうけど時間は表示されてないし、厳密に扱う必要はないのでUTC。
          *
+         * リンクのみで本文は含めない。
+         *
          * Laravel公式なのでLivewireが使われている。
          * htmlで取得できるけど難しいのはtailwindばかりで特徴的なidやclass名がほとんどないこと。
          * <div id="posts-section">内のa要素を集めればいいはず。posts-section内のカテゴリーはbuttonで実装してる。
