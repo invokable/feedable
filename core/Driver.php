@@ -24,6 +24,7 @@ class Driver
      * @param  string|null  $example  Example URL demonstrating Driver usage
      * @param  null|array  $format  Supported output formats (e.g. ['rss', 'json', 'atom'])
      * @param  null|string  $language  Language code (e.g. 'ja', 'en')
+     * @param  null|string  $timezone  Timezone identifier (e.g. 'Asia/Tokyo', 'UTC')
      * @param  bool  $browser  Indicates whether the driver requires a browser environment such as Playwright.
      */
     public static function about(
