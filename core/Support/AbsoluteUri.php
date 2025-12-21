@@ -44,6 +44,10 @@ class AbsoluteUri
             ->trim()
             ->toString();
 
-        return UriString::normalize($uri);
+        // 例外時は元のuriを返す。
+        // UriString::normalizeは厳しいので消えるよりは元のuriがいいだろうという設計。
+        // ただし返した先のUri::newでエラーの可能性は残る。
+        // ほとんどはRFC3987のエラーなので事前に削除していれば頻度は低い。
+        return rescue(fn () => UriString::normalize($uri), $uri, report: false);
     }
 }
