@@ -4,7 +4,7 @@
 
         <div class="grid gap-4">
             @foreach($drivers as $driver)
-                <div class="mb-3">
+                <div class="mb-3" id="{{ data_get($driver, 'id') }}">
                     <flux:heading size="lg">{{ data_get($driver, 'name') }}</flux:heading>
                     <flux:text>{!! Str::markdown(data_get($driver, 'description', ''), ['html_input' => 'strip', 'allow_unsafe_links' => false]) !!}</flux:text>
 
