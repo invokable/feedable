@@ -41,6 +41,7 @@ class Driver
         bool $browser = false,
     ): void {
         static::$drivers[$id] = compact(
+            'id',
             'name',
             'url',
             'authors',
