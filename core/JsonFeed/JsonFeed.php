@@ -9,6 +9,7 @@ use DOMDocument;
 use DOMElement;
 use Exception;
 use Illuminate\Support\Str;
+use Revolution\Feedable\Core\Support\AbsoluteUri;
 
 class JsonFeed
 {
@@ -176,11 +177,18 @@ class JsonFeed
 
         $feedElement = $doc->getElementsByTagName('feed')->item(0);
 
+        $home_page_url = $this->getAtomLink($feedElement, 'alternate');
+        if (filled($home_page_url) && ! Str::isUrl($home_page_url)) {
+            $home_page_url = AbsoluteUri::resolve($this->feed_url, $home_page_url);
+        } else {
+            $home_page_url = $this->feed_url;
+        }
+
         $feed = [
             'version' => 'https://jsonfeed.org/version/1.1',
             'title' => $this->getNodeValue($feedElement, 'title'),
-            'home_page_url' => $this->getAtomLink($feedElement, 'alternate'),
-            'feed_url' => $this->getAtomLink($feedElement, 'self') ?? $this->feed_url,
+            'home_page_url' => $home_page_url,
+            'feed_url' => $this->feed_url,
             'description' => $this->getNodeValue($feedElement, 'subtitle'),
             'items' => [],
         ];
@@ -190,7 +198,7 @@ class JsonFeed
         foreach ($entries as $entry) {
             $feedItem = [
                 'id' => $this->getNodeValue($entry, 'id'),
-                'url' => $this->getAtomLink($entry, 'alternate'),
+                'url' => $this->getAtomEntryLink($entry, 'alternate'),
                 'title' => $this->getNodeValue($entry, 'title'),
                 ...$this->getAtomContent($entry),
                 'summary' => $this->getNodeValue($entry, 'summary'),
@@ -238,13 +246,34 @@ class JsonFeed
     {
         $links = $parent->getElementsByTagName('link');
         foreach ($links as $link) {
-            if ($link->getAttribute('rel') === $rel || ($rel === 'alternate' && ! $link->hasAttribute('rel'))) {
+            if (
+                $link->getAttribute('rel') !== 'enclosure'
+                && $link->getAttribute('rel') === $rel
+                || ($rel === 'alternate' && ! $link->hasAttribute('rel'))
+            ) {
                 return $link->getAttribute('href') ?: null;
             }
         }
 
         return null;
     }
+
+    protected function getAtomEntryLink(DOMElement $parent, string $rel): ?string
+    {
+        $link = $this->getAtomLink($parent, $rel);
+
+        // contentタグにURLがある場合もある
+        // <content src="http://" type="application/xhtml+xml"/>
+        if (empty($link) && $rel === 'alternate') {
+            $content = $parent->getElementsByTagName('content')->item(0);
+            if ($content && $content->hasAttribute('src')) {
+                return $content->getAttribute('src') ?: null;
+            }
+        }
+
+        return null;
+    }
+
 
     /**
      * Get image from RSS2 item.
