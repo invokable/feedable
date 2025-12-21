@@ -14,4 +14,5 @@ return [
     Revolution\Feedable\Nintendo\NintendoServiceProvider::class,
     Revolution\Feedable\JsonFeed\JsonFeedServiceProvider::class,
     Revolution\Feedable\MagazinePocket\MagazinePocketServiceProvider::class,
+    Revolution\Feedable\Laravel\LaravelServiceProvider::class,
 ];
