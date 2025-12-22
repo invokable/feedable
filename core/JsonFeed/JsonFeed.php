@@ -274,7 +274,6 @@ class JsonFeed
         return null;
     }
 
-
     /**
      * Get image from RSS2 item.
      * <enclosure url="https://" length="0" type="image/jpeg"/>
