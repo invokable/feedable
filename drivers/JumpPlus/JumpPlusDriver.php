@@ -6,6 +6,7 @@ namespace Revolution\Feedable\JumpPlus;
 
 use Carbon\Carbon;
 use DOMDocument;
+use DOMElement;
 use DOMXPath;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
@@ -65,7 +66,22 @@ class JumpPlusDriver implements FeedableDriver
         // 公式RSSから$linksに含まれてるURLだけ返す
         $response = Http::get($this->rssUrl)->throw();
 
-        return RSS::filterLinks($response->body(), $links);
+        $rss = RSS::filterLinks($response->body(), $links);
+
+        // 元RSSのpubDateが変な時間なので日本時間0時に変更
+        // 22日0時が<pubDate>Sun, 21 Dec 2025 15:00:00 +0000</pubDate>になっている
+        $rss = RSS::each($rss, function (DOMElement $node) {
+            $pubDateNode = $node->getElementsByTagName('pubDate')->item(0);
+            if ($pubDateNode) {
+                $pubDate = Carbon::parse($pubDateNode->nodeValue, Timezone::UTC->value)
+                    ->setTimezone(Timezone::AsiaTokyo->value)
+                    ->startOfDay()
+                    ->toRssString();
+                $pubDateNode->nodeValue = $pubDate;
+            }
+        });
+
+        return $rss;
     }
 
     /**
