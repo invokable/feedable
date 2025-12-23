@@ -21,7 +21,7 @@ class JsonFeed
     /**
      * Limit number of items
      */
-    protected ?int $limit = 0;
+    protected int $limit = 0;
 
     protected const string XML_CONTENT_NS = 'http://purl.org/rss/1.0/modules/content/';
 
@@ -34,7 +34,7 @@ class JsonFeed
      *
      * @throws Exception
      */
-    public function convert(string $feed, ?string $feed_url = null, ?int $limit = null): string
+    public function convert(string $feed, ?string $feed_url = null, int $limit = 0): string
     {
         $this->feed_url = $feed_url;
         $this->limit = $limit;
