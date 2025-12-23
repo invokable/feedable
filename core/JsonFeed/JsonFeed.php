@@ -21,7 +21,7 @@ class JsonFeed
     /**
      * Limit number of items
      */
-    protected ?int $limit = null;
+    protected ?int $limit = 0;
 
     protected const string XML_CONTENT_NS = 'http://purl.org/rss/1.0/modules/content/';
 
