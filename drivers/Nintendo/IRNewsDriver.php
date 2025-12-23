@@ -26,7 +26,11 @@ class IRNewsDriver implements FeedableDriver
     public function __invoke(Format $format = Format::RSS): Responsable
     {
         try {
-            $items = $this->handle();
+            $items = cache()->flexible(
+                'nintendo-ir-news-items',
+                [now()->plus(hours: 1), now()->plus(hours: 2)],
+                fn () => $this->handle(),
+            );
         } catch (Exception $e) {
             return new ErrorResponse(
                 error: 'Whoops! Something went wrong.',
