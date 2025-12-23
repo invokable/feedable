@@ -37,9 +37,13 @@ class MirrorServiceProvider extends ServiceProvider
                     'rss' => 'required|url',
                 ]);
 
-                $response = Http::get($request->input('rss'));
+                $body = cache()->flexible(
+                    'mirror-'.md5($request->input('rss')),
+                    [now()->plus(hours: 1), now()->plus(hours: 2)],
+                    fn () => Http::get($request->input('rss'))->body(),
+                );
 
-                return response($response->body())
+                return response($body)
                     ->header('Content-Type', 'application/xml');
             });
         });
