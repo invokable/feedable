@@ -16,7 +16,7 @@ class JsonFeedDriver implements FeedableDriver
 {
     protected string $url;
 
-    protected ?int $limit = 0;
+    protected int $limit = 0;
 
     public function __invoke(Request $request): Response|ErrorResponse
     {
@@ -52,7 +52,7 @@ class JsonFeedDriver implements FeedableDriver
         return app(JsonFeed::class)->convert($body, $this->url, $this->limit);
     }
 
-    public function with(string $url, ?int $limit = 0): static
+    public function with(string $url, int $limit = 0): static
     {
         // テスト時にセットする用
 
