@@ -1,3 +1,3 @@
-<x-layouts.main.card :title="$title ?? null">
+<x-layouts.main.split :title="$title ?? null" :left="$left">
     {{ $slot }}
-</x-layouts.main.card>
+</x-layouts.main.split>

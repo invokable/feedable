@@ -1,4 +1,8 @@
 <x-layouts.main :title="config('app.name')">
+    <x-slot:left>
+        @include('driver-index')
+    </x-slot:left>
+
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl prose dark:prose-invert">
         <flux:heading size="xl" level="2">対応サイト</flux:heading>
 
