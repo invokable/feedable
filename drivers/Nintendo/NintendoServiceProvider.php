@@ -48,6 +48,9 @@ MARKDOWN,
 
         // トピックスは公式RSSがある
         // https://www.nintendo.com/jp/topics/c/api/whatsnew.xml
+
+        // 全体の公式RSS
+        // https://www.nintendo.co.jp/news/whatsnew.xml
     }
 
     public function boot(): void
