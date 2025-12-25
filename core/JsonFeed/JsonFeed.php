@@ -300,6 +300,12 @@ class JsonFeed
             return $mediaThumbnail->getAttribute('url') ?: trim($mediaThumbnail->textContent) ?: null;
         }
 
+        // image_url
+        $image_url = $item->getElementsByTagName('image_url')->item(0);
+        if ($image_url) {
+            return trim($image_url->textContent) ?: null;
+        }
+
         return null;
     }
 
