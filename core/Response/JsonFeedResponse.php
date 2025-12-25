@@ -63,6 +63,11 @@ readonly class JsonFeedResponse implements Responsable
             ->map(fn ($item) => is_array($item) ? $item : $item->toArray())
             ->map(fn ($item) => array_filter($item))
             ->map(function ($item) {
+                // idは文字列
+                if (Arr::exists($item, 'id')) {
+                    $item['id'] = (string) $item['id'];
+                }
+
                 // JSON FeedではRFC3339
                 if (Arr::exists($item, 'date_published')) {
                     $date_published = $item['date_published'];
