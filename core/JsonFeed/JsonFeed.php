@@ -351,9 +351,9 @@ class JsonFeed
         foreach ($contentNode->childNodes as $child) {
             $html .= $contentNode->ownerDocument->saveXML($child);
         }
-        $html = trim($html) ?: null;
+        $html = Str::of($html)->trim()->chopStart('<![CDATA[')->chopEnd(']]>')->trim()->toString();
 
-        return $html ? ['content_html' => $html] : [];
+        return filled($html) ? ['content_html' => $html] : [];
     }
 
     protected function formatDate(?string $date = null): ?string
