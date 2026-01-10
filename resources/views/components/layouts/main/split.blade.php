@@ -16,7 +16,7 @@
 
                 <div>
                     <a href="https://github.com/invokable/feedable" target="_blank">
-                        <flux:icon.github class="text-white" />
+                        <flux:icon.github class="ms-1 text-white" />
                     </a>
                 </div>
 
