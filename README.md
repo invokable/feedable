@@ -1,4 +1,4 @@
-# Feedable
+# Feedable Starter Kit
 
 Feedableは [RSSHub](https://github.com/DIYgod/RSSHub) を参考にしたRSSフィード生成サービスです。RSSHubは日本向けサイトの登録が少ないので別途開発。
 
