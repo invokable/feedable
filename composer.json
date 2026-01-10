@@ -12,15 +12,11 @@
         "php": "^8.3",
         "ext-dom": "*",
         "ext-libxml": "*",
-        "laravel/fortify": "^1.30",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.9.0",
-        "livewire/volt": "^1.7.0",
-        "revolution/feedable-core": "dev-main",
-        "revolution/salvager": "^2.1",
-        "symfony/dom-crawler": "^7.4||^8.0"
+        "revolution/feedable-core": "dev-main"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
