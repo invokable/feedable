@@ -6,7 +6,7 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Revolution\Feedable\JumpPlus\JumpPlusDriver;
+use Revolution\Feedable\Drivers\JumpPlus\JumpPlusDriver;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
