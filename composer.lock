@@ -2807,6 +2807,94 @@
             "time": "2025-12-27T19:41:33+00:00"
         },
         {
+            "name": "playwright-php/playwright",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/playwright-php/playwright.git",
+                "reference": "132a0d33e25b088e63995fbdcbbcefea7daa1830"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/playwright-php/playwright/zipball/132a0d33e25b088e63995fbdcbbcefea7daa1830",
+                "reference": "132a0d33e25b088e63995fbdcbbcefea7daa1830",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2",
+                "psr/clock": "^1.0",
+                "psr/log": "^3.0",
+                "symfony/console": "^6.4 || ^7.3 || ^8.0",
+                "symfony/process": "^6.4 || ^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.40",
+                "monolog/monolog": "^3.9",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^12.3",
+                "symfony/var-dumper": "^6.4 || ^7.3 || ^8.0"
+            },
+            "bin": [
+                "bin/playwright-install"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Testing/functions.php"
+                ],
+                "psr-4": {
+                    "Playwright\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simon André",
+                    "email": "smn.andre@gmail.com",
+                    "homepage": "https://github.com/smnandre"
+                },
+                {
+                    "name": "Playwright PHP Contributors",
+                    "homepage": "https://github.com/playwright-php"
+                }
+            ],
+            "description": "Modern PHP library for Playwright automation: browsing, scraping, screenshots, testing, and more.",
+            "keywords": [
+                "automation",
+                "browser",
+                "chromium",
+                "firefox",
+                "headless",
+                "php",
+                "playwright",
+                "scraping",
+                "screenshots",
+                "test",
+                "testing",
+                "web",
+                "webkit"
+            ],
+            "support": {
+                "issues": "https://github.com/playwright-php/playwright/issues",
+                "source": "https://github.com/playwright-php/playwright/tree/v1.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/smnandre",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-12-23T21:34:13+00:00"
+        },
+        {
             "name": "psr/clock",
             "version": "1.0.0",
             "source": {
@@ -3501,19 +3589,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/invokable/feedable-core.git",
-                "reference": "c1eddcbdd9bc24847f884767139c1a77c75be65d"
+                "reference": "407bc56f681050bca1d9aeabe071f419f0635cf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/invokable/feedable-core/zipball/c1eddcbdd9bc24847f884767139c1a77c75be65d",
-                "reference": "c1eddcbdd9bc24847f884767139c1a77c75be65d",
+                "url": "https://api.github.com/repos/invokable/feedable-core/zipball/407bc56f681050bca1d9aeabe071f419f0635cf3",
+                "reference": "407bc56f681050bca1d9aeabe071f419f0635cf3",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "illuminate/support": "^12.0",
-                "php": "^8.3"
+                "php": "^8.3",
+                "revolution/salvager": "^2.1",
+                "symfony/dom-crawler": "^7.4||^8.0"
             },
             "require-dev": {
                 "laravel/pint": "^1.25",
@@ -3565,7 +3655,71 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-10T07:13:24+00:00"
+            "time": "2026-01-10T12:37:34+00:00"
+        },
+        {
+            "name": "revolution/salvager",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/invokable/salvager.git",
+                "reference": "a8660dd3f276cfc4abab5fa1ad65b300fd35c268"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/invokable/salvager/zipball/a8660dd3f276cfc4abab5fa1ad65b300fd35c268",
+                "reference": "a8660dd3f276cfc4abab5fa1ad65b300fd35c268",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.3",
+                "playwright-php/playwright": "^1.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.26",
+                "mockery/mockery": "^1.6.1",
+                "orchestra/testbench": "^10.8",
+                "phpunit/phpunit": "^12.4",
+                "revolution/laravel-boost-copilot-cli": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Revolution\\Salvager\\Providers\\SalvagerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Revolution\\Salvager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "kawax",
+                    "email": "kawaxbiz@gmail.com"
+                }
+            ],
+            "description": "Tiny WebCrawler for Laravel using Playwright",
+            "keywords": [
+                "laravel",
+                "playwright"
+            ],
+            "support": {
+                "source": "https://github.com/invokable/salvager/tree/2.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/invokable",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-12-14T02:04:13+00:00"
         },
         {
             "name": "symfony/clock",
@@ -3877,6 +4031,76 @@
                 }
             ],
             "time": "2024-09-25T14:21:43+00:00"
+        },
+        {
+            "name": "symfony/dom-crawler",
+            "version": "v8.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dom-crawler.git",
+                "reference": "11a3dbe6f6c0ae03ae71f879cf5c2e28db107179"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/11a3dbe6f6c0ae03ae71f879cf5c2e28db107179",
+                "reference": "11a3dbe6f6c0ae03ae71f879cf5c2e28db107179",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.4",
+                "symfony/polyfill-ctype": "^1.8",
+                "symfony/polyfill-mbstring": "^1.0"
+            },
+            "require-dev": {
+                "symfony/css-selector": "^7.4|^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\DomCrawler\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Eases DOM navigation for HTML and XML documents",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/dom-crawler/tree/v8.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-12-06T17:00:47+00:00"
         },
         {
             "name": "symfony/error-handler",
