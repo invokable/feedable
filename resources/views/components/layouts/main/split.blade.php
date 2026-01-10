@@ -9,10 +9,16 @@
                 <div class="absolute inset-0 bg-neutral-800 -z-10 bg-linear-to-b from-neutral-900 to-neutral-700"></div>
                 <a href="{{ route('home') }}" class="sticky top-0 z-50 flex items-center text-lg font-medium bg-neutral-900 -mx-10 px-10 py-2" wire:navigate>
                     <span class="flex h-10 w-10 items-center justify-center rounded-md">
-                        <x-app-logo-icon class="me-2 h-7 text-white" />
+                        <flux:icon.rss class="me-2 h-7 text-white" />
                     </span>
                     {{ config('app.name', 'Laravel') }}
                 </a>
+
+                <div>
+                    <a href="https://github.com/invokable/feedable" target="_blank">
+                        <flux:icon.github class="text-white" />
+                    </a>
+                </div>
 
                 <div class="relative z-20 mt-6">
                     {{ $left }}
@@ -22,7 +28,7 @@
                 <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:px-5">
                     <a href="{{ route('home') }}" class="z-20 flex flex-col items-center gap-2 font-medium lg:hidden" wire:navigate>
                         <span class="flex h-9 w-9 items-center justify-center rounded-md">
-                            <x-app-logo-icon class="size-9 fill-current text-black dark:text-white" />
+                            <flux:icon.rss class="size-9 text-black dark:text-white" />
                         </span>
 
                         <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
