@@ -1,4 +1,4 @@
-<x-layouts.main :title="config('app.name')">
+<x-layouts.app :title="config('app.name')">
     <x-slot:left>
         @include('driver-index')
     </x-slot:left>
@@ -19,4 +19,4 @@
             @endforeach
         </div>
     </div>
-</x-layouts.main>
+</x-layouts.app>

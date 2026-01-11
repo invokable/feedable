@@ -3589,12 +3589,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/invokable/feedable-core.git",
-                "reference": "407bc56f681050bca1d9aeabe071f419f0635cf3"
+                "reference": "a35483a6f47f84f5da3279369cfb41cbad8ac0a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/invokable/feedable-core/zipball/407bc56f681050bca1d9aeabe071f419f0635cf3",
-                "reference": "407bc56f681050bca1d9aeabe071f419f0635cf3",
+                "url": "https://api.github.com/repos/invokable/feedable-core/zipball/a35483a6f47f84f5da3279369cfb41cbad8ac0a0",
+                "reference": "a35483a6f47f84f5da3279369cfb41cbad8ac0a0",
                 "shasum": ""
             },
             "require": {
@@ -3640,7 +3640,7 @@
                     "name": "puklipo"
                 }
             ],
-            "description": "Feedable core and build-in drivers",
+            "description": "Feedable core and built-in drivers",
             "keywords": [
                 "feed-generator",
                 "feedable",
@@ -3655,7 +3655,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-10T12:37:34+00:00"
+            "time": "2026-01-11T00:14:47+00:00"
         },
         {
             "name": "revolution/salvager",
