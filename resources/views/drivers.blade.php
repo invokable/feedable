@@ -10,10 +10,24 @@
             @foreach($drivers as $driver)
                 <div class="mb-3" id="{{ data_get($driver, 'id') }}">
                     <div class="rounded-xl border border-neutral-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 shadow-xs dark:shadow-none p-5">
-                        <flux:heading size="lg">{{ data_get($driver, 'name') }}</flux:heading>
+                        <flux:heading size="lg" class="flex items-center mb-2">
+                            {{ data_get($driver, 'name') }}
+                            <flux:button
+                                href="{{ data_get($driver, 'url') }}"
+                                icon="arrow-top-right-on-square "
+                                variant="subtle"
+                                square
+                                target="_blank"
+                            >
+                            </flux:button>
+                        </flux:heading>
                         <flux:text>{!! Str::markdown(data_get($driver, 'description', ''), ['html_input' => 'strip', 'allow_unsafe_links' => false]) !!}</flux:text>
 
-                        <flux:input value="{{ url(data_get($driver, 'example')) }}" readonly copyable/>
+                        <flux:input value="{{ url(data_get($driver, 'example')) }}" readonly copyable />
+
+                        @foreach(data_get($driver, 'tags', []) ?? [] as $tag)
+                            <flux:badge class="me-1 mt-3">{{ Str::headline($tag) }}</flux:badge>
+                        @endforeach
                     </div>
                 </div>
             @endforeach
