@@ -1,57 +1,37 @@
 # Feedable Starter Kit
 
-Feedableは [RSSHub](https://github.com/DIYgod/RSSHub) を参考にしたRSSフィード生成サービスです。RSSHubは日本向けサイトの登録が少ないので別途開発。
+Feedable is an RSS feed generation service inspired by [RSSHub](https://github.com/DIYgod/RSSHub).
+It allows you to create RSS feeds from websites that do not provide RSS feeds, enabling you to read them in your feed reader.
 
-RSSフィードを提供してないサイトからRSSを作りフィードリーダーで読めるようにします。
-
-## リクエスト募集中
-
-このプロジェクトは始まったばかりでどのサイトに対応するかも決まってない段階です。
-対応して欲しいサイトがあれば [リクエストフォーム](https://forms.gle/ipEVgmS8XZutKoXH7) か [Discussion](https://github.com/orgs/invokable/discussions/25) からURLを送ってください。
-
-参考として
-- [RSSHubの日本語サイトリスト](./docs/routes-jp.md)
-- [RSSHubの英語サイトリスト](./docs/routes-en.md)
-
-RSSHubにあるサイトでもないサイトでも構いません。
-
-サイトによっては対応が難しいので個別に判断して決めます。
+This is a starter kit project that you can use right away. The main functionality is separated into another package: https://github.com/invokable/feedable-core
 
 ## Request Submissions Welcome
 
 This project is just getting started and we haven't decided which sites to support yet.
 If you have a site you'd like us to support, please send the URL via our [request form](https://forms.gle/ipEVgmS8XZutKoXH7) or [discussion](https://github.com/orgs/invokable/discussions/25).
 
-For reference:
-- [RSSHub Japanese sites list](./docs/routes-jp.md)
-- [RSSHub English sites list](./docs/routes-en.md)
-
-Sites can be from RSSHub or completely new ones.
-
 Some sites may be difficult to support, so we'll evaluate each request individually.
 
-## 使い方
+## Usage
 
-### サンプルサイトを使う
-
-現状は対応サイトが少ないのでサンプルサイトを使って試すだけで十分です。
+### Sample Site
+Since there are currently few supported sites, using the sample site is sufficient for testing.
 
 https://feedable-rss.vercel.app/
 
-### フォークしてVercelにデプロイする
-
-無料プラン・データベースなしでも動かせます。無料データベースでキャッシュ対応にもできます。  
-これが推奨する普通の使い方。
+### Fork and Deploy to Vercel
+You can run it on the free plan without a database. You can also use a free database for caching.
+This is the recommended normal usage.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Finvokable%2Ffeedable&env=APP_NAME,APP_KEY&envDefaults=%7B%22APP_NAME%22%3A%22Feedable%22%7D&envDescription=APP_KEY%20can%20be%20generated%20using%20the%20artisan%20command.&envLink=https%3A%2F%2Fgithub.com%2Finvokable%2Flaravel-vercel-installer%3Ftab%3Dreadme-ov-file%23env&demo-title=Feedable&demo-url=https%3A%2F%2Ffeedable-rss.vercel.app%2F&skippable-integrations=1)
 
-### ドライバーを追加してLaravel Forgeや他のサーバーにデプロイする
+### Add Drivers and Deploy to Laravel Forge or Other Servers
+If you want to use special drivers that require Playwright, please deploy it to a regular server such as Laravel Forge.
+Drivers are simply Laravel routes, so you can freely add them to your forked project.
 
-Playwrightが必要になるような特殊なドライバーを使いたい場合はLaravel Forgeなどで普通のサーバーにデプロイしてください。  
-ドライバーは単なるLaravelのルーティングなのフォークしたプロジェクトに自由に追加できます。
+## Terms of Use
 
-## 利用規約
-- 個人による私的利用の範囲内でのみ使用してください。RSSリーダーで読む以外の目的での利用は想定していません。
+- Please use it only for personal private use. It is not intended for purposes other than reading in an RSS reader.
 
 ## License
 
