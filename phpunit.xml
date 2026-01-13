@@ -15,8 +15,6 @@
     <source>
         <include>
             <directory>app</directory>
-            <directory>core</directory>
-            <directory>drivers</directory>
         </include>
     </source>
     <php>
