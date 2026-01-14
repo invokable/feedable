@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d5229cee53f4cab1ba9c53e33664831",
+    "content-hash": "b9b83617248f96377d6320ab11d87715",
     "packages": [
         {
             "name": "brick/math",
@@ -2150,16 +2150,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v4.0.0-beta.6",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "c7c195c96acf45c449bf33118be6e4edabbd86f7"
+                "reference": "c7539589d5af82691bef17da17ce4e289269f8d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/c7c195c96acf45c449bf33118be6e4edabbd86f7",
-                "reference": "c7c195c96acf45c449bf33118be6e4edabbd86f7",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/c7539589d5af82691bef17da17ce4e289269f8d9",
+                "reference": "c7539589d5af82691bef17da17ce4e289269f8d9",
                 "shasum": ""
             },
             "require": {
@@ -2214,7 +2214,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v4.0.0-beta.6"
+                "source": "https://github.com/livewire/livewire/tree/v4.0.1"
             },
             "funding": [
                 {
@@ -2222,7 +2222,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-08T16:45:48+00:00"
+            "time": "2026-01-14T18:40:41+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -3656,12 +3656,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/invokable/feedable-core.git",
-                "reference": "63f407140747758fd946c04e683ea682d28218c6"
+                "reference": "188079a82382c6773a42ad6c32d86e2ded6f1557"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/invokable/feedable-core/zipball/63f407140747758fd946c04e683ea682d28218c6",
-                "reference": "63f407140747758fd946c04e683ea682d28218c6",
+                "url": "https://api.github.com/repos/invokable/feedable-core/zipball/188079a82382c6773a42ad6c32d86e2ded6f1557",
+                "reference": "188079a82382c6773a42ad6c32d86e2ded6f1557",
                 "shasum": ""
             },
             "require": {
@@ -3722,7 +3722,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-14T02:51:21+00:00"
+            "time": "2026-01-14T14:03:53+00:00"
         },
         {
             "name": "revolution/salvager",
@@ -7016,16 +7016,16 @@
         },
         {
             "name": "laravel/boost",
-            "version": "v1.8.9",
+            "version": "v1.8.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/boost.git",
-                "reference": "1f2c2d41b5216618170fb6730ec13bf894c5bffd"
+                "reference": "aad8b2a423b0a886c2ce7ee92abbfde69992ff32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/boost/zipball/1f2c2d41b5216618170fb6730ec13bf894c5bffd",
-                "reference": "1f2c2d41b5216618170fb6730ec13bf894c5bffd",
+                "url": "https://api.github.com/repos/laravel/boost/zipball/aad8b2a423b0a886c2ce7ee92abbfde69992ff32",
+                "reference": "aad8b2a423b0a886c2ce7ee92abbfde69992ff32",
                 "shasum": ""
             },
             "require": {
@@ -7078,7 +7078,7 @@
                 "issues": "https://github.com/laravel/boost/issues",
                 "source": "https://github.com/laravel/boost"
             },
-            "time": "2026-01-07T18:43:11+00:00"
+            "time": "2026-01-14T14:51:16+00:00"
         },
         {
             "name": "laravel/mcp",
@@ -10236,7 +10236,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "livewire/livewire": 10,
         "revolution/feedable-core": 20
     },
     "prefer-stable": true,
