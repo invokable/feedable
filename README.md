@@ -5,6 +5,10 @@ It allows you to create RSS feeds from websites that do not provide RSS feeds, e
 
 This is a starter kit project that you can use right away. The main functionality is separated into another package: https://github.com/invokable/feedable-core
 
+## Requirements
+- PHP >= 8.4
+- Laravel >= 12.x
+
 ## Request Submissions Welcome
 
 This project is just getting started and we haven't decided which sites to support yet.

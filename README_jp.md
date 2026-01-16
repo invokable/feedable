@@ -8,14 +8,8 @@ RSSフィードを提供してないサイトからRSSを作りフィードリ�
 https://github.com/invokable/feedable-core
 
 ## Requirements
-- PHP >= 8.3
+- PHP >= 8.4
 - Laravel >= 12.x
-
-## Installation
-
-```shell
-composer require revolution/feedable-core
-```
 
 ## リクエスト募集中
 
