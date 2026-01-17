@@ -83,7 +83,8 @@
             "npm install",
             "npm run build",
             "npm install -g agent-browser",
-            "mv $(command -v agent-browser) /tmp/",
+            "command -v agent-browser",
+            "mv /node24/bin/agent-browser /tmp/",
             "/tmp/agent-browser",
             "node ./scripts/install-chromium.js"
         ],
