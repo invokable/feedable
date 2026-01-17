@@ -82,6 +82,7 @@
             "@php artisan migrate --force",
             "npm install",
             "npm run build",
+            "npm install --production",
             "node_modules/agent-browser/bin/agent-browser",
             "node ./scripts/install-chromium.js"
         ],
