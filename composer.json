@@ -83,9 +83,10 @@
             "@php artisan migrate --force",
             "npm install",
             "npm run build",
-            "node ./scripts/install-chromium.js",
             "npm install -g agent-browser",
-            "/node24/bin/agent-browser"
+            "/node24/bin/agent-browser",
+            "/node24/bin/agent-browser install",
+            "node ./scripts/install-chromium.js"
         ],
         "lint": "pint",
         "boost": "php artisan boost:install --no-interaction --ansi"
