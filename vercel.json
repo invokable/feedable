@@ -48,7 +48,7 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
         "VIEW_COMPILED_PATH": "/tmp",
-        "AGENT_BROWSER_PATH": "/tmp/agent-browser",
+        "AGENT_BROWSER_PATH": "/tmp/agent-browser/agent-browser",
         "AGENT_BROWSER_EXECUTABLE_PATH": "/tmp/chromium"
     }
 }

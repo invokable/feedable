@@ -83,7 +83,7 @@
             "npm install",
             "npm run build",
             "node_modules/agent-browser/bin/agent-browser",
-            "mv node_modules/agent-browser/bin/agent-browser /tmp/",
+            "mv node_modules/agent-browser/bin/* /tmp/agent-browser/",
             "/tmp/agent-browser",
             "node ./scripts/install-chromium.js"
         ],
