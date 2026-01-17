@@ -81,7 +81,8 @@
         "vercel": [
             "@php artisan migrate --force",
             "npm install",
-            "npm run build"
+            "npm run build",
+            "node ./scripts/install-chromium.js"
         ],
         "lint": "pint",
         "boost": "php artisan boost:install --no-interaction --ansi"
