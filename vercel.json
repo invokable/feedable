@@ -62,7 +62,7 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
         "VIEW_COMPILED_PATH": "/tmp",
-        "AGENT_BROWSER_PATH": "/var/task/user/node_modules/agent-browser/bin/agent-browser",
-        "AGENT_BROWSER_EXECUTABLE_PATH": "/tmp/chromium"
+        "SALVAGER_AGENT_BROWSER_PATH": "/var/task/user/node_modules/agent-browser/bin/agent-browser",
+        "SALVAGER_AGENT_BROWSER_EXECUTABLE_PATH": "/tmp/chromium"
     }
 }
