@@ -83,7 +83,7 @@
             "npm install",
             "npm run build",
             "npm install -g agent-browser",
-            "mv $(command -v agent-browser) /tmp/agent-browser",
+            "mv $(command -v agent-browser) /tmp/",
             "node ./scripts/install-chromium.js"
         ],
         "lint": "pint",
