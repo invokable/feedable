@@ -9,6 +9,7 @@
             "use": "vercel-php@0.9.0",
             "config": {
                 "excludeFiles": [
+                    ".git/**",
                     "tests/**",
                     "*.md",
                     "vercel.json",
