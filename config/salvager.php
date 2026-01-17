@@ -11,7 +11,7 @@ return [
     ],
 
     'agent-browser' => [
-        'path' => base_path(env('AGENT_BROWSER_PATH', 'agent-browser')),
+        'path' => env('AGENT_BROWSER_PATH', 'agent-browser'),
 
         /**
          * path to chromium
