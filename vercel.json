@@ -48,6 +48,7 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
         "VIEW_COMPILED_PATH": "/tmp",
+        "AGENT_BROWSER_PATH": "/node24/bin/agent-browser",
         "AGENT_BROWSER_EXECUTABLE_PATH": "/tmp/chromium"
     }
 }
