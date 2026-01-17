@@ -82,7 +82,7 @@
             "@php artisan migrate --force",
             "npm install",
             "npm run build",
-            "command -v agent-browser",
+            "node_modules/agent-browser/bin/agent-browser",
             "node ./scripts/install-chromium.js"
         ],
         "lint": "pint",
