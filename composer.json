@@ -83,7 +83,7 @@
             "npm install",
             "npm run build",
             "npm install -g agent-browser",
-            "agent-browser install --with-deps",,
+            "agent-browser install --with-deps",
             "node ./scripts/install-chromium.js"
         ],
         "lint": "pint",
