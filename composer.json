@@ -82,9 +82,7 @@
             "@php artisan migrate --force",
             "npm install",
             "npm run build",
-            "npm install --omit=dev",
-            "node_modules/agent-browser/bin/agent-browser",
-            "node ./scripts/install-chromium.js"
+            "npm install --omit=dev"
         ],
         "lint": "pint",
         "boost": "php artisan boost:install --no-interaction --ansi"
