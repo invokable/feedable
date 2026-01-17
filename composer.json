@@ -85,7 +85,7 @@
             "node_modules/agent-browser/bin/agent-browser",
             "mkdir -p bin/agent-browser/",
             "mv node_modules/agent-browser/bin/* bin/agent-browser/",
-            "bin/agent-browser",
+            "bin/agent-browser/agent-browser",
             "node ./scripts/install-chromium.js"
         ],
         "lint": "pint",
