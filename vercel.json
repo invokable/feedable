@@ -10,7 +10,9 @@
             "config": {
                 "excludeFiles": [
                     "tests/**",
-                    "*.md"
+                    "*.md",
+                    "vercel.json",
+                    ".vercelignore"
                 ]
             }
         },
