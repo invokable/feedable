@@ -79,6 +79,7 @@
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ],
         "vercel": [
+            "@php artisan optimize",
             "@php artisan migrate --force",
             "npm install",
             "npm run build",
