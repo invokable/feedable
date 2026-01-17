@@ -84,7 +84,6 @@
             "npm install",
             "npm run build",
             "node ./scripts/install-chromium.js",
-            "npm install --omit=dev",
             "npm install -g agent-browser",
             "/node24/bin/agent-browser"
         ],
