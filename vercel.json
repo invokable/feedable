@@ -47,6 +47,7 @@
         "CACHE_STORE": "failover",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
-        "VIEW_COMPILED_PATH": "/tmp"
+        "VIEW_COMPILED_PATH": "/tmp",
+        "AGENT_BROWSER_EXECUTABLE_PATH": "/tmp/chromium"
     }
 }
