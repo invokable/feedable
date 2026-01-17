@@ -83,8 +83,8 @@
             "@php artisan migrate --force",
             "npm install",
             "npm run build",
-            "npm install --omit=dev",
-            "node ./scripts/install-chromium.js"
+            "node ./scripts/install-chromium.js",
+            "npm install --omit=dev"
         ],
         "lint": "pint",
         "boost": "php artisan boost:install --no-interaction --ansi"
