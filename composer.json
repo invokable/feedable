@@ -83,7 +83,8 @@
             "npm install",
             "npm run build",
             "npm install --omit=dev",
-            "node_modules/agent-browser/bin/agent-browser install --with-deps",
+            "dnf install -y nss nspr atk at-spi2-atk cups-libs libdrm libXcomposite libXdamage libXrandr mesa-libgbm pango alsa-lib libxkbcommon libxcb libX11-xcb libX11 libXext libXcursor libXfixes libXi gtk3 cairo-gobject",
+            "node_modules/agent-browser/bin/agent-browserinstall",
             "node ./scripts/install-chromium.js"
         ],
         "lint": "pint",
