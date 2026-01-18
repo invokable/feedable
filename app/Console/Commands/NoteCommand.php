@@ -49,7 +49,7 @@ class NoteCommand extends Command
         $rss = ResponseFactory::format(Format::RSS)->make(
             title: 'note 注目記事',
             home_page_url: $this->baseUrl,
-            feed_url: url()->current(),
+            feed_url: 'https://feedable-rss.vercel.app/note/index.rss',
             description: 'note 注目記事',
             items: $items,
         );
@@ -63,7 +63,7 @@ class NoteCommand extends Command
         $json = ResponseFactory::format(Format::JSON)->make(
             title: 'note 注目記事',
             home_page_url: $this->baseUrl,
-            feed_url: url()->current(),
+            feed_url: 'https://feedable-rss.vercel.app/note/index.json',
             description: 'note 注目記事',
             items: $items,
         );
