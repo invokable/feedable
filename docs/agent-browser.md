@@ -26,6 +26,19 @@ https://github.com/vercel-labs/agent-browser/blob/main/cli/src/install.rs
 @sparticuz/chromiumは`chromium.executablePath()`実行時にbrファイルを`/tmp/chromium`に展開している。
 `scripts/install-chromium.js`にインストールするだけのスクリプトを用意してデプロイ時に実行。
 `/tmp/chromium`は生成されているけどデプロイ後の環境にはない。
+`/tmp/chromium`をコピーするとサイズ制限でデプロイ失敗。
+デプロイ後に`/tmp/chromium`を生成しても次のリクエスト時にはない。
+
+つまり
+- デプロイ時はサイズの小さいbrファイルをnode_modules内に残す。
+- 使用時に毎回`/tmp/chromium`を生成する。
+
+これで進んだけど@sparticuz/chromiumだけではshared libraries不足でエラーだった。
+> /tmp/chromium: error while loading shared libraries: libnspr4.so: cannot open shared object file: No such file or directory
+
+`/tmp/chromium`と同様に`dnf install ...`で毎回インストールしてもshared librariesのエラー。
+
+sudoが使えないのでシステムへのインストールが失敗。
 
 ### GitHub Actions環境では成功
 
