@@ -21,6 +21,8 @@ sh: line 1: sudo: command not found
 agent-browserを調査して他にもインストールが必要か確認。
 https://github.com/vercel-labs/agent-browser/blob/main/cli/src/install.rs
 
+デプロイ時はルート環境なのでsudoは関係ないはずだけどインストールしたものがデプロイ後に反映されてないのかも。
+
 ### @sparticuz/chromium
 
 @sparticuz/chromiumは`chromium.executablePath()`実行時にbrファイルを`/tmp/chromium`に展開している。
@@ -36,9 +38,7 @@ https://github.com/vercel-labs/agent-browser/blob/main/cli/src/install.rs
 これで進んだけど@sparticuz/chromiumだけではshared libraries不足でエラーだった。
 > /tmp/chromium: error while loading shared libraries: libnspr4.so: cannot open shared object file: No such file or directory
 
-`/tmp/chromium`と同様に`dnf install ...`で毎回インストールしてもshared librariesのエラー。
-
-sudoが使えないのでシステムへのインストールが失敗。
+`/tmp/chromium`と同様に`dnf install ...`で毎回インストールしてもshared librariesのエラー。デプロイ後の環境はルートではないので`error: Failed to create: /var/cache/yum/metadata`のエラー。
 
 ### GitHub Actions環境では成功
 
