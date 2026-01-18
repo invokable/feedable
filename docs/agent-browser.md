@@ -25,7 +25,7 @@ https://github.com/vercel-labs/agent-browser/blob/main/cli/src/install.rs
 
 @sparticuz/chromiumは`chromium.executablePath()`実行時にbrファイルを`/tmp/chromium`に展開している。
 `scripts/install-chromium.js`にインストールするだけのスクリプトを用意してデプロイ時に実行。
-`/tmp/chromium`は生成されているのでここは問題ないはず。
+`/tmp/chromium`は生成されているけどデプロイ後の環境にはない。
 
 ### GitHub Actions環境では成功
 
@@ -38,4 +38,4 @@ npm install @sparticuz/chromium
 node ./scripts/install-chromium.js
 ```
 
-Vercelで`npm install -g agent-browser`を使った場合は`/node24/bin/agent-browser`にインストールされる。
+Vercelで`npm install -g agent-browser`を使った場合は`/node24/bin/agent-browser`にインストールされる。デプロイ後には消えてるのでglobalではなくプロジェクトでインストール。
