@@ -52,3 +52,7 @@ node ./scripts/install-chromium.js
 ```
 
 Vercelで`npm install -g agent-browser`を使った場合は`/node24/bin/agent-browser`にインストールされる。デプロイ後には消えてるのでglobalではなくプロジェクトでインストール。
+
+## 現状
+
+shared librariesのエラーで停滞。agent-browserは登場したばかりなので引き続き情報を集める。
