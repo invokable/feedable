@@ -3659,16 +3659,16 @@
         },
         {
             "name": "revolution/salvager",
-            "version": "2.2.6",
+            "version": "2.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/invokable/salvager.git",
-                "reference": "13803186d192294b66d11be159a89f8a494e8a27"
+                "reference": "0d8add4c087ed5d8c791631c04eaca386f8be348"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/invokable/salvager/zipball/13803186d192294b66d11be159a89f8a494e8a27",
-                "reference": "13803186d192294b66d11be159a89f8a494e8a27",
+                "url": "https://api.github.com/repos/invokable/salvager/zipball/0d8add4c087ed5d8c791631c04eaca386f8be348",
+                "reference": "0d8add4c087ed5d8c791631c04eaca386f8be348",
                 "shasum": ""
             },
             "require": {
@@ -3712,7 +3712,7 @@
                 "playwright"
             ],
             "support": {
-                "source": "https://github.com/invokable/salvager/tree/2.2.6"
+                "source": "https://github.com/invokable/salvager/tree/2.2.7"
             },
             "funding": [
                 {
@@ -3720,7 +3720,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-18T00:15:26+00:00"
+            "time": "2026-01-18T01:02:44+00:00"
         },
         {
             "name": "symfony/clock",
