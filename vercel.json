@@ -67,6 +67,7 @@
         "VIEW_COMPILED_PATH": "/tmp",
         "SALVAGER_AGENT_BROWSER_PATH": "/var/task/user/node_modules/agent-browser/bin/agent-browser",
         "SALVAGER_AGENT_BROWSER_EXECUTABLE_PATH": "/tmp/chromium",
-        "SALVAGER_CHROMIUM_INSTALL": "node ./scripts/install-chromium.js"
+        "SALVAGER_INSTALL_DEPS": "dnf install -y nss nspr atk at-spi2-atk cups-libs libdrm libXcomposite libXdamage libXrandr mesa-libgbm pango alsa-lib libxkbcommon libxcb libX11-xcb libX11 libXext libXcursor libXfixes libXi gtk3 cairo-gobject",
+        "SALVAGER_INSTALL_CHROMIUM": "node ./scripts/install-chromium.js"
     }
 }
