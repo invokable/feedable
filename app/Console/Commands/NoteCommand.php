@@ -15,6 +15,7 @@ use Revolution\Feedable\Core\Enums\Format;
 use Revolution\Feedable\Core\Enums\Timezone;
 use Revolution\Feedable\Core\Response\ResponseFactory;
 use Revolution\Feedable\Core\Support\AbsoluteUri;
+use Revolution\Feedable\Drivers\Note\NoteIndexDriver;
 use Revolution\Salvager\AgentBrowser;
 use Revolution\Salvager\Facades\Salvager;
 use Symfony\Component\DomCrawler\Crawler;
@@ -42,9 +43,9 @@ class NoteCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
-        $items = $this->feed();
+        $items = new NoteIndexDriver()->handle();
 
         $rss = ResponseFactory::format(Format::RSS)->make(
             title: 'note 注目記事',
@@ -73,70 +74,5 @@ class NoteCommand extends Command
             'format' => Format::JSON->value,
             'token' => config('feedable.note.token'),
         ]);
-    }
-
-    public function feed(): array
-    {
-        // agent-browserで取得するサンプル。
-        Salvager::agent(function (AgentBrowser $agent) use (&$html) {
-            // ブラウザで開く
-            $agent->open($this->baseUrl);
-            // ページの読み込み完了を待つ
-            $agent->run('wait --load networkidle');
-
-            // HTMLを取得
-            // css=はCSSセレクタで要素を指定できる
-            // xpath=はXPathで要素を指定
-            $html = $agent->html('css=body');
-
-            // ここで複雑なことはせずhtmlだけ取得してすぐに抜ける
-
-            // ブラウザを閉じる。省略化。
-            $agent->close();
-        });
-
-        if (app()->runningUnitTests()) {
-            Storage::put('note/index.html', $html);
-        }
-
-        $crawler = new Crawler($html);
-
-        $items = $crawler->filter('section.m-horizontalScrollingList')
-            ->first()
-            ->filter('div.m-largeNoteWrapper__card')
-            ->each(function (Crawler $node) {
-                $title = $node->filter('h3')->text();
-                $link = $node->filter('a')->attr('href');
-                if (empty($link)) {
-                    return null;
-                }
-                $link = AbsoluteUri::resolve($this->baseUrl, $link);
-
-                $image = $node->filter('img.m-thumbnail__image')->attr('src');
-                if (Str::startsWith($image, 'data:')) {
-                    $image = null;
-                }
-
-                $author = $node->filter('span.o-verticalTimeLineNote__userText')->text();
-
-                $date = $node->filter('time')->text();
-                // ○時間前、○日前、○年前などをCarbon::parse可能な英語に
-                $date = str_replace(
-                    ['前', '時間', '分', '日', '週間', 'か月', '年'],
-                    [' ago', ' hours', ' minutes', ' days', ' weeks', ' months', ' years'],
-                    $date,
-                );
-
-                return new FeedItem(
-                    id: $link,
-                    url: $link,
-                    title: $title,
-                    image: $image,
-                    date_published: Carbon::parse($date, Timezone::AsiaTokyo->value),
-                    authors: [Author::make(name: $author)->toArray()],
-                );
-            });
-
-        return collect($items)->filter()->toArray();
     }
 }
