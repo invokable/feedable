@@ -84,8 +84,8 @@
             "npm install",
             "npm run build",
             "dnf install -y nss nspr atk at-spi2-atk cups-libs libdrm libXcomposite libXdamage libXrandr mesa-libgbm pango alsa-lib libxkbcommon libxcb libX11-xcb libX11 libXext libXcursor libXfixes libXi gtk3 cairo-gobject",
-            "npm install --omit=dev",
-            "node ./scripts/install-chromium.js"
+            "node ./scripts/install-chromium.js",
+            "npm install --omit=dev"
         ],
         "lint": "pint",
         "boost": "php artisan boost:install --no-interaction --ansi"
