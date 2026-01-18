@@ -40,6 +40,13 @@ https://github.com/vercel-labs/agent-browser/blob/main/cli/src/install.rs
 
 `/tmp/chromium`と同様に`dnf install ...`で毎回インストールしてもshared librariesのエラー。デプロイ後の環境はルートではないので`error: Failed to create: /var/cache/yum/metadata`のエラー。
 
+### Laravel Cloudでも動かない
+
+Build commandsでインストールすれば良さそうだけどsudoコマンドがないけどルートでもないようで`apt-get install`で権限エラーになる。
+`npm install -g agent-browser`のインストール自体は可能。`apt-get install`さえできれば動きそう。
+
+試してないけどLambdaのLaravel Vaporでも動かない、Laravel Forgeなら動くはず。
+
 ### GitHub Actions環境では成功
 
 Ubuntuなので普通にインストールするだけで使える。
