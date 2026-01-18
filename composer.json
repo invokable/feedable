@@ -83,7 +83,6 @@
             "@php artisan migrate --force",
             "npm install",
             "npm run build",
-            "vendor/bin/playwright-install -v",
             "dnf install -y nss nspr atk at-spi2-atk cups-libs libdrm libXcomposite libXdamage libXrandr mesa-libgbm pango alsa-lib libxkbcommon libxcb libX11-xcb libX11 libXext libXcursor libXfixes libXi gtk3 cairo-gobject",
             "node_modules/agent-browser/bin/agent-browser install",
             "npm install --omit=dev"
