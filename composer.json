@@ -85,6 +85,7 @@
             "npm run build",
             "dnf install -y nss nspr atk at-spi2-atk cups-libs libdrm libXcomposite libXdamage libXrandr mesa-libgbm pango alsa-lib libxkbcommon libxcb libX11-xcb libX11 libXext libXcursor libXfixes libXi gtk3 cairo-gobject",
             "node ./scripts/install-chromium.js",
+            "mv /tmp/chromium ./scripts/",
             "npm install --omit=dev"
         ],
         "lint": "pint",
