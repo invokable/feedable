@@ -45,6 +45,9 @@ class NoteCommand extends Command
      */
     public function handle(): void
     {
+        // Vercelでagent-browserが使えるようになるまではGitHub Actionsでこのコマンドを実行して代用。
+        // 一時的なものの予定なので簡易的に。
+
         $items = new NoteIndexDriver()->handle();
 
         $rss = ResponseFactory::format(Format::RSS)->make(
