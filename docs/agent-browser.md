@@ -21,7 +21,7 @@ sh: line 1: sudo: command not found
 agent-browserを調査して他にもインストールが必要か確認。
 https://github.com/vercel-labs/agent-browser/blob/main/cli/src/install.rs
 
-デプロイ時はルート環境なのでsudoは関係ないはずだけどインストールしたものがデプロイ後に反映されてないのかも。
+デプロイ時はルート環境なのでsudoは関係ないけどここでインストールしてるのはビルド環境のみ。デプロイ後の実行環境とは別。引き継がれない。
 
 ### @sparticuz/chromium
 
