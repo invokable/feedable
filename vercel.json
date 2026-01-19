@@ -19,10 +19,6 @@
             }
         },
         {
-            "src": "/api/install.ts",
-            "use": "@vercel/node"
-        },
-        {
             "src": "/public/**",
             "use": "@vercel/static"
         }
@@ -43,10 +39,6 @@
         {
             "src": "/robots.txt",
             "dest": "/public/robots.txt"
-        },
-        {
-            "src": "/api/install",
-            "dest": "/api/install.ts"
         },
         {
             "src": "/(.*)",
