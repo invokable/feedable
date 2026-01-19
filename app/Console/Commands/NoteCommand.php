@@ -50,6 +50,8 @@ class NoteCommand extends Command
 
         $items = new NoteIndexDriver()->handle();
 
+        $this->info('Fetched '.count($items).' items...');
+
         $rss = ResponseFactory::format(Format::RSS)->make(
             title: 'note 注目記事',
             home_page_url: $this->baseUrl,
