@@ -3589,12 +3589,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/invokable/feedable-core.git",
-                "reference": "d3f317b218b2c557dcbcaa7580ca6372aa517ff4"
+                "reference": "6edc363ced880adc2e3eefd1d2f6b842837993fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/invokable/feedable-core/zipball/d3f317b218b2c557dcbcaa7580ca6372aa517ff4",
-                "reference": "d3f317b218b2c557dcbcaa7580ca6372aa517ff4",
+                "url": "https://api.github.com/repos/invokable/feedable-core/zipball/6edc363ced880adc2e3eefd1d2f6b842837993fc",
+                "reference": "6edc363ced880adc2e3eefd1d2f6b842837993fc",
                 "shasum": ""
             },
             "require": {
@@ -3655,7 +3655,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-19T09:23:25+00:00"
+            "time": "2026-01-19T09:25:27+00:00"
         },
         {
             "name": "revolution/salvager",
