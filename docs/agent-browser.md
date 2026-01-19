@@ -46,6 +46,7 @@ Build commandsでインストールすれば良さそうだけどsudoコマン�
 `npm install -g agent-browser`のインストール自体は可能。`apt-get install`さえできれば動きそう。
 
 試してないけどLambdaのLaravel Vaporでも動かない、Laravel Forgeなら動くはず。
+VaporはDocker Runtimesなら動くかも。
 
 ### GitHub Actions環境では成功
 
