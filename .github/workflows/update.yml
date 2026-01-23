@@ -10,7 +10,7 @@ jobs:
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
     with:
-      php: 8.4
+      php: 8.5
   npm:
     uses: kawax/npm-workflow/.github/workflows/update.yml@v1
     secrets:
