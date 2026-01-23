@@ -12,7 +12,7 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('note', function () {
+Route::get('note/test', function () {
     $items = new NoteIndexDriver()->handle();
     return 'Successfully fetched '.count($items).' items.';
 });
