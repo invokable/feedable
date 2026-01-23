@@ -13,6 +13,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('note/test', function () {
-    $items = new NoteIndexDriver()->handle();
-    return 'Successfully fetched '.count($items).' items.';
+    try {
+        $items = new NoteIndexDriver()->handle();
+        return 'Successfully fetched '.count($items).' items.';
+    } catch (\Exception $exception) {
+        return 'Error: '.$exception->getMessage();
+    }
 });
