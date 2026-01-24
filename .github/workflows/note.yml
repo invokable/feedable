@@ -39,6 +39,7 @@ jobs:
         run: |
           npm install -g agent-browser
           npm ci --audit false
+          npm i @sparticuz/chromium
           node ./scripts/install-chromium.js > /tmp/chromium_path.txt
           cat /tmp/chromium_path.txt
 
