@@ -4,21 +4,11 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Revolution\Feedable\Core\Elements\Author;
-use Revolution\Feedable\Core\Elements\FeedItem;
 use Revolution\Feedable\Core\Enums\Format;
-use Revolution\Feedable\Core\Enums\Timezone;
 use Revolution\Feedable\Core\Response\ResponseFactory;
-use Revolution\Feedable\Core\Support\AbsoluteUri;
 use Revolution\Feedable\Drivers\Note\NoteIndexDriver;
-use Revolution\Salvager\AgentBrowser;
-use Revolution\Salvager\Facades\Salvager;
-use Symfony\Component\DomCrawler\Crawler;
 
 class NoteCommand extends Command
 {
