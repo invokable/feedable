@@ -3591,18 +3591,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/invokable/feedable-core.git",
-                "reference": "23f319d1787a7f2eefca1b85391230b26c567112"
+                "reference": "9724985a0ae6ba6e54461d1f9a816fb844335709"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/invokable/feedable-core/zipball/23f319d1787a7f2eefca1b85391230b26c567112",
-                "reference": "23f319d1787a7f2eefca1b85391230b26c567112",
+                "url": "https://api.github.com/repos/invokable/feedable-core/zipball/9724985a0ae6ba6e54461d1f9a816fb844335709",
+                "reference": "9724985a0ae6ba6e54461d1f9a816fb844335709",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
-                "illuminate/support": "^12.0",
+                "illuminate/support": "^12.0||^13.0",
                 "php": "^8.4",
                 "revolution/salvager": "^2.2",
                 "symfony/dom-crawler": "^7.4||^8.0"
@@ -3657,24 +3657,24 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-05T02:24:36+00:00"
+            "time": "2026-02-21T23:31:32+00:00"
         },
         {
             "name": "revolution/salvager",
-            "version": "2.2.12",
+            "version": "2.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/invokable/salvager.git",
-                "reference": "9d3858a7a868b78095b2b286e4c58d138c053792"
+                "reference": "ed15df7a2e8cb26a844292e727117438fe64400b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/invokable/salvager/zipball/9d3858a7a868b78095b2b286e4c58d138c053792",
-                "reference": "9d3858a7a868b78095b2b286e4c58d138c053792",
+                "url": "https://api.github.com/repos/invokable/salvager/zipball/ed15df7a2e8cb26a844292e727117438fe64400b",
+                "reference": "ed15df7a2e8cb26a844292e727117438fe64400b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^11.0||^12.0",
+                "illuminate/support": "^12.0||^13.0",
                 "php": "^8.3",
                 "playwright-php/playwright": "^1.0"
             },
@@ -3683,7 +3683,7 @@
                 "mockery/mockery": "^1.6.1",
                 "orchestra/testbench": "^10.8",
                 "phpunit/phpunit": "^12.4",
-                "revolution/laravel-boost-copilot-cli": "^1.0"
+                "revolution/laravel-boost-copilot-cli": "^2.0"
             },
             "type": "library",
             "extra": {
@@ -3714,7 +3714,7 @@
                 "playwright"
             ],
             "support": {
-                "source": "https://github.com/invokable/salvager/tree/2.2.12"
+                "source": "https://github.com/invokable/salvager/tree/2.2.13"
             },
             "funding": [
                 {
@@ -3722,7 +3722,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-23T23:22:26+00:00"
+            "time": "2026-02-21T23:28:34+00:00"
         },
         {
             "name": "symfony/clock",
@@ -8853,20 +8853,20 @@
         },
         {
             "name": "revolution/laravel-boost-copilot-cli",
-            "version": "2.0.2",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/invokable/laravel-boost-copilot-cli.git",
-                "reference": "fe159fb6235c0f7fb7181f03363732ac92e67df4"
+                "reference": "d47fb66efba9ba03e9da41a38e799be871f21db8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/invokable/laravel-boost-copilot-cli/zipball/fe159fb6235c0f7fb7181f03363732ac92e67df4",
-                "reference": "fe159fb6235c0f7fb7181f03363732ac92e67df4",
+                "url": "https://api.github.com/repos/invokable/laravel-boost-copilot-cli/zipball/d47fb66efba9ba03e9da41a38e799be871f21db8",
+                "reference": "d47fb66efba9ba03e9da41a38e799be871f21db8",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^12.30",
+                "illuminate/support": "^12.30||^13.0",
                 "laravel/boost": "^2.0",
                 "php": "^8.2"
             },
@@ -8910,7 +8910,7 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/invokable/laravel-boost-copilot-cli/tree/2.0.2"
+                "source": "https://github.com/invokable/laravel-boost-copilot-cli/tree/2.0.3"
             },
             "funding": [
                 {
@@ -8918,29 +8918,29 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-18T00:21:25+00:00"
+            "time": "2026-02-21T23:23:45+00:00"
         },
         {
             "name": "revolution/laravel-vercel-installer",
-            "version": "1.3.3",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/invokable/laravel-vercel-installer.git",
-                "reference": "f64ded450d97d58d2353c5a9f5ed4aae8926be5a"
+                "reference": "f9273afff80172242cb0047f3cd637fc432f1774"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/invokable/laravel-vercel-installer/zipball/f64ded450d97d58d2353c5a9f5ed4aae8926be5a",
-                "reference": "f64ded450d97d58d2353c5a9f5ed4aae8926be5a",
+                "url": "https://api.github.com/repos/invokable/laravel-vercel-installer/zipball/f9273afff80172242cb0047f3cd637fc432f1774",
+                "reference": "f9273afff80172242cb0047f3cd637fc432f1774",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^11.0||^12.0",
-                "php": "^8.2"
+                "illuminate/support": "^12.0||^13.0",
+                "php": "^8.3"
             },
             "require-dev": {
                 "laravel/pint": "^1.22",
-                "orchestra/testbench": "^9.0||^10.8"
+                "orchestra/testbench": "^10.8"
             },
             "type": "library",
             "extra": {
@@ -8971,7 +8971,7 @@
                 "vercel"
             ],
             "support": {
-                "source": "https://github.com/invokable/laravel-vercel-installer/tree/1.3.3"
+                "source": "https://github.com/invokable/laravel-vercel-installer/tree/1.4.0"
             },
             "funding": [
                 {
@@ -8979,7 +8979,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-15T23:38:49+00:00"
+            "time": "2026-02-21T23:54:08+00:00"
         },
         {
             "name": "sebastian/cli-parser",
