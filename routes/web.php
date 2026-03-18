@@ -17,7 +17,7 @@ Route::get('note/test', function () {
         $items = new NoteIndexDriver()->handle();
 
         return 'Successfully fetched '.count($items).' items.';
-    } catch (\Exception $exception) {
+    } catch (Exception $exception) {
         return 'Error: '.$exception->getMessage();
     }
 });
