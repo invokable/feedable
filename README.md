@@ -7,7 +7,7 @@ This is a starter kit project that you can use right away. The main functionalit
 
 ## Requirements
 - PHP >= 8.4
-- Laravel >= 12.x
+- Laravel >= 13.x
 
 ## Request Submissions Welcome
 
