@@ -9,7 +9,7 @@ https://github.com/invokable/feedable-core
 
 ## Requirements
 - PHP >= 8.4
-- Laravel >= 12.x
+- Laravel >= 13.x
 
 ## リクエスト募集中
 

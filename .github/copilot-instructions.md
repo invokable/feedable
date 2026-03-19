@@ -11,4 +11,4 @@ https://github.com/invokable/feedable-core
 
 ## 技術スタック
 - PHP 8.4+
-- Laravel 12
+- Laravel 13
